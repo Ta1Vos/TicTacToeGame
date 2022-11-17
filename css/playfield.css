@@ -1,0 +1,51 @@
+.tictactoe-field {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    height: 600px;
+    width: 600px;
+}
+
+/* Vertical */
+.block1, .block2, .block3 {
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+
+.block4, .block5, .block6 {
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
+
+.block7, .block8, .block9 {
+    grid-row-start: 3;
+    grid-row-end: 4;
+}
+
+/* Horizontal */
+
+.block1, .block4, .block7 {
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+
+.block2, .block5, .block8 {
+    grid-column-start: 2;
+    grid-column-end: 3;
+}
+
+.block3, .block6, .block9 {
+    grid-column-start: 3;
+    grid-column-end: 4;
+}
+
+.grid-item {
+    font-size: 0px;
+    text-align: center;
+    padding-top: 50%;
+    border: 1px solid black;
+}
+
+.grid-item:hover {
+    background-color: beige;
+}

@@ -19,6 +19,7 @@ const winCondition = [
 function checkWin(symbol) {
 
     for (i = 0; i <= 7; i++) {
+        let winValue;
         //Gets the value from the object
         const currentRow = winCondition[i];
         //n = number
@@ -28,38 +29,17 @@ function checkWin(symbol) {
 
         if (playField[nOne] == symbol && playField[nTwo] == symbol && playField[nThree] == symbol) {
             alert(`${symbol} wint`);
+            winValue = true;
         }
-
-        
     }
-    if (fieldOccupation == 9) {
+    if (fieldOccupation == 9 && winValue == false) {
         alert(`het is gelijk`);
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 for (i = 1; i < 10; i++) {
     let currentNumber = i;
-    document.querySelector(`.block-${currentNumber}`).addEventListener(`click`, placeFigure);
+    document.querySelector(`.block${currentNumber}`).addEventListener(`click`, placeFigure);
 }
 
 function placeFigure(clickEvent) {
@@ -69,14 +49,14 @@ function placeFigure(clickEvent) {
     console.log(blockClick)
     if (playerTurn == 1) {
         playerTurn = 2;
-        document.querySelector(`.block-${blockClick}`).removeEventListener(`click`, placeFigure);
-        document.querySelector(`.block-${blockClick}`).innerText = `X`;
+        document.querySelector(`.block${blockClick}`).removeEventListener(`click`, placeFigure);
+        document.querySelector(`.block${blockClick}`).innerText = `X`;
         playField[currentNumber] = `X`;
         checkWin(`X`);
     } else if (playerTurn == 2) {
         playerTurn = 1;
-        document.querySelector(`.block-${blockClick}`).removeEventListener(`click`, placeFigure);
-        document.querySelector(`.block-${blockClick}`).innerText = `O`;
+        document.querySelector(`.block${blockClick}`).removeEventListener(`click`, placeFigure);
+        document.querySelector(`.block${blockClick}`).innerText = `O`;
         playField[currentNumber] = `O`;
         checkWin(`O`);
     }

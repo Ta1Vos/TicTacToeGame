@@ -4,14 +4,3 @@
     background-color: bisque;
     margin: auto;
 }
-
-.grid-item {
-    width: 200px;
-    height: 200px;
-    float: left;
-    font-size: 50px;
-}
-
-.grid-item:hover {
-    background-color: beige;
-}
