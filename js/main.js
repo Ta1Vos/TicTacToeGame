@@ -52,7 +52,9 @@ function checkWin(symbol) {
             let nThree = currentRow[2];
 
             if (playField[nOne] == symbol && playField[nTwo] == symbol && playField[nThree] == symbol) {
-                alert(`${symbol} wint`);
+                setTimeout(() => {
+                    alert(`${symbol} wint`);
+                }, 100);
                 winValue = true;
             }
         }
@@ -72,7 +74,7 @@ function placeFigure(fieldItem, fieldNumber) {
     currentNumber = fieldNumber - 1;
     console.log(fieldNumber);
     const currentBlock = document.querySelector(`.block${fieldNumber}`);
-    if (currentBlock.innerHTML != `` && playField[(fieldNumber - 1)] == false) {
+    if (winValue == false && playField[(fieldNumber - 1)] == false) {
         if (playerTurn == 1) {
             fieldOccupation++;
             removeHoverListeners(fieldItem, fieldNumber);
