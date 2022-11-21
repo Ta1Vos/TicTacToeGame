@@ -1,3 +1,6 @@
+// const oHover = document.querySelector(`.grid-O`);
+// const xHover = document.querySelector(`.grid-X`);
+
 let playField = [false, false, false, false, false, false, false, false, false];
 let playerTurn = 1;
 let fieldOccupation = 0;
@@ -16,6 +19,11 @@ const winCondition = [
     [0, 4, 8],
     [2, 4, 6],
 ]
+
+for (i = 1; i < 10; i++) {
+    let currentNumber = i;
+    document.querySelector(`.block${currentNumber}`).addEventListener(`click`, placeFigure);
+}
 
 function checkWin(symbol) {
     if (winValue == false) {
@@ -44,16 +52,12 @@ function checkWin(symbol) {
     }
 }
 
-for (i = 1; i < 10; i++) {
-    let currentNumber = i;
-    document.querySelector(`.block${currentNumber}`).addEventListener(`click`, placeFigure);
-}
-
 function placeFigure(clickEvent) {
     fieldOccupation++;
     blockClick = clickEvent.target.textContent;
     currentNumber = blockClick - 1;
-    console.log(blockClick)
+    console.log(blockClick);
+    const gridItemLocation = document.querySelector(`.block${blockClick}`);
     if (playerTurn == 1) {
         playerTurn = 2;
         document.querySelector(`.block${blockClick}`).removeEventListener(`click`, placeFigure);
@@ -68,3 +72,17 @@ function placeFigure(clickEvent) {
         checkWin(`O`);
     }
 }
+
+// function switchHover() {
+//     if (playerTurn == 1) {
+
+//         document.querySelector(`grid-item:hover`).background-image = url(`/img/X.png`);
+//     } else if (playerTurn == 2) {
+//         for (i = 1; i < 10; i++) {
+//             let currentNumber = i;
+//             document.querySelector(`grid-item:hover`).style.background = url(`/img/O.png`);
+//         }
+//     }
+// }
+
+// switchHover();
