@@ -3,6 +3,7 @@ let playerTurn = 1;
 let fieldOccupation = 0;
 let winValue = false;
 let blockClicked = false;
+let twoPlayers = true;
 
 const winCondition = [
     //Horizontal
@@ -50,6 +51,21 @@ function checkWin(symbol) {
     }
 }
 
+function computerTurn() {
+    fieldOccupation++;
+    const savingArray = [];
+    let guessedNumber = Math.floor(Math.random() * 9);
+    const fieldItem = document.querySelector(`.block${guessedNumber + 1}`);
+
+    for (let i = 0; i < playField.length; i++) {
+        if (playField[i] == false) {
+            savingArray.push(i);
+        }
+    }
+    console.log(savingArray);
+    // placeFigure(fieldItem, guessedNumber);
+}
+
 function placeFigure(fieldItem, fieldNumber) {
     currentNumber = fieldNumber - 1;
     console.log(fieldNumber);
@@ -64,7 +80,10 @@ function placeFigure(fieldItem, fieldNumber) {
             currentBlock.innerHTML = `<img src="img/X.png" alt="X" height="175px" width="175px">`;
             playField[currentNumber] = `X`;
             checkWin(`X`);
-        } else if (playerTurn == 2) {
+            if (twoPlayers == false) {
+                computerTurn();
+            }
+        } else if (playerTurn == 2 && twoPlayers == true) {
             fieldOccupation++;
             removeHoverListeners(fieldItem, fieldNumber);
             blockClicked = true;
@@ -73,7 +92,7 @@ function placeFigure(fieldItem, fieldNumber) {
             currentBlock.innerHTML = `<img src="img/O.png" alt="O" height="175px" width="175px">`;
             playField[currentNumber] = `O`;
             checkWin(`O`);
-        }
+        } 
     }
 }
 
