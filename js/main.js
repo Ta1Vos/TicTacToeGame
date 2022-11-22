@@ -1,6 +1,3 @@
-// const oHover = document.querySelector(`.grid-O`);
-// const xHover = document.querySelector(`.grid-X`);
-
 let playField = [false, false, false, false, false, false, false, false, false];
 let playerTurn = 1;
 let fieldOccupation = 0;
@@ -22,24 +19,6 @@ const winCondition = [
 ]
 
 const playFields = document.querySelectorAll(".grid-item");
-
-for (i = 0; i < playFields.length; i++) {
-    const currentNumber = i + 1;
-    const playField = playFields[i];
-    //Click eventlistener
-    document.querySelector(`.block${currentNumber}`).addEventListener(`click`, function () {
-        placeFigure(playField, currentNumber);
-    });
-
-    //Hover Eventlisteners below
-    document.querySelector(`.block${currentNumber}`).addEventListener(`mouseenter`, function () {
-        blockEnter(playField, currentNumber);
-    });
-
-    document.querySelector(`.block${currentNumber}`).addEventListener(`mouseleave`, function () {
-        blockLeave(playField, currentNumber);
-    });
-}
 
 function checkWin(symbol) {
     if (winValue == false) {
@@ -64,8 +43,9 @@ function checkWin(symbol) {
     }
     if (winValue == true) {
         for (i = 1; i < 10; i++) {
-            let currentNumber = i;
-            document.querySelector(`.block${currentNumber}`).removeEventListener(`click`, placeFigure);
+            const fieldItem = document.querySelector(`.block${i}`);
+            fieldItem.removeEventListener(`click`, placeFigure);
+            removeHoverListeners(fieldItem, i);
         }
     }
 }
@@ -97,14 +77,13 @@ function placeFigure(fieldItem, fieldNumber) {
     }
 }
 
-function removeHoverListeners(fieldItem, currentNumber) {
-    fieldItem.removeEventListener(`mouseenter`, function () {
-        blockEnter(playField, currentNumber);
-    });
+function removeHoverListeners(playField, currentNumber) {
+    console.log("playField " + playField);
+    
+    playField.removeEventListener(`mouseenter`, blockEnter);
 
-    fieldItem.removeEventListener(`mouseleave`, function () {
-        blockLeave(playField, currentNumber);
-    });
+
+    playField.removeEventListener(`mouseleave`, blockLeave);
 }
 
 function blockEnter(currentBlock) {
@@ -124,4 +103,28 @@ function blockLeave(fieldItem, blockNumber) {
         }
     }
     blockClicked = false;
+}
+
+
+
+
+
+
+
+for (i = 0; i < playFields.length; i++) {
+    const currentNumber = i + 1;
+    const playField = playFields[i];
+    //Click eventlistener
+    playField.addEventListener(`click`, function () {
+        placeFigure(playField, currentNumber);
+    });
+
+    //Hover Eventlisteners below
+    playField.addEventListener(`mouseenter`, function () {
+        blockEnter(playField, currentNumber);
+    });
+
+    playField.addEventListener(`mouseleave`, function () {
+        blockLeave(playField, currentNumber);
+    });
 }
