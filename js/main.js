@@ -5,7 +5,7 @@ let winValue = false;
 let blockClicked = false;
 let twoPlayers = false;
 let computerPlaying = false;
-let computerDifficulty = 1;
+let computerDifficulty = 2;
 
 const winCondition = [
     //Horizontal
@@ -110,6 +110,32 @@ function computerRandom() {
     return selectedFieldNumber;
 }
 
+function computerWinPossibility() {
+    let winDetected = false;
+    //n = number
+    let nOne;
+    let nTwo;
+    let nFill;
+    //The for checks out all possible ways the computer can lose.
+    for (i = 0; i < winPossibilities.length; i++) {
+        const currentRow = winPossibilities[i];
+        nOne = currentRow[0];
+        nTwo = currentRow[1];
+        nFill = currentRow[2];
+        if (playField[nOne] == `O` && playField[nTwo] == `O` && playField[nFill] == false) {
+            guessedArrayNumber = nFill + 1;
+            i = 100;
+            winDetected = true;
+            return guessedArrayNumber;
+        }
+    }
+
+    //If there is no way for the computer to win it will check if the player wins, else it will place randomly
+    if (winDetected == false) {
+        return computerLosePossibility();
+    }
+}
+
 //This function searches for any ways the computer can lose
 function computerLosePossibility() {
     let loseDetected = false;
@@ -123,7 +149,7 @@ function computerLosePossibility() {
         nOne = currentRow[0];
         nTwo = currentRow[1];
         nFill = currentRow[2];
-        if ((playField[nOne] == `X` && playField[nTwo] == `X`) && playField[nFill] == false) {
+        if (playField[nOne] == `X` && playField[nTwo] == `X` && playField[nFill] == false) {
             guessedArrayNumber = nFill + 1;
             i = 100;
             loseDetected = true;
@@ -144,8 +170,10 @@ function computerTurn() {
 
     if (computerDifficulty == 0) {
         fieldNumber = computerRandom();
-    } else if (computerDifficulty >= 1) {
+    } else if (computerDifficulty == 1) {
         fieldNumber = computerLosePossibility();
+    } else if (computerDifficulty >= 2) {
+        fieldNumber = computerWinPossibility();
     }
 
     const fieldItem = document.querySelector(`.block${fieldNumber}`);
