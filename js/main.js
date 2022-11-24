@@ -5,7 +5,7 @@ let winValue = false;
 let blockClicked = false;
 let twoPlayers = false;
 let computerPlaying = false;
-let computerDifficulty = 0;
+let computerDifficulty = 1;
 
 const winCondition = [
     //Horizontal
@@ -22,41 +22,42 @@ const winCondition = [
 ]
 
 const winPossibilities = [
+    // 3rd number, 2nd one in array is the one that should be put in
     //Horizontal
     //Row 1
-    [0, 1],
-    [0, 2],
-    [1, 2],
+    [0, 1, 2],
+    [0, 2, 1],
+    [1, 2, 0],
     //Row 2
-    [3, 4],
-    [3, 5],
-    [4, 5],
+    [3, 4, 5],
+    [3, 5, 4],
+    [4, 5, 3],
     //Row 3
-    [6, 7],
-    [6, 8],
-    [7, 8],
+    [6, 7, 8],
+    [6, 8, 7],
+    [7, 8, 6],
     //Vertical
     //column 1
-    [0, 3],
-    [0, 6],
-    [3, 6],
+    [0, 3, 6],
+    [0, 6, 3],
+    [3, 6, 0],
     //column 2
-    [1, 4],
-    [1, 7],
-    [7, 8],
+    [1, 4, 7],
+    [1, 7, 4],
+    [4, 7, 1],
     //column 3
-    [2, 5],
-    [2, 8],
-    [5, 8],
+    [2, 5, 8],
+    [2, 8, 5],
+    [5, 8, 2],
     //Diagonal
     //lefttop-bottomright
-    [0, 4],
-    [0, 8],
-    [4, 8],
+    [0, 4, 8],
+    [0, 8, 4],
+    [4, 8, 0],
     //leftbottom-topright
-    [2, 4],
-    [2, 6],
-    [4, 6],
+    [2, 4, 6],
+    [2, 6, 4],
+    [4, 6, 2],
 ]
 
 const playFields = document.querySelectorAll(".grid-item");
@@ -91,41 +92,69 @@ function checkWin(symbol) {
     }
 }
 
-function computerTurn() {
-    computerPlaying = true;
+//This function basically gets a random available fieldspace
+function computerRandom() {
+    let selectedFieldNumber;
+    let guessedArrayNumber;
     const savingArray = [];
-
     //The for puts available space in an array and will then choose out of it.
     for (let i = 0; i < playField.length; i++) {
         if (playField[i] == false) {
             savingArray.push(i);
         }
     }
-    console.log(savingArray);
-    let guessedArrayNumber;
-        if (computerDifficulty == 0) {
-            guessedArrayNumber = Math.floor(Math.random() * (savingArray.length));
-        } else if (computerDifficulty >= 1) {
-            //n = number
-            let nOne; 
-            let nTwo; 
-            let nThree; 
-            for (i = 0; i < winPossibilities.length; i++) {
-                const currentRow = winPossibilities[i];
-                nOne = currentRow[0];
-                nTwo = currentRow[1];
-                if (playField[nOne] == `X` && playField[nTwo] == `x`) {
-                    alert(`het werkt`);
-                }
-            }
-        }
 
-    let selectedFieldNumber = savingArray[guessedArrayNumber] + 1;
-    console.log(selectedFieldNumber);
-    const fieldItem = document.querySelector(`.block${selectedFieldNumber}`);
-    placeFigure(fieldItem, selectedFieldNumber);
+    guessedArrayNumber = Math.floor(Math.random() * (savingArray.length));
+    selectedFieldNumber = savingArray[guessedArrayNumber] + 1;
+
+    return selectedFieldNumber;
 }
 
+//This function searches for any ways the computer can lose
+function computerLosePossibility() {
+    let loseDetected = false;
+    //n = number
+    let nOne;
+    let nTwo;
+    let nFill;
+    //The for checks out all possible ways the computer can lose.
+    for (i = 0; i < winPossibilities.length; i++) {
+        const currentRow = winPossibilities[i];
+        nOne = currentRow[0];
+        nTwo = currentRow[1];
+        nFill = currentRow[2];
+        if ((playField[nOne] == `X` && playField[nTwo] == `X`) && playField[nFill] == false) {
+            guessedArrayNumber = nFill + 1;
+            i = 100;
+            loseDetected = true;
+            return guessedArrayNumber;
+        }
+    }
+
+    //If the player doesn't win yet the computer will proceed to randomly place an O
+    if (loseDetected == false) {
+        return computerRandom();
+    }
+}
+
+//Main engine for the computer, chooses what to do depending on the difficulty, then it will launch the right function.
+function computerTurn() {
+    let fieldNumber;
+    computerPlaying = true;
+
+    if (computerDifficulty == 0) {
+        fieldNumber = computerRandom();
+    } else if (computerDifficulty >= 1) {
+        fieldNumber = computerLosePossibility();
+    }
+
+    const fieldItem = document.querySelector(`.block${fieldNumber}`);
+    setTimeout(() => {
+        placeFigure(fieldItem, fieldNumber);
+    }, 1);
+}
+
+//Places an O or an X depending on current turn
 function placeFigure(fieldItem, fieldNumber) {
     currentNumber = fieldNumber - 1;
     console.log(fieldNumber);
@@ -155,29 +184,32 @@ function placeFigure(fieldItem, fieldNumber) {
             if (computerPlaying == true) {
                 computerPlaying = false;
             }
-        } 
+        }
     }
 }
 
+//Removes the hover on fields that have been clicked - THIS IS BROKEN
 function removeHoverListeners(playField, currentNumber) {
     console.log("playField " + playField);
-    
+
     playField.removeEventListener(`mouseenter`, blockEnter);
 
 
     playField.removeEventListener(`mouseleave`, blockLeave);
 }
 
+//Places the O/X hover and decides which one it should be
 function blockEnter(currentBlock) {
     if (currentBlock.innerHTML == `` && winValue == false) {
         if (playerTurn == 1) {
             currentBlock.innerHTML += `<img src="img/X.png" alt="X" class="hover-opacity" height="175px" width="175px">`;
-        } else if (playerTurn == 2) {
+        } else if (playerTurn == 2 && twoPlayers == true) {
             currentBlock.innerHTML += `<img src="img/O.png" alt="O" class="hover-opacity" height="175px" width="175px">`;
         }
     }
 }
 
+//Turns the X/O hover off
 function blockLeave(fieldItem, blockNumber) {
     if (playField[(blockNumber - 1)] != `X` && playField[(blockNumber - 1)] != `O`) {
         if (blockClicked == false) {
