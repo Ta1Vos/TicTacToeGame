@@ -5,6 +5,7 @@ let winValue = false;
 let blockClicked = false;
 let twoPlayers = false;
 let computerPlaying = false;
+let computerDifficulty = 0;
 
 const winCondition = [
     //Horizontal
@@ -18,6 +19,44 @@ const winCondition = [
     //Diagonal
     [0, 4, 8],
     [2, 4, 6],
+]
+
+const winPossibilities = [
+    //Horizontal
+    //Row 1
+    [0, 1],
+    [0, 2],
+    [1, 2],
+    //Row 2
+    [3, 4],
+    [3, 5],
+    [4, 5],
+    //Row 3
+    [6, 7],
+    [6, 8],
+    [7, 8],
+    //Vertical
+    //column 1
+    [0, 3],
+    [0, 6],
+    [3, 6],
+    //column 2
+    [1, 4],
+    [1, 7],
+    [7, 8],
+    //column 3
+    [2, 5],
+    [2, 8],
+    [5, 8],
+    //Diagonal
+    //lefttop-bottomright
+    [0, 4],
+    [0, 8],
+    [4, 8],
+    //leftbottom-topright
+    [2, 4],
+    [2, 6],
+    [4, 6],
 ]
 
 const playFields = document.querySelectorAll(".grid-item");
@@ -63,8 +102,24 @@ function computerTurn() {
         }
     }
     console.log(savingArray);
+    let guessedArrayNumber;
+        if (computerDifficulty == 0) {
+            guessedArrayNumber = Math.floor(Math.random() * (savingArray.length));
+        } else if (computerDifficulty >= 1) {
+            //n = number
+            let nOne; 
+            let nTwo; 
+            let nThree; 
+            for (i = 0; i < winPossibilities.length; i++) {
+                const currentRow = winPossibilities[i];
+                nOne = currentRow[0];
+                nTwo = currentRow[1];
+                if (playField[nOne] == `X` && playField[nTwo] == `x`) {
+                    alert(`het werkt`);
+                }
+            }
+        }
 
-    let guessedArrayNumber = Math.floor(Math.random() * (savingArray.length));
     let selectedFieldNumber = savingArray[guessedArrayNumber] + 1;
     console.log(selectedFieldNumber);
     const fieldItem = document.querySelector(`.block${selectedFieldNumber}`);
@@ -114,7 +169,7 @@ function removeHoverListeners(playField, currentNumber) {
 }
 
 function blockEnter(currentBlock) {
-    if (currentBlock.innerHTML == ``) {
+    if (currentBlock.innerHTML == `` && winValue == false) {
         if (playerTurn == 1) {
             currentBlock.innerHTML += `<img src="img/X.png" alt="X" class="hover-opacity" height="175px" width="175px">`;
         } else if (playerTurn == 2) {
