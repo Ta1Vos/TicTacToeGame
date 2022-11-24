@@ -22,7 +22,7 @@ const winCondition = [
 ]
 
 const winPossibilities = [
-    // 3rd number, 2nd one in array is the one that should be put in
+    // The 3rd number on the right or the 2nd number in array.length is the one that will be placed
     //Horizontal
     //Row 1
     [0, 1, 2],
@@ -246,12 +246,6 @@ function blockLeave(fieldItem, blockNumber) {
     }
     blockClicked = false;
 }
-
-
-
-
-
-
 
 for (i = 0; i < playFields.length; i++) {
     const currentNumber = i + 1;
