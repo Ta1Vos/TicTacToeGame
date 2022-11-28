@@ -1,8 +1,7 @@
 .wrapper {
     background-color: wheat;
     width: 100%;
-    padding-right: 50px;
-    padding-top: 100px;
+    padding-top: 75px;
     height: max-content;
     display: grid;
     gap: 50px;
@@ -14,10 +13,10 @@
     ". . . . ht ht ht ht . . . ."
     ". gi gi . ht ht ht ht . . . ."
     ". gi gi . ht ht ht ht . . . ."
-    ". gi gi . ht ht ht ht . . . ."
-    ". . . . . ps ps . . . . ."
-    ". . . . . ps ps . . . . ."
-    ". . . . pb pb pb pb . . . .";
+    ". gi gi . ht ht ht ht . . eb eb"
+    ". . . . . ps ps . . . eb eb"
+    ". . . . . ps ps . . . ab ab"
+    ". . . . pb pb pb pb . . ab ab";
 }
 
 .game-image {
@@ -25,14 +24,24 @@
     grid-area: gi;
 }
 
+.game-image img {
+    width: 100%;
+    border: 2px solid black;
+}
+
 .title {
+    background-color: #B4C7E7;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 50px;
+    margin: auto;
+    padding: 50px;
     grid-area: tl;
-    background-color: aliceblue;
 }
 
 .home-text {
-    grid-area: ht;
     background-color: rebeccapurple;
+    grid-area: ht;
+
 }
 
 .player-select {
@@ -47,6 +56,17 @@
 }
 
 .settings-button {
-    grid-area: sb;
     background-color: aqua;
+    grid-area: sb;
+
+}
+
+.explanation-button {
+    background-color: black;
+    grid-area: eb;
+}
+
+.about-us-button {
+    background-color: brown;
+    grid-area: ab;
 }

@@ -1,8 +1,8 @@
 const player1Tickbox = document.querySelector(`.player-1`);
 const player2Tickbox = document.querySelector(`.player-2`);
-const startButton = document.querySelector(`.start-button`);
+const startButton = document.querySelector(`.play-button`);
 
-let gridThree = true;
+let gridThree = false;
 let twoPlayers = true;
 
 function redirectToGame() {
@@ -17,10 +17,12 @@ function redirectToGame() {
 
 function onePlayerButton() {
     twoPlayers = false;
+    alert("")
 }
 
 function twoPlayerButton() {
     twoPlayers = true;
+    alert(``)
 }
  
 player1Tickbox.addEventListener(`click`, onePlayerButton);
