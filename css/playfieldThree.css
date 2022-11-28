@@ -1,3 +1,10 @@
+.wrapper {
+    width: 600px;
+    height: 600px;
+    background-color: bisque;
+    margin: auto;
+}
+
 .tictactoe-field {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
