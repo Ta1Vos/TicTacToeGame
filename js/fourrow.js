@@ -8,6 +8,9 @@ let twoPlayers = false;
 let computerPlaying = false;
 let computerDifficulty = 2;
 
+let player1Name = `Speler 1`;
+let player2Name = `Speler 2`;
+
 const winCondition = [
     //Horizontal
     [0, 1, 2, 3],

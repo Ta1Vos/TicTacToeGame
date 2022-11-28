@@ -1,0 +1,52 @@
+.wrapper {
+    background-color: wheat;
+    width: 100%;
+    padding-right: 50px;
+    padding-top: 100px;
+    height: max-content;
+    display: grid;
+    gap: 50px;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 40px);
+    grid-template-areas: 
+    ". . . tl tl tl tl tl tl . . sb"
+    ". . . tl tl tl tl tl tl . . sb"
+    ". . . . ht ht ht ht . . . ."
+    ". gi gi . ht ht ht ht . . . ."
+    ". gi gi . ht ht ht ht . . . ."
+    ". gi gi . ht ht ht ht . . . ."
+    ". . . . . ps ps . . . . ."
+    ". . . . . ps ps . . . . ."
+    ". . . . pb pb pb pb . . . .";
+}
+
+.game-image {
+    background-color: blue;
+    grid-area: gi;
+}
+
+.title {
+    grid-area: tl;
+    background-color: aliceblue;
+}
+
+.home-text {
+    grid-area: ht;
+    background-color: rebeccapurple;
+}
+
+.player-select {
+    background-color: beige;
+    grid-area: ps;
+}
+
+.play-button {
+    background-color: darkgreen;
+    grid-area: pb;
+    height: 100px;
+}
+
+.settings-button {
+    grid-area: sb;
+    background-color: aqua;
+}
