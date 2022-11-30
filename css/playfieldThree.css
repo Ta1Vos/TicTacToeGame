@@ -1,8 +1,13 @@
+body {
+    background-color: aliceblue;
+}
+
 .wrapper {
     width: 600px;
     height: 600px;
     background-color: bisque;
     margin: auto;
+    margin-top: 100px;
 }
 
 .tictactoe-field {
@@ -59,4 +64,20 @@
 
 .hover-opacity {
     opacity: 0.5;
+}
+
+.home-button {
+    background-color: rgb(255, 181, 91);
+    height: 70px;
+    width: 150px;
+    font-size: 20px;
+    display: block;
+    border-radius: 1px;
+    border: 3px double black;
+    cursor: pointer;
+    transition: 2s;
+}
+
+.home-button:hover {
+    background-color: blanchedalmond;
 }

@@ -4,7 +4,7 @@ let winValue = false;
 let fieldOccupation = 0;
 
 let playerTurn = 1;
-let twoPlayers = true;
+let twoPlayers = false;
 let computerPlaying = false;
 let computerDifficulty = 2;
 

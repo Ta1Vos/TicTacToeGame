@@ -2,7 +2,7 @@ const player1Tickbox = document.querySelector(`.player-1`);
 const player2Tickbox = document.querySelector(`.player-2`);
 const startButton = document.querySelector(`.play-button`);
 
-let gridThree = false;
+let gridThree = true;
 let twoPlayers = true;
 
 function redirectToGame() {
