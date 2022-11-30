@@ -1,3 +1,11 @@
+const homeBtn = document.querySelector(`.home-button`);
+homeBtn.addEventListener(`click`, backToHome);
+
+function backToHome() {
+    window.location = `/index.html`;
+}
+
+
 let playField = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
 let blockClicked = false;
 let winValue = false;

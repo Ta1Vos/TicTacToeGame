@@ -5,7 +5,6 @@ function backToHome() {
     window.location = `/index.html`;
 }
 
-
 let playField = [false, false, false, false, false, false, false, false, false];
 let playerTurn = 1;
 let fieldOccupation = 0;
