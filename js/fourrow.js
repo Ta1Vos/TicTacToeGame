@@ -12,12 +12,19 @@ let winValue = false;
 let fieldOccupation = 0;
 
 let playerTurn = 1;
-let twoPlayers = false;
+
 let computerPlaying = false;
 let computerDifficulty = 2;
 
 let player1Name = `Speler 1`;
 let player2Name = `Speler 2`;
+
+let twoPlayers = false;
+if (sessionStorage.getItem(`Twoplayers`) == `false`) {
+    twoPlayers = false;
+} else if (sessionStorage.getItem(`Twoplayers`) == `true`) {
+    twoPlayers = true;
+}
 
 const winCondition = [
     //Horizontal

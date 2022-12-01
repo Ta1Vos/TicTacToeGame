@@ -10,9 +10,16 @@ let playerTurn = 1;
 let fieldOccupation = 0;
 let winValue = false;
 let blockClicked = false;
-let twoPlayers = false;
+
 let computerPlaying = false;
 let computerDifficulty = 2;
+
+let twoPlayers = false;
+if (sessionStorage.getItem(`Twoplayers`) == `false`) {
+    twoPlayers = false;
+} else if (sessionStorage.getItem(`Twoplayers`) == `true`) {
+    twoPlayers = true;
+}
 
 const winCondition = [
     //Horizontal

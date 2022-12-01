@@ -6,13 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/css/home.css">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
-    <div class="settings-tab">
-        <h1>Instellingen</h1>
-    </div>
     <div class="wrapper">
         <div class="game-image">
            <img src="/img/gameImage.png" alt="Afbeeldinging van 3x3">
@@ -36,6 +34,15 @@
         </div>
         <button class="explanation-button">Uitleg</button>
         <button class="about-us-button">Over ons</button>
+        <div class="settings-tab">
+            <h1>Instellingen</h1>
+            <h2>Verander het beeld<br> van het spel</h2><h2 id="settings-div2">Verander de loop <br> van het spel</h2>
+            <div class="grid-modify">
+                <h3>Boter, Kaas & Eieren Speelveld</h3>
+                <input class="3x3-grid" type="radio" name="grid-choice" value="true"> 3x3 Speelveld<br>
+                <input class="4x4-grid" type="radio" name="grid-choice" value="false"> 4x4 Speelveld
+            </div>
+        </div>
     </div>
     <script type="application/javascript" src="/js/home.js"></script>
 </body>
