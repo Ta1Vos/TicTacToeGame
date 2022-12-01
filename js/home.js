@@ -2,13 +2,24 @@ const player1Tickbox = document.querySelector(`.player-1`);
 const player2Tickbox = document.querySelector(`.player-2`);
 const startButton = document.querySelector(`.play-button`);
 
+const settingsButton = document.querySelector(`.settings-button`);
+const settingsDiv = document.querySelector(`.settings-tab`);
+
+const gridChoiceOne = document.querySelector(`.grid-3x3`);
+const gridChoiceTwo = document.querySelector(`.grid-4x4`);
+
 let gridThree = true;
 let twoPlayers = true;
 
-const settingsButton = document.querySelector(`.settings-button`);
-const settingsDiv = document.querySelector(`.settings-tab`);
 let settingsTabOpen = false;
 let animationPlaying = false;
+
+player1Tickbox.addEventListener(`click`, onePlayerButton);
+player2Tickbox.addEventListener(`click`, twoPlayerButton);
+startButton.addEventListener(`click`, redirectToGame);
+settingsButton.addEventListener(`click`, toggleSettings);
+gridChoiceOne.addEventListener(`click`, grid3x3Btn);
+gridChoiceTwo.addEventListener(`click`, grid4x4Btn);
 
 function redirectToGame() {
     sessionStorage.setItem(`Twoplayers`, twoPlayers);
@@ -25,6 +36,14 @@ function onePlayerButton() {
 
 function twoPlayerButton() {
     twoPlayers = true;
+}
+
+function grid3x3Btn() {
+    gridThree = true;
+}
+
+function grid4x4Btn() {
+    gridThree = false;
 }
 
 function toggleSettings() {
@@ -47,8 +66,3 @@ function toggleSettings() {
         }, 1000);
     }
 }
- 
-player1Tickbox.addEventListener(`click`, onePlayerButton);
-player2Tickbox.addEventListener(`click`, twoPlayerButton);
-startButton.addEventListener(`click`, redirectToGame);
-settingsButton.addEventListener(`click`, toggleSettings);

@@ -120,6 +120,13 @@
     font-size: 20px;
 }
 
+.computer-settings {
+    background-color: wheat;
+    grid-area: cs;
+    font-size: 20px;
+    text-align: left;
+}
+
 .settings-tab {
     display: none;
 }
