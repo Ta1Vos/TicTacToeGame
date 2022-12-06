@@ -20,6 +20,11 @@ let twoPlayers = true;
 let settingsTabOpen = false;
 let animationPlaying = false;
 
+let computerDifficulty = 0;
+if (sessionStorage.getItem(`difficultySettings`)) {
+    computerDifficulty = Number(sessionStorage.getItem(`difficultySettings`));
+}
+
 player1Tickbox.addEventListener(`click`, onePlayerButton);
 player2Tickbox.addEventListener(`click`, twoPlayerButton);
 startButton.addEventListener(`click`, redirectToGame);
@@ -28,13 +33,23 @@ settingsButton.addEventListener(`click`, toggleSettings);
 gridChoiceOne.addEventListener(`click`, grid3x3Btn);
 gridChoiceTwo.addEventListener(`click`, grid4x4Btn);
 
-// difficultyBtn0.addEventListener(`click`, );
-// difficultyBtn1.addEventListener(`click`, );
-// difficultyBtn2.addEventListener(`click`, );
-// difficultyBtn3.addEventListener(`click`, );
+difficultyBtn0.addEventListener(`click`, function () {
+    computerDifficulty = 0;
+});
+difficultyBtn1.addEventListener(`click`, function () {
+    computerDifficulty = 1;
+});
+difficultyBtn2.addEventListener(`click`, function () {
+    computerDifficulty = 2;
+});
+difficultyBtn3.addEventListener(`click`, function () {
+    computerDifficulty = 3;
+});
 
 function redirectToGame() {
     sessionStorage.setItem(`Twoplayers`, twoPlayers);
+    sessionStorage.setItem(`difficultySettings`, computerDifficulty);
+
     if (gridThree == true) {
         window.location = `/html/threeGame.html`;
     } else if (gridThree == false) {
@@ -57,10 +72,6 @@ function grid3x3Btn() {
 function grid4x4Btn() {
     gridThree = false;
 }
-
-// function difficulyButtonRandom() {
-
-// }
 
 function toggleSettings() {
     if (settingsTabOpen == false && animationPlaying == false) {

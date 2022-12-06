@@ -5,21 +5,23 @@ function backToHome() {
     window.location = `/index.html`;
 }
 
-
 let playField = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
 let blockClicked = false;
-let winValue = false;
 let fieldOccupation = 0;
+let winValue = false;
 
 let playerTurn = 1;
 
 let computerPlaying = false;
-let computerDifficulty = 2;
+let computerDifficulty = 0;
+if (sessionStorage.getItem(`difficultySettings`)) {
+    computerDifficulty = Number(sessionStorage.getItem(`difficultySettings`));
+}
 
+let twoPlayers = false;
 let player1Name = `Speler 1`;
 let player2Name = `Speler 2`;
 
-let twoPlayers = false;
 if (sessionStorage.getItem(`Twoplayers`) == `false`) {
     twoPlayers = false;
 } else if (sessionStorage.getItem(`Twoplayers`) == `true`) {

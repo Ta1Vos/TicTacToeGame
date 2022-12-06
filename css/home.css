@@ -108,6 +108,8 @@
 
 .settings-tab h2 {
     background-color: #FFD966;
+    border: 2px solid #a07800;
+    border-radius: 3px;
 }
 
 #settings-div2 {
