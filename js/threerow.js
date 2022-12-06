@@ -145,8 +145,10 @@ function computerWinPossibility() {
     }
 
     //If there is no way for the computer to win it will check if the player wins, else it will place randomly
-    if (winDetected == false) {
+    if (winDetected == false && computerDifficulty >= 3) {
         return computerLosePossibility();
+    } else {
+        return computerRandom();
     }
 }
 
@@ -182,13 +184,15 @@ function computerTurn() {
     let fieldNumber;
     computerPlaying = true;
 
-    if (computerDifficulty == 0) {
+    if (computerDifficulty <= 0) {
         fieldNumber = computerRandom();
     } else if (computerDifficulty == 1) {
-        fieldNumber = computerLosePossibility();
-    } else if (computerDifficulty >= 2) {
         fieldNumber = computerWinPossibility();
-    }
+    } else if (computerDifficulty == 2) {
+        fieldNumber = computerLosePossibility();
+    } else if (computerDifficulty >= 3) {
+        fieldNumber = computerWinPossibility();
+    } 
 
     const fieldItem = document.querySelector(`.block${fieldNumber}`);
     setTimeout(() => {

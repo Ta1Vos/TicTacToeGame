@@ -8,6 +8,12 @@ const settingsDiv = document.querySelector(`.settings-tab`);
 const gridChoiceOne = document.querySelector(`.grid-3x3`);
 const gridChoiceTwo = document.querySelector(`.grid-4x4`);
 
+const difficultyBtn0 = document.querySelector(`.difficulty-0`);
+const difficultyBtn1 = document.querySelector(`.difficulty-1`);
+const difficultyBtn2 = document.querySelector(`.difficulty-2`);
+const difficultyBtn3 = document.querySelector(`.difficulty-3`);
+
+
 let gridThree = true;
 let twoPlayers = true;
 
@@ -18,8 +24,14 @@ player1Tickbox.addEventListener(`click`, onePlayerButton);
 player2Tickbox.addEventListener(`click`, twoPlayerButton);
 startButton.addEventListener(`click`, redirectToGame);
 settingsButton.addEventListener(`click`, toggleSettings);
+
 gridChoiceOne.addEventListener(`click`, grid3x3Btn);
 gridChoiceTwo.addEventListener(`click`, grid4x4Btn);
+
+// difficultyBtn0.addEventListener(`click`, );
+// difficultyBtn1.addEventListener(`click`, );
+// difficultyBtn2.addEventListener(`click`, );
+// difficultyBtn3.addEventListener(`click`, );
 
 function redirectToGame() {
     sessionStorage.setItem(`Twoplayers`, twoPlayers);
@@ -45,6 +57,10 @@ function grid3x3Btn() {
 function grid4x4Btn() {
     gridThree = false;
 }
+
+// function difficulyButtonRandom() {
+
+// }
 
 function toggleSettings() {
     if (settingsTabOpen == false && animationPlaying == false) {
