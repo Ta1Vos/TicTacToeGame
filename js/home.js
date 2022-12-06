@@ -5,6 +5,10 @@ const startButton = document.querySelector(`.play-button`);
 const settingsButton = document.querySelector(`.settings-button`);
 const settingsDiv = document.querySelector(`.settings-tab`);
 
+const explanationBtn = document.querySelector(`.explanation-button`);
+const explanationDiv = document.querySelector(`.explanation-tab`);
+const aboutUsBtn = document.querySelector(`.about-us-button`);
+
 const gridChoiceOne = document.querySelector(`.grid-3x3`);
 const gridChoiceTwo = document.querySelector(`.grid-4x4`);
 
@@ -16,8 +20,13 @@ const difficultyBtn3 = document.querySelector(`.difficulty-3`);
 
 let gridThree = true;
 let twoPlayers = true;
+if (sessionStorage.getItem(`Twoplayers`)) {
+    twoPlayers = Boolean(sessionStorage.getItem(`Twoplayers`));
+}
 
 let settingsTabOpen = false;
+let explanationTabOpen = false;
+let aboutUsTabOpen = false;
 let animationPlaying = false;
 
 let computerDifficulty = 0;
@@ -25,14 +34,33 @@ if (sessionStorage.getItem(`difficultySettings`)) {
     computerDifficulty = Number(sessionStorage.getItem(`difficultySettings`));
 }
 
-player1Tickbox.addEventListener(`click`, onePlayerButton);
-player2Tickbox.addEventListener(`click`, twoPlayerButton);
+
+
 startButton.addEventListener(`click`, redirectToGame);
 settingsButton.addEventListener(`click`, toggleSettings);
 
-gridChoiceOne.addEventListener(`click`, grid3x3Btn);
-gridChoiceTwo.addEventListener(`click`, grid4x4Btn);
+explanationBtn.addEventListener(`click`, function () {
+    leavePage();
+    toggleExplanations()
+})
 
+//Settings grid
+gridChoiceOne.addEventListener(`click`, function () {
+    gridThree = true;
+});
+gridChoiceTwo.addEventListener(`click`, function () {
+    gridThree = false;
+});
+
+//Player selection
+player1Tickbox.addEventListener(`click`, function () {
+    twoPlayers = false;
+});
+player2Tickbox.addEventListener(`click`, function () {
+    twoPlayers = true;
+});
+
+//Settings difficulty
 difficultyBtn0.addEventListener(`click`, function () {
     computerDifficulty = 0;
 });
@@ -46,31 +74,18 @@ difficultyBtn3.addEventListener(`click`, function () {
     computerDifficulty = 3;
 });
 
-function redirectToGame() {
+function leavePage() {
     sessionStorage.setItem(`Twoplayers`, twoPlayers);
     sessionStorage.setItem(`difficultySettings`, computerDifficulty);
+}
 
+function redirectToGame() {
+    leavePage();
     if (gridThree == true) {
         window.location = `/html/threeGame.html`;
     } else if (gridThree == false) {
         window.location = `/html/fourGame.html`;
     }
-}
-
-function onePlayerButton() {
-    twoPlayers = false;
-}
-
-function twoPlayerButton() {
-    twoPlayers = true;
-}
-
-function grid3x3Btn() {
-    gridThree = true;
-}
-
-function grid4x4Btn() {
-    gridThree = false;
 }
 
 function toggleSettings() {
@@ -92,4 +107,25 @@ function toggleSettings() {
             settingsDiv.style.marginTop = `-225px`;
         }, 1000);
     }
+}
+
+function toggleExplanations() {
+    if (explanationTabOpen == false && animationPlaying == false) {
+        explanationTabOpen = true;
+        explanationDiv.style.display = `grid`;
+        setTimeout(() => {
+            explanationDiv.style.opacity = `1`;
+            explanationDiv.style.marginTop = `0px`;
+        }, 1);
+    } else if (explanationTabOpen == true) {
+        explanationTabOpen = false;
+        animationPlaying = true;
+        explanationDiv.style.opacity = `0`;
+        explanationDiv.style.marginTop = `-2250px`;
+        setTimeout(() => {
+            explanationDiv.style.display = `none`;
+            animationPlaying = false;
+            explanationDiv.style.marginTop = `-225px`;
+        }, 1000);
+    } 
 }

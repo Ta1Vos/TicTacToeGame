@@ -13,13 +13,13 @@
 <body>
     <div class="wrapper">
         <div class="game-image">
-           <img src="/img/gameImage.png" alt="Afbeeldinging van 3x3">
+            <img src="/img/gameImage.png" alt="Afbeeldinging van 3x3">
         </div>
         <div class="title">
-            Boter, Kaas & Eieren 
+            Boter, Kaas & Eieren
         </div>
         <div class="home-text">
-            Welkom bij Boter Kaas en Eieren! Bij dit spel kan je 3x3 EN 4x4 spelen. 
+            Welkom bij Boter Kaas en Eieren! Bij dit spel kan je 3x3 EN 4x4 spelen.
             In combinatie hiermee kan je ook tegen iemand anders spelen of tegen de computer spelen!
         </div>
         <div class="player-select">
@@ -34,9 +34,21 @@
         </div>
         <button class="explanation-button">Uitleg</button>
         <button class="about-us-button">Over ons</button>
+        <div class="explanation-tab">
+            <h1>Uitleg</h1>
+            <p>
+                <b>Welkom bij Boter, Kaas & Eieren!</b> <br>
+                Het spel is simpel: Probeer 3 op een rij te krijgen om te winnen! <br>
+                U kunt in de instellingen (het symbool rechtsboven) aangeven om het spel in een
+                <i>4x4 speelveld</i> te spelen. Hierbij moet u 4 op een rij halen om te winnen <br><br>
+                U kunt ook tegen een computer spelen (door aan te geven dat u alleen speelt), deze zal standaard willekeurig spelen, maar u kunt het
+                nog lastiger maken in de <i>instellingen</i> als u uitdaging zoekt.
+            </p>
+        </div>
         <div class="settings-tab">
             <h1>Instellingen</h1>
-            <h2>Verander het beeld<br> van het spel</h2><h2 id="settings-div2">Verander de loop <br> van het spel</h2>
+            <h2>Verander het beeld<br> van het spel</h2>
+            <h2 id="settings-div2">Verander de loop <br> van het spel</h2>
             <div class="grid-modify">
                 <h3>Boter, Kaas & Eieren Speelveld</h3>
                 <input class="grid-3x3" type="radio" name="grid-choice" value="true"> 3x3 Speelveld<br>
@@ -45,8 +57,10 @@
             <div class="computer-settings">
                 <h3>Computer instellingen</h3>
                 <input class="difficulty-0" type="radio" name="computer-difficulty" value="0"> Willekeurig<br>
-                <input class="difficulty-1" type="radio" name="computer-difficulty" value="1"> Makkelijk (zelf winnen)<br>
-                <input class="difficulty-2" type="radio" name="computer-difficulty" value="2"> Middelmatig (Dwarszitten/Vervelend)<br>
+                <input class="difficulty-1" type="radio" name="computer-difficulty" value="1"> Makkelijk (zelf
+                winnen)<br>
+                <input class="difficulty-2" type="radio" name="computer-difficulty" value="2"> Middelmatig
+                (Dwarszitten/Vervelend)<br>
                 <input class="difficulty-3" type="radio" name="computer-difficulty" value="3"> Lastig<br>
             </div>
         </div>
