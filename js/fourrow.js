@@ -1,4 +1,7 @@
 const homeBtn = document.querySelector(`.home-button`);
+
+const playFields = document.querySelectorAll(".grid-item");
+
 homeBtn.addEventListener(`click`, backToHome);
 
 function backToHome() {
@@ -27,6 +30,8 @@ if (sessionStorage.getItem(`Twoplayers`) == `false`) {
 } else if (sessionStorage.getItem(`Twoplayers`) == `true`) {
     twoPlayers = true;
 }
+
+//Eventlisteners are at the bottom due to it repeating and needing functions
 
 const winCondition = [
     //Horizontal
@@ -101,8 +106,6 @@ const winPossibilities = [
     [3, 9, 12, 6],
     [6, 9, 12, 3],
 ]
-
-const playFields = document.querySelectorAll(".grid-item");
 
 function checkWin(symbol) {
     if (winValue == false) {

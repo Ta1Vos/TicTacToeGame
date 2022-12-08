@@ -17,23 +17,28 @@ const difficultyBtn1 = document.querySelector(`.difficulty-1`);
 const difficultyBtn2 = document.querySelector(`.difficulty-2`);
 const difficultyBtn3 = document.querySelector(`.difficulty-3`);
 
-
+//Sessionstorage values
 let gridThree = true;
-if (sessionStorage.getItem(`TicTacToeGrid`)) {
-    gridThree = Boolean(sessionStorage.getItem(`TicTacToeGrid`));
+
+if (sessionStorage.getItem(`TicTacToeGrid`) == `false`) {
+    gridThree = false;
 }
 
+console.log(`Sessionstorage detetcted: ${gridThree}`);
+
 let twoPlayers = true;
-if (sessionStorage.getItem(`Twoplayers`)) {
-    twoPlayers = Boolean(sessionStorage.getItem(`Twoplayers`));
+
+if (sessionStorage.getItem(`Twoplayers`) == `false`) {
+    twoPlayers = false;
 }
 
 let computerDifficulty = 0;
+
 if (sessionStorage.getItem(`difficultySettings`)) {
     computerDifficulty = Number(sessionStorage.getItem(`difficultySettings`));
 }
 
-
+//Regular values
 let settingsTabOpen = false;
 let explanationTabOpen = false;
 let aboutUsTabOpen = false;
@@ -51,6 +56,7 @@ explanationBtn.addEventListener(`click`, function () {
 gridChoiceOne.addEventListener(`click`, function () {
     gridThree = true;
 });
+
 gridChoiceTwo.addEventListener(`click`, function () {
     gridThree = false;
 });
@@ -59,6 +65,7 @@ gridChoiceTwo.addEventListener(`click`, function () {
 player1Tickbox.addEventListener(`click`, function () {
     twoPlayers = false;
 });
+
 player2Tickbox.addEventListener(`click`, function () {
     twoPlayers = true;
 });
@@ -80,7 +87,7 @@ difficultyBtn3.addEventListener(`click`, function () {
 function leavePage() {
     sessionStorage.setItem(`Twoplayers`, twoPlayers);
     sessionStorage.setItem(`difficultySettings`, computerDifficulty);
-    sessionStorage.setItem(`TicTacToeGrid`, gridThree);
+    sessionStorage.setItem(`TicTacToeGrid`, gridThree)
 }
 
 function redirectToGame() {
@@ -131,5 +138,5 @@ function toggleExplanations() {
             animationPlaying = false;
             explanationDiv.style.marginTop = `-225px`;
         }, 1000);
-    } 
+    }
 }
