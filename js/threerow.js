@@ -14,16 +14,20 @@ let fieldOccupation = 0;
 let winValue = false;
 
 let playerTurn = 1;
+let playerWhoWon;
+let Xstarts = true;
 
 let computerPlaying = false;
-let computerDifficulty = 0;
-if (sessionStorage.getItem(`difficultySettings`)) {
-    computerDifficulty = Number(sessionStorage.getItem(`difficultySettings`));
-}
 
 let twoPlayers = false;
 let player1Name = `Speler 1`;
 let player2Name = `Speler 2`;
+
+let computerDifficulty = 0;
+
+if (sessionStorage.getItem(`difficultySettings`)) {
+    computerDifficulty = Number(sessionStorage.getItem(`difficultySettings`));
+}
 
 if (sessionStorage.getItem(`Twoplayers`) == `false`) {
     twoPlayers = false;
@@ -108,11 +112,8 @@ function checkWin(symbol) {
         }
     }
     if (winValue == true) {
-        for (i = 1; i < 10; i++) {
-            const fieldItem = document.querySelector(`.block${i}`);
-            fieldItem.removeEventListener(`click`, placeFigure);
-            removeHoverListeners(fieldItem, i);
-        }
+        console.log(`${symbol} won`)
+        playerWhoWon = symbol;
     }
 }
 
@@ -218,10 +219,8 @@ function placeFigure(fieldItem, fieldNumber) {
     if (winValue == false && playField[(fieldNumber - 1)] == false) {
         if (playerTurn == 1) {
             fieldOccupation++;
-            removeHoverListeners(fieldItem, fieldNumber);
             blockClicked = true;
             playerTurn = 2;
-            currentBlock.removeEventListener(`click`, placeFigure);
             currentBlock.innerHTML = `<img src="/img/X.png" alt="X" height="175px" width="175px">`;
             playField[currentNumber] = `X`;
             checkWin(`X`);
@@ -230,10 +229,8 @@ function placeFigure(fieldItem, fieldNumber) {
             }
         } else if ((playerTurn == 2 && twoPlayers == true) || computerPlaying == true) {
             fieldOccupation++;
-            removeHoverListeners(fieldItem, fieldNumber);
             blockClicked = true;
             playerTurn = 1;
-            currentBlock.removeEventListener(`click`, placeFigure);
             currentBlock.innerHTML = `<img src="/img/O.png" alt="O" height="175px" width="175px">`;
             playField[currentNumber] = `O`;
             checkWin(`O`);
@@ -242,16 +239,6 @@ function placeFigure(fieldItem, fieldNumber) {
             }
         }
     }
-}
-
-//Removes the hover on fields that have been clicked - THIS IS BROKEN
-function removeHoverListeners(playField, currentNumber) {
-    console.log("playField " + playField);
-
-    playField.removeEventListener(`mouseenter`, blockEnter);
-
-
-    playField.removeEventListener(`mouseleave`, blockLeave);
 }
 
 //Places the O/X hover and decides which one it should be
@@ -273,6 +260,40 @@ function blockLeave(fieldItem, blockNumber) {
         }
     }
     blockClicked = false;
+}
+
+function gameReset() {
+    computerPlaying = false;
+    
+        if (winValue == true) {
+            if (playerWhoWon == `X`) {
+                Xstarts = false;
+            } else if (playerWhoWon == `O`) {
+                Xstarts = true;
+            }
+        }
+
+    debugger
+    playerWhoWon = undefined;
+
+    winValue = false;
+    blockClicked = false;
+    fieldOccupation = 0;
+    playField = [false, false, false, false, false, false, false, false, false];
+
+    for (i = 0; i < playFields.length; i++) {
+        playFields[i].innerHTML = ``;
+    }
+
+    if (Xstarts == false) {
+        playerTurn = 2;
+    } else if (Xstarts == true) {
+        playerTurn = 1;
+    }
+
+    if (playerTurn == 2 && twoPlayers == false) {
+        computerTurn();
+    }
 }
 
 for (i = 0; i < playFields.length; i++) {

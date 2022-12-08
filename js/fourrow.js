@@ -14,6 +14,8 @@ let fieldOccupation = 0;
 let winValue = false;
 
 let playerTurn = 1;
+let playerWhoWon;
+let Xstarts = true;
 
 let computerPlaying = false;
 let computerDifficulty = 0;
@@ -137,7 +139,6 @@ function checkWin(symbol) {
         for (i = 1; i < 10; i++) {
             const fieldItem = document.querySelector(`.block${i}`);
             fieldItem.removeEventListener(`click`, placeFigure);
-            removeHoverListeners(fieldItem, i);
         }
     }
 }
@@ -251,10 +252,8 @@ function placeFigure(fieldItem, fieldNumber) {
     if (winValue == false && playField[(fieldNumber - 1)] == false) {
         if (playerTurn == 1) {
             fieldOccupation++;
-            removeHoverListeners(fieldItem, fieldNumber);
             blockClicked = true;
             playerTurn = 2;
-            currentBlock.removeEventListener(`click`, placeFigure);
             currentBlock.innerHTML = `<img src="/img/X.png" alt="X" height="175px" width="175px">`;
             playField[currentNumber] = `X`;
             checkWin(`X`);
@@ -263,10 +262,8 @@ function placeFigure(fieldItem, fieldNumber) {
             }
         } else if ((playerTurn == 2 && twoPlayers == true) || computerPlaying == true) {
             fieldOccupation++;
-            removeHoverListeners(fieldItem, fieldNumber);
             blockClicked = true;
             playerTurn = 1;
-            currentBlock.removeEventListener(`click`, placeFigure);
             currentBlock.innerHTML = `<img src="/img/O.png" alt="O" height="175px" width="175px">`;
             playField[currentNumber] = `O`;
             checkWin(`O`);
@@ -275,16 +272,6 @@ function placeFigure(fieldItem, fieldNumber) {
             }
         }
     }
-}
-
-//Removes the hover on fields that have been clicked - THIS IS BROKEN
-function removeHoverListeners(playField, currentNumber) {
-    console.log("playField " + playField);
-
-    playField.removeEventListener(`mouseenter`, blockEnter);
-
-
-    playField.removeEventListener(`mouseleave`, blockLeave);
 }
 
 //Places the O/X hover and decides which one it should be
@@ -299,13 +286,47 @@ function blockEnter(currentBlock) {
 }
 
 //Turns the X/O hover off
-function blockLeave(fieldItem, blockNumber) {
+function blockLeave(blockNumber) {
     if (playField[(blockNumber - 1)] != `X` && playField[(blockNumber - 1)] != `O`) {
         if (blockClicked == false) {
             document.querySelector(`.block${blockNumber}`).innerHTML = ``;
         }
     }
     blockClicked = false;
+}
+
+function gameReset() {
+    computerPlaying = false;
+    
+        if (winValue == true) {
+            if (playerWhoWon == `X`) {
+                Xstarts = false;
+            } else if (playerWhoWon == `O`) {
+                Xstarts = true;
+            }
+        }
+
+    debugger
+    playerWhoWon = undefined;
+
+    winValue = false;
+    blockClicked = false;
+    fieldOccupation = 0;
+    playField = [false, false, false, false, false, false, false, false, false];
+
+    for (i = 0; i < playFields.length; i++) {
+        playFields[i].innerHTML = ``;
+    }
+
+    if (Xstarts == false) {
+        playerTurn = 2;
+    } else if (Xstarts == true) {
+        playerTurn = 1;
+    }
+
+    if (playerTurn == 2 && twoPlayers == false) {
+        computerTurn();
+    }
 }
 
 for (i = 0; i < playFields.length; i++) {
@@ -322,6 +343,6 @@ for (i = 0; i < playFields.length; i++) {
     });
 
     playField.addEventListener(`mouseleave`, function () {
-        blockLeave(playField, currentNumber);
+        blockLeave(currentNumber);
     });
 }
