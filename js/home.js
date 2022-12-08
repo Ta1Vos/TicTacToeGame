@@ -19,15 +19,14 @@ const difficultyBtn3 = document.querySelector(`.difficulty-3`);
 
 
 let gridThree = true;
+if (sessionStorage.getItem(`TicTacToeGrid`)) {
+    gridThree = Boolean(sessionStorage.getItem(`TicTacToeGrid`));
+}
+
 let twoPlayers = true;
 if (sessionStorage.getItem(`Twoplayers`)) {
     twoPlayers = Boolean(sessionStorage.getItem(`Twoplayers`));
 }
-
-let settingsTabOpen = false;
-let explanationTabOpen = false;
-let aboutUsTabOpen = false;
-let animationPlaying = false;
 
 let computerDifficulty = 0;
 if (sessionStorage.getItem(`difficultySettings`)) {
@@ -35,6 +34,10 @@ if (sessionStorage.getItem(`difficultySettings`)) {
 }
 
 
+let settingsTabOpen = false;
+let explanationTabOpen = false;
+let aboutUsTabOpen = false;
+let animationPlaying = false;
 
 startButton.addEventListener(`click`, redirectToGame);
 settingsButton.addEventListener(`click`, toggleSettings);
@@ -77,6 +80,7 @@ difficultyBtn3.addEventListener(`click`, function () {
 function leavePage() {
     sessionStorage.setItem(`Twoplayers`, twoPlayers);
     sessionStorage.setItem(`difficultySettings`, computerDifficulty);
+    sessionStorage.setItem(`TicTacToeGrid`, gridThree);
 }
 
 function redirectToGame() {
