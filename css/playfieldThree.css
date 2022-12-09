@@ -5,13 +5,13 @@ body {
 .wrapper {
     width: 600px;
     height: 600px;
-    background-color: bisque;
     margin: auto;
     margin-top: 100px;
 }
 
 .tictactoe-field {
     display: grid;
+    background-color: bisque;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
     height: 600px;
@@ -80,4 +80,13 @@ body {
 
 .home-button:hover {
     background-color: blanchedalmond;
+}
+
+.reset-popup {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 4;
+    z-index: 5;
+    background-color: black;
 }

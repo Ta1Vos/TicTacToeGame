@@ -1,7 +1,6 @@
 .wrapper {
     width: 800px;
     height: 800px;
-    background-color: bisque;
     margin: auto;
 }
 
@@ -11,6 +10,7 @@
     grid-template-rows: repeat(4, 1fr);
     height: 800px;
     width: 800px;
+    background-color: bisque;
 }
 
 .block1 {
