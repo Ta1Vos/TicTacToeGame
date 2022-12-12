@@ -1,3 +1,55 @@
 .invisible {
     display: none;
 }
+
+.reset-popup {
+    display: none;
+    grid-column: pf-start / pf-end;
+    grid-row: pf-start / pf-end;
+    z-index: 5;
+    padding: 50px;
+    padding-top: 0px;
+    text-align: center;
+    background-color: lightgray;
+    border: 3px solid darkgray;
+}
+
+.reset-popup button {
+    height: 100px;
+    width: 150px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.reset-confirm {
+    margin-top: 50px;
+    margin-right: 100px;
+    background-color: green;
+    color: lime;
+}
+
+.reset-deny {
+    background-color: red;
+    color: rgb(255, 203, 107);
+}
+
+.reset-button {
+    float: right;
+}
+
+.home-button {
+    background-color: rgb(255, 181, 91);
+    height: 70px;
+    width: 150px;
+    font-size: 20px;
+    display: block;
+    border-radius: 1px;
+    border: 3px double black;
+    cursor: pointer;
+    transition: 2s;
+}
+
+.home-button:hover {
+    background-color: blanchedalmond;
+}

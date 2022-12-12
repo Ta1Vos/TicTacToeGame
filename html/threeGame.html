@@ -7,11 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/css/playfieldThree.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
     <button class="home-button">
         Terug naar de homepagina
+    </button>
+    <button class="reset-button">
+        Herstart het spel
     </button>
     <div class="wrapper">
         <div class="tictactoe-field">
@@ -27,9 +31,14 @@
         </div>
         <div class="reset-popup">
             <h1>Weet u zeker dat u het spel wilt herstarten?</h1>
+            <p>
+                <button class="reset-confirm">Oké, herstart het spel</button>
+                <button class="reset-deny">Nee, ga terug naar het spel</button>
+            </p>
         </div>
     </div>
     <script type="application/javascript" src="/js/threerow.js"></script>
+    <script type="application/javascript" src="/js/sharedFunctions.js"></script>
 </body>
 
 </html>

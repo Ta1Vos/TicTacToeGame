@@ -1,12 +1,4 @@
-const homeBtn = document.querySelector(`.home-button`);
-
 const playFields = document.querySelectorAll(".grid-item");
-
-homeBtn.addEventListener(`click`, backToHome);
-
-function backToHome() {
-    window.location = `/index.html`;
-}
 
 let playField = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
 let blockClicked = false;
@@ -109,6 +101,7 @@ const winPossibilities = [
     [6, 9, 12, 3],
 ]
 
+//Checks whether the conditions are true where someone wins
 function checkWin(symbol) {
     if (winValue == false) {
         for (i = 0; i <= 9; i++) {
@@ -295,6 +288,7 @@ function blockLeave(blockNumber) {
     blockClicked = false;
 }
 
+//Resets the game, puts values back in their standard
 function gameReset() {
     computerPlaying = false;
     
@@ -306,13 +300,11 @@ function gameReset() {
             }
         }
 
-    debugger
     playerWhoWon = undefined;
-
     winValue = false;
     blockClicked = false;
     fieldOccupation = 0;
-    playField = [false, false, false, false, false, false, false, false, false];
+    playField = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
 
     for (i = 0; i < playFields.length; i++) {
         playFields[i].innerHTML = ``;

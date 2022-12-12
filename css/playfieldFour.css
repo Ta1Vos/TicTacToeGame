@@ -1,10 +1,18 @@
 .wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-areas: 
+    "pf pf pf"
+    "pf pf pf"
+    "pf pf pf";
     width: 800px;
     height: 800px;
     margin: auto;
 }
 
 .tictactoe-field {
+    grid-area: pf;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4, 1fr);
@@ -31,20 +39,4 @@
 
 .hover-opacity {
     opacity: 0.5;
-}
-
-.home-button {
-    background-color: rgb(255, 181, 91);
-    height: 70px;
-    width: 150px;
-    font-size: 20px;
-    display: block;
-    border-radius: 1px;
-    border: 3px double black;
-    cursor: pointer;
-    transition: 2s;
-}
-
-.home-button:hover {
-    background-color: blanchedalmond;
 }

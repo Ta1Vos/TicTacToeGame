@@ -1,12 +1,4 @@
-const homeBtn = document.querySelector(`.home-button`);
-
 const playFields = document.querySelectorAll(".grid-item");
-
-homeBtn.addEventListener(`click`, backToHome);
-
-function backToHome() {
-    window.location = `/index.html`;
-}
 
 let playField = [false, false, false, false, false, false, false, false, false];
 let blockClicked = false;
@@ -35,7 +27,7 @@ if (sessionStorage.getItem(`Twoplayers`) == `false`) {
     twoPlayers = true;
 }
 
-//Eventlisteners are at the bottom due to it repeating and needing functions
+//Eventlisteners are at the bottom due to it repeating and requiring functions
 
 const winCondition = [
     //Horizontal
@@ -90,6 +82,7 @@ const winPossibilities = [
     [4, 6, 2],
 ]
 
+//Checks whether the conditions are true where someone wins
 function checkWin(symbol) {
     if (winValue == false) {
         for (i = 0; i <= 7; i++) {
@@ -262,6 +255,7 @@ function blockLeave(fieldItem, blockNumber) {
     blockClicked = false;
 }
 
+//Resets the game, puts values back in their standard
 function gameReset() {
     computerPlaying = false;
     
@@ -273,9 +267,7 @@ function gameReset() {
             }
         }
 
-    debugger
     playerWhoWon = undefined;
-
     winValue = false;
     blockClicked = false;
     fieldOccupation = 0;
