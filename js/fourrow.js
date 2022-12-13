@@ -106,9 +106,7 @@ function checkWin(symbol) {
     if (winValue == false) {
         for (i = 0; i <= 9; i++) {
             //Gets the value from the object
-            
             const currentRow = winCondition[i];
-            console.log("currentRow =" + currentRow);
             //n = number
             let nOne = currentRow[0];
             let nTwo = currentRow[1];
@@ -122,17 +120,15 @@ function checkWin(symbol) {
                 winValue = true;
             }
         }
-        if (fieldOccupation == 16) {
+        if (fieldOccupation == 16 && winValue == false) {
             if (winValue == false) {
                 alert(`het is gelijk`);
             }
         }
     }
     if (winValue == true) {
-        for (i = 1; i < 10; i++) {
-            const fieldItem = document.querySelector(`.block${i}`);
-            fieldItem.removeEventListener(`click`, placeFigure);
-        }
+        console.log(`${symbol} won`);
+        playerWhoWon = symbol;
     }
 }
 

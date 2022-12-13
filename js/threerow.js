@@ -105,7 +105,7 @@ function checkWin(symbol) {
         }
     }
     if (winValue == true) {
-        console.log(`${symbol} won`)
+        console.log(`${symbol} won`);
         playerWhoWon = symbol;
     }
 }
