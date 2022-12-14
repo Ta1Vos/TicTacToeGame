@@ -1,22 +1,27 @@
 const playFields = document.querySelectorAll(".grid-item");
+const player1ScoreLocation = document.querySelector(`.player1-score`);
+const player2ScoreLocation = document.querySelector(`.player2-score`);
 
+//Game values
 let playField = [false, false, false, false, false, false, false, false, false];
 let blockClicked = false;
 let fieldOccupation = 0;
-let winValue = false;
-
 let playerTurn = 1;
+//Win values
+let winValue = false;
 let playerWhoWon;
 let Xstarts = true;
-
-let computerPlaying = false;
-
+//Player values
 let twoPlayers = false;
 let player1Name = `Speler 1`;
 let player2Name = `Speler 2`;
-
+let player1Score = 0;
+let player2Score = 0;
+//Computer values
+let computerPlaying = false;
 let computerDifficulty = 0;
 
+//Sessionstorage loaders
 if (sessionStorage.getItem(`difficultySettings`)) {
     computerDifficulty = Number(sessionStorage.getItem(`difficultySettings`));
 }
@@ -98,6 +103,14 @@ function checkWin(symbol) {
                     alert(`${symbol} wint`);
                 }, 100);
                 winValue = true;
+
+                if (symbol == `X`) {
+                    player1Score++;
+                    player1ScoreLocation.innerHTML = player1Score;
+                } else if (symbol == `O`) {
+                    player2Score++;
+                    player2ScoreLocation.innerHTML = player2Score;
+                }
             }
         }
         if (fieldOccupation == 9 && winValue == false) {
