@@ -46,7 +46,7 @@ const winCondition = [
     //Diagonal
     [0, 4, 8],
     [2, 4, 6],
-]
+];
 
 const winPossibilities = [
     // The 3rd number on the right or the 2nd number in array.length is the one that will be placed
@@ -85,7 +85,23 @@ const winPossibilities = [
     [2, 4, 6],
     [2, 6, 4],
     [4, 6, 2],
-]
+];
+
+//This array is used for impossible mode with the random placing near X's
+const blockingPossibilities = [
+    //Corners 0-2-6-8
+    [1, 3, 4],
+    [1, 4, 5],
+    [3, 4, 7],
+    [4, 5, 7],
+    //Edges 1-3-5-7
+    [0, 2, 4],
+    [0, 4, 6],
+    [2, 4, 8],
+    [4, 6, 7],
+    //Middle 4
+    [0, 1, 2, 3, 5, 6, 7, 8]
+];
 
 //Checks whether the conditions are true where someone wins
 function checkWin(symbol) {
@@ -141,36 +157,43 @@ function computerRandom() {
     return selectedFieldNumber;
 }
 
-function computerWinPossibility() {
-    let winDetected = false;
-    //n = number
-    let nOne;
-    let nTwo;
-    let nFill;
-    //The for checks out all possible ways the computer can lose.
-    for (i = 0; i < winPossibilities.length; i++) {
-        const currentRow = winPossibilities[i];
-        nOne = currentRow[0];
-        nTwo = currentRow[1];
-        nFill = currentRow[2];
-        if (playField[nOne] == `O` && playField[nTwo] == `O` && playField[nFill] == false) {
-            guessedArrayNumber = nFill + 1;
-            i = 100;
-            winDetected = true;
-            return guessedArrayNumber;
-        }
-    }
+function computerBlocking(currentNumber) {
+    let noSpaceFound = true;
+    //Launches random number if O starts, otherwise it will block X
+    if (Xstarts == true) {
+        let pickedArray = blockingPossibilities[currentNumber];
+        let availableSpace = [];
 
-    //If there is no way for the computer to win it will check if the player wins, else it will place randomly
-    if (winDetected == false && computerDifficulty >= 3) {
-        return computerLosePossibility();
-    } else {
+        let fieldNotOccupied = false;
+        let randomNumberInArray;
+        let arrayNumber;
+
+        for (i = 0; i < pickedArray.length; i++) {
+            let pickedNumber = pickedArray[i];
+            if (playfield[pickedNumber] == false) {
+                availableSpace.push(pickedNumber);
+            }
+        }
+
+        //Uses a random number generator to pick a random spot around the placed X to place an O, if there is no available spot it will place randomly
+        for (i = 0; availableSpace.length; i++) {
+            randomNumberInArray = Math.floor(Math.random() * availableSpace.length);
+            arrayNumber = pickedArray[randomNumberInArray] + 1;
+            debugger
+            if (playField[arrayNumber] == false) {
+                fieldNotOccupied = true;
+            }
+        }
+    } 
+
+    if (Xstarts == false || availableSpace == []) {
         return computerRandom();
     }
+    return arrayNumber;
 }
 
 //This function searches for any ways the computer can lose
-function computerLosePossibility() {
+function computerLosePossibility(currentNumber) {
     let loseDetected = false;
     //n = number
     let nOne;
@@ -191,13 +214,49 @@ function computerLosePossibility() {
     }
 
     //If the player doesn't win yet the computer will proceed to randomly place an O
+    //If the difficulty is at hardest it will block the player, otherwise it will place randomly
     if (loseDetected == false) {
-        return computerRandom();
+        if (computerDifficulty <= 3) {
+            return computerRandom();
+        } else if (computerDifficulty >= 4) {
+            return computerBlocking(currentNumber);
+        } 
+    }
+}
+
+function computerWinPossibility(currentNumber) {
+    let winDetected = false;
+    //n = number
+    let nOne;
+    let nTwo;
+    let nFill;
+    //The for checks out all possible ways the computer can lose.
+    for (i = 0; i < winPossibilities.length; i++) {
+        const currentRow = winPossibilities[i];
+        nOne = currentRow[0];
+        nTwo = currentRow[1];
+        nFill = currentRow[2];
+        if (playField[nOne] == `O` && playField[nTwo] == `O` && playField[nFill] == false) {
+            guessedArrayNumber = nFill + 1;
+            i = 100;
+            winDetected = true;
+            return guessedArrayNumber;
+        }
+    }
+
+    //If there is no way for the computer to win it will check if the player wins, else it will place randomly
+    //This is for the winning mode and the hardcore modes
+    if (winDetected == false) {
+        if (computerDifficulty >= 3) {
+            return computerLosePossibility(currentNumber);
+        } else {
+            return computerRandom();
+        } 
     }
 }
 
 //Main engine for the computer, chooses what to do depending on the difficulty, then it will launch the right function.
-function computerTurn() {
+function computerTurn(currentNumber) {
     let fieldNumber;
     computerPlaying = true;
 
@@ -208,8 +267,8 @@ function computerTurn() {
     } else if (computerDifficulty == 2) {
         fieldNumber = computerLosePossibility();
     } else if (computerDifficulty >= 3) {
-        fieldNumber = computerWinPossibility();
-    } 
+        fieldNumber = computerWinPossibility(currentNumber);
+    }
 
     const fieldItem = document.querySelector(`.block${fieldNumber}`);
     setTimeout(() => {
@@ -222,7 +281,7 @@ function placeFigure(fieldItem, fieldNumber) {
     currentNumber = fieldNumber - 1;
     console.log(fieldNumber);
     const currentBlock = document.querySelector(`.block${fieldNumber}`);
-    if (winValue == false && playField[(fieldNumber - 1)] == false) {
+    if (winValue == false && playField[currentNumber] == false) {
         if (playerTurn == 1) {
             fieldOccupation++;
             blockClicked = true;
@@ -231,7 +290,8 @@ function placeFigure(fieldItem, fieldNumber) {
             playField[currentNumber] = `X`;
             checkWin(`X`);
             if (twoPlayers == false) {
-                computerTurn();
+                //CurrentNumber is for the blocking function of the computer
+                computerTurn(currentNumber);
             }
         } else if ((playerTurn == 2 && twoPlayers == true) || computerPlaying == true) {
             fieldOccupation++;
