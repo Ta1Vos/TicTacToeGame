@@ -89,18 +89,18 @@ const winPossibilities = [
 
 //This array is used for impossible mode with the random placing near X's
 const blockingPossibilities = [
-    //Corners 0-2-6-8
+    //1 - 3
     [1, 3, 4],
-    [1, 4, 5],
-    [3, 4, 7],
-    [4, 5, 7],
-    //Edges 1-3-5-7
     [0, 2, 4],
+    [1, 4, 5],
+    //3 - 6
     [0, 4, 6],
+    [0, 1, 2, 3, 5, 6, 7, 8],
     [2, 4, 8],
-    [4, 6, 7],
-    //Middle 4
-    [0, 1, 2, 3, 5, 6, 7, 8]
+    //7 - 9
+    [3, 4, 7],
+    [4, 6, 8],
+    [4, 5, 7],
 ];
 
 //Checks whether the conditions are true where someone wins
@@ -158,34 +158,37 @@ function computerRandom() {
 }
 
 function computerBlocking(currentNumber) {
-    let noSpaceFound = true;
+    let availableSpace = [];
+    let arrayNumber;
     //Launches random number if O starts, otherwise it will block X
     if (Xstarts == true) {
+        //The pickedArray picks an array out of the possibilies in the blocking. The currentNumber would be the space the place selects.
         let pickedArray = blockingPossibilities[currentNumber];
-        let availableSpace = [];
 
         let fieldNotOccupied = false;
         let randomNumberInArray;
-        let arrayNumber;
 
+        //This loop finds non-occupied space in an array which has to be defined as 'false'.
         for (i = 0; i < pickedArray.length; i++) {
             let pickedNumber = pickedArray[i];
-            if (playfield[pickedNumber] == false) {
+            if (playField[pickedNumber] == false) {
                 availableSpace.push(pickedNumber);
             }
         }
 
-        //Uses a random number generator to pick a random spot around the placed X to place an O, if there is no available spot it will place randomly
-        for (i = 0; availableSpace.length; i++) {
+        //Uses a random number generator to pick a random space in the available space around the placed X, if there is no available spot it will place randomly
+        for (i = 0; i < availableSpace.length; i++) {
+            //Picks a random number out of the array available space, then adding up a number to make it equal to the selected space in the front-end playfield.
             randomNumberInArray = Math.floor(Math.random() * availableSpace.length);
-            arrayNumber = pickedArray[randomNumberInArray] + 1;
-            debugger
+            arrayNumber = availableSpace[randomNumberInArray] + 1;
             if (playField[arrayNumber] == false) {
                 fieldNotOccupied = true;
+                debugger
             }
         }
     } 
 
+    //If availableSpace is empty, it means that there is no available space and that the computer will have to place randomly.
     if (Xstarts == false || availableSpace == []) {
         return computerRandom();
     }
