@@ -165,7 +165,6 @@ function computerBlocking(currentNumber) {
         //The pickedArray picks an array out of the possibilies in the blocking. The currentNumber would be the space the place selects.
         let pickedArray = blockingPossibilities[currentNumber];
 
-        let fieldNotOccupied = false;
         let randomNumberInArray;
 
         //This loop finds non-occupied space in an array which has to be defined as 'false'.
