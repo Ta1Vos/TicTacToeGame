@@ -2,6 +2,25 @@
     display: none;
 }
 
+.page-wrapper {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(9, 1fr);
+    grid-auto-rows: minmax(25px, auto);
+    grid-template-areas: 
+    "hb hb . . . . . rb rb"
+    ". . . . . . . . ."
+    ". . pf pf pf pf . . ."
+    "p1 . pf pf pf pf . . p2"
+    "p1 . pf pf pf pf . . p2"
+    ". . pf pf pf pf . . .";
+}
+
+.wrapper {
+    grid-area: pf;
+    margin-top: 20px;
+}
+
 .reset-popup {
     display: none;
     grid-column: pf-start / pf-end;
@@ -35,21 +54,33 @@
 }
 
 .reset-button {
-    float: right;
+    grid-area: rb;
+    height: 75px;
 }
 
 .home-button {
+    grid-area: hb;
     background-color: rgb(255, 181, 91);
-    height: 70px;
-    width: 150px;
     font-size: 20px;
     display: block;
     border-radius: 1px;
     border: 3px double black;
     cursor: pointer;
     transition: 2s;
+    height: 75px;
+    max-width: 200px;
 }
 
 .home-button:hover {
     background-color: blanchedalmond;
+}
+
+.player1-info {
+    grid-area: p1;
+    background-color: lightblue;
+}
+
+.player2-info {
+    grid-area: p2;
+    background-color: rgb(240, 157, 157);
 }

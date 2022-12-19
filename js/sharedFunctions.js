@@ -5,6 +5,9 @@ const resetPopupBtn = document.querySelector(`.reset-button`);
 const resetConfirmBtn = document.querySelector(`.reset-confirm`);
 const resetDenyBtn = document.querySelector(`.reset-deny`);
 
+const player1ScoreLocation = document.querySelector(`.player1-score`);
+const player2ScoreLocation = document.querySelector(`.player2-score`);
+
 homeBtn.addEventListener(`click`, backToHome);
 resetConfirmBtn.addEventListener(`click`, resetConfirm);
 resetDenyBtn.addEventListener(`click`, resetDeny);

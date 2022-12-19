@@ -1,6 +1,4 @@
 const playFields = document.querySelectorAll(".grid-item");
-const player1ScoreLocation = document.querySelector(`.player1-score`);
-const player2ScoreLocation = document.querySelector(`.player2-score`);
 
 //Game values
 let playField = [false, false, false, false, false, false, false, false, false];

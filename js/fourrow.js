@@ -148,10 +148,13 @@ function checkWin(symbol) {
                 }, 100);
                 winValue = true;
 
+                //Score locations can be found in the shared functions.
                 if (symbol == `X`) {
                     player1Score++;
+                    player1ScoreLocation.innerHTML = player1Score;
                 } else if (symbol == `O`) {
                     player2Score++;
+                    player2ScoreLocation.innerHTML = player2Score;
                 }
             }
         }
@@ -368,6 +371,7 @@ function blockLeave(blockNumber) {
 //Resets the game, puts values back in their standard
 function gameReset() {
     console.log(`Resetting game...`);
+    console.log(`------------------`);
     computerPlaying = false;
     
     if (winValue == true) {
