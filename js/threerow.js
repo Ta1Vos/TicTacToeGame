@@ -131,10 +131,13 @@ function checkWin(symbol) {
         }
         if (fieldOccupation == 9 && winValue == false) {
             alert(`het is gelijk`);
+            console.log(`Nobody won (TIE)`);
+            console.log(`------------------`);
         }
     }
     if (winValue == true) {
         console.log(`${symbol} won`);
+        console.log(`------------------`);
         playerWhoWon = symbol;
     }
 }
@@ -183,13 +186,12 @@ function computerBlocking(currentNumber) {
             arrayNumber = availableSpace[randomNumberInArray] + 1;
             if (playField[arrayNumber] == false) {
                 fieldNotOccupied = true;
-                debugger
             }
         }
     } 
 
     //If availableSpace is empty, it means that there is no available space and that the computer will have to place randomly.
-    if (Xstarts == false || availableSpace == []) {
+    if (Xstarts == false || availableSpace.length == 0) {
         return computerRandom();
     }
     return arrayNumber;
@@ -282,10 +284,10 @@ function computerTurn(currentNumber) {
 //Places an O or an X depending on current turn
 function placeFigure(fieldItem, fieldNumber) {
     currentNumber = fieldNumber - 1;
-    console.log(fieldNumber);
     const currentBlock = document.querySelector(`.block${fieldNumber}`);
     if (winValue == false && playField[currentNumber] == false) {
         if (playerTurn == 1) {
+            console.log(`X: ${fieldNumber}. Turn: ${fieldOccupation}`);
             fieldOccupation++;
             blockClicked = true;
             playerTurn = 2;
@@ -297,6 +299,7 @@ function placeFigure(fieldItem, fieldNumber) {
                 computerTurn(currentNumber);
             }
         } else if ((playerTurn == 2 && twoPlayers == true) || computerPlaying == true) {
+            console.log(`O: ${fieldNumber} Turn: ${fieldOccupation}`);
             fieldOccupation++;
             blockClicked = true;
             playerTurn = 1;
