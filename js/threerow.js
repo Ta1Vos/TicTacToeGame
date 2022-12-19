@@ -157,6 +157,7 @@ function computerRandom() {
     return selectedFieldNumber;
 }
 
+//This function puts a symbol around the symbol the player places
 function computerBlocking(currentNumber) {
     let availableSpace = [];
     let arrayNumber;
