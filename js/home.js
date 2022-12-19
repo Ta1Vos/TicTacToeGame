@@ -16,6 +16,7 @@ const difficultyBtn0 = document.querySelector(`.difficulty-0`);
 const difficultyBtn1 = document.querySelector(`.difficulty-1`);
 const difficultyBtn2 = document.querySelector(`.difficulty-2`);
 const difficultyBtn3 = document.querySelector(`.difficulty-3`);
+const difficultyBtn4 = document.querySelector(`.difficulty-4`);
 
 //Sessionstorage values
 let gridThree = true;
@@ -82,6 +83,9 @@ difficultyBtn2.addEventListener(`click`, function () {
 });
 difficultyBtn3.addEventListener(`click`, function () {
     computerDifficulty = 3;
+});
+difficultyBtn4.addEventListener(`click`, function () {
+    computerDifficulty = 4;
 });
 
 function leavePage() {
