@@ -18,12 +18,13 @@
         <button class="reset-button">
             Herstart het spel
         </button>
+        <!-- player names are loaded in in the shared functions js -->
         <div class="player1-info">
-            Speler 1<br>
+            <span class="player1-loaded-name">[Playername]</span><br>
             <span class="player1-score">0</span>
         </div>
         <div class="player2-info">
-            Speler 2<br>
+            <span class="player2-loaded-name">[Playername]</span><br>
             <span class="player2-score">0</span>
         </div>
         <div class="wrapper">
@@ -54,6 +55,7 @@
             </div>
         </div>
     </div>
+    <!-- It is important that the shared functions is initialized after the main engine -->
     <script type="application/javascript" src="/js/fourRow.js"></script>
     <script type="application/javascript" src="/js/sharedFunctions.js"></script>
 </body>

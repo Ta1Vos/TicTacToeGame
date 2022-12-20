@@ -15,8 +15,8 @@
     ". gi gi . ht ht ht ht . end . ."
     ". gi gi . ht ht ht ht . end . ."
     ". gi gi . ht ht ht ht . . eb eb"
-    ". . . . . ps ps . . . eb eb"
-    ". . . . . ps ps . . . ab ab"
+    ". . . . ps ps ps ps . . eb eb"
+    ". . . . ps ps ps ps . . ab ab"
     ". . . . pb pb pb pb . . ab ab";
 }
 
@@ -51,6 +51,16 @@
     grid-area: ps;
     background-color: #B4C7E7;
     font-size: 19px;
+    text-align: left;
+}
+
+.player-names {
+    margin-top: 10px;
+}
+
+.large-selection {
+    height: 18px;
+    width: 18px;
 }
 
 .play-button {

@@ -1,5 +1,7 @@
 const player1Tickbox = document.querySelector(`.player-1`);
 const player2Tickbox = document.querySelector(`.player-2`);
+const player1Input = document.querySelector(`.player-1-name`);
+const player2Input = document.querySelector(`.player-2-name`);
 const startButton = document.querySelector(`.play-button`);
 
 const settingsButton = document.querySelector(`.settings-button`);
@@ -20,23 +22,30 @@ const difficultyBtn4 = document.querySelector(`.difficulty-4`);
 
 //Sessionstorage values
 let gridThree = true;
+let twoPlayers = true;
+let computerDifficulty = 0;
 
+//Fetch the grid size
 if (sessionStorage.getItem(`TicTacToeGrid`) == `false`) {
     gridThree = false;
 }
 
-console.log(`Sessionstorage detetcted: ${gridThree}`);
-
-let twoPlayers = true;
-
+//Fetch the player amount
 if (sessionStorage.getItem(`Twoplayers`) == `false`) {
     twoPlayers = false;
 }
 
-let computerDifficulty = 0;
-
+//Fetch the computer difficulty
 if (sessionStorage.getItem(`difficultySettings`)) {
     computerDifficulty = Number(sessionStorage.getItem(`difficultySettings`));
+}
+
+//Fetch the playerNames
+if (sessionStorage.getItem(`player1Name`)) {
+    player1Input.value = sessionStorage.getItem(`player1Name`);
+}
+if (sessionStorage.getItem(`player2Name`)) {
+    player2Input.value = sessionStorage.getItem(`player2Name`);
 }
 
 //Regular values
@@ -91,7 +100,9 @@ difficultyBtn4.addEventListener(`click`, function () {
 function leavePage() {
     sessionStorage.setItem(`Twoplayers`, twoPlayers);
     sessionStorage.setItem(`difficultySettings`, computerDifficulty);
-    sessionStorage.setItem(`TicTacToeGrid`, gridThree)
+    sessionStorage.setItem(`TicTacToeGrid`, gridThree);
+    sessionStorage.setItem(`player1Name`, player1Input.value);
+    sessionStorage.setItem(`player2Name`, player2Input.value);
 }
 
 function redirectToGame() {
