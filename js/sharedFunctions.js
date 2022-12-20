@@ -1,5 +1,4 @@
 const homeBtn = document.querySelector(`.home-button`);
-
 const resetPopup = document.querySelector(`.reset-popup`);
 const resetPopupBtn = document.querySelector(`.reset-button`);
 const resetConfirmBtn = document.querySelector(`.reset-confirm`);
@@ -15,6 +14,12 @@ homeBtn.addEventListener(`click`, backToHome);
 resetConfirmBtn.addEventListener(`click`, resetConfirm);
 resetDenyBtn.addEventListener(`click`, resetDeny);
 resetPopupBtn.addEventListener(`click`, openResetPopup);
+
+document.addEventListener(`keydown`, (event) => {
+    if (event.key == `r` || event.key == `R`) {
+        openResetPopup();
+    }
+})
 
 //Names are initialized in 4x4 and 3x3
 //Fetch the playerNames
