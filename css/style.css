@@ -8,12 +8,32 @@
     grid-template-columns: repeat(9, 1fr);
     grid-auto-rows: minmax(25px, auto);
     grid-template-areas: 
-    "hb hb . . . . . rb rb"
+    "hb hb . cp cp cp . rb rb"
     ". . . . . . . . ."
     ". . pf pf pf pf . . ."
     "p1 . pf pf pf pf . . p2"
     "p1 . pf pf pf pf . . p2"
     ". . pf pf pf pf . . .";
+}
+
+.custom-popup {
+    grid-column: cp-start / cp-end;
+    grid-row: cp-start / pf-start;
+    background-color: gray;
+    color: lightgray;
+    border: 5px double lightgray;
+    border-radius: 15px;
+    opacity: 0;
+    transition: 2s;
+}
+
+.popup-close {
+    height: 30px;
+    width: 50px;
+    float: right;
+    margin-top: 80px;
+    border-radius: 10px;
+    background-color: green;
 }
 
 .wrapper {

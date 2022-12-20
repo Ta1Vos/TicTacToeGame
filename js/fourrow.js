@@ -144,7 +144,7 @@ function checkWin(symbol) {
 
             if (playField[nOne] == symbol && playField[nTwo] == symbol && playField[nThree] == symbol && playField[nFour] == symbol) {
                 setTimeout(() => {
-                    alert(`${symbol} wint`);
+                    launchPopup(`${symbol} wint`);
                 }, 100);
                 winValue = true;
 
@@ -160,7 +160,7 @@ function checkWin(symbol) {
         }
         if (fieldOccupation == 16 && winValue == false) {
             if (winValue == false) {
-                alert(`het is gelijk`);
+                launchPopup(`Het is gelijk`);
                 console.log(`Nobody won (TIE)`);
                 console.log(`------------------`);
             }

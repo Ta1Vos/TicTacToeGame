@@ -4,16 +4,29 @@ const resetPopupBtn = document.querySelector(`.reset-button`);
 const resetConfirmBtn = document.querySelector(`.reset-confirm`);
 const resetDenyBtn = document.querySelector(`.reset-deny`);
 
+const closeCustomPopupBtn = document.querySelector(`.popup-close`);
+const customPopupContent = document.querySelector(`.popup-content`);
+const customPopupDiv = document.querySelector(`.custom-popup`);
+
 const player1ScoreLocation = document.querySelector(`.player1-score`);
 const player2ScoreLocation = document.querySelector(`.player2-score`);
 
 const player1NameLocation = document.querySelector(`.player1-loaded-name`);
 const player2NameLocation = document.querySelector(`.player2-loaded-name`);
 
+let customPopupIsOpen = false;
+
 homeBtn.addEventListener(`click`, backToHome);
 resetConfirmBtn.addEventListener(`click`, resetConfirm);
 resetDenyBtn.addEventListener(`click`, resetDeny);
 resetPopupBtn.addEventListener(`click`, openResetPopup);
+closeCustomPopupBtn.addEventListener(`click`, closeCustomPopup);
+
+document.addEventListener(`keydown`, (event) => {
+    if (customPopupIsOpen == true && event.key == `Enter`) {
+        closeCustomPopup();
+    }
+})
 
 document.addEventListener(`keydown`, (event) => {
     if (event.key == `r` || event.key == `R`) {
@@ -52,6 +65,7 @@ function resetConfirm() {
     gameReset();
     resetPopup.style.transition = `2s`;
     resetPopup.style.opacity = `0`;
+    closeCustomPopup();
     setTimeout(() => {
         resetPopup.style.opacity = `1`;
         resetPopup.style.display = `none`;
@@ -61,4 +75,15 @@ function resetConfirm() {
 
 function resetDeny() {
     resetPopup.style.display = `none`;
+}
+
+function launchPopup(content) {
+    customPopupIsOpen = true;
+    customPopupContent.innerHTML = content;
+    customPopupDiv.style.opacity = `1`;
+}
+
+function closeCustomPopup() {
+    customPopupDiv.style.opacity = `0`;
+    customPopupIsOpen = false;
 }
