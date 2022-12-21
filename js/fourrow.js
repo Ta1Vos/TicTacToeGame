@@ -143,18 +143,17 @@ function checkWin(symbol) {
             let nFour = currentRow[3]
 
             if (playField[nOne] == symbol && playField[nTwo] == symbol && playField[nThree] == symbol && playField[nFour] == symbol) {
-                setTimeout(() => {
-                    launchPopup(`${symbol} wint`);
-                }, 100);
                 winValue = true;
 
                 //Score locations can be found in the shared functions.
                 if (symbol == `X`) {
                     player1Score++;
                     player1ScoreLocation.innerHTML = player1Score;
+                    launchPopup(`X (${player1Name}) wint`);
                 } else if (symbol == `O`) {
                     player2Score++;
                     player2ScoreLocation.innerHTML = player2Score;
+                    launchPopup(`O (${player2Name}) wint`);
                 }
             }
         }

@@ -176,3 +176,7 @@
 .settings-tab {
     display: none;
 }
+
+.custom-popup {
+    grid-column: tl 2 / tl 5;
+}

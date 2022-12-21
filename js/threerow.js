@@ -113,17 +113,16 @@ function checkWin(symbol) {
             let nThree = currentRow[2];
 
             if (playField[nOne] == symbol && playField[nTwo] == symbol && playField[nThree] == symbol) {
-                setTimeout(() => {
-                    launchPopup(`${symbol} wint`);
-                }, 100);
                 winValue = true;
 
                 if (symbol == `X`) {
                     player1Score++;
                     player1ScoreLocation.innerHTML = player1Score;
+                    launchPopup(`X (${player1Name}) wint`);
                 } else if (symbol == `O`) {
                     player2Score++;
                     player2ScoreLocation.innerHTML = player2Score;
+                    launchPopup(`O (${player2Name}) wint`);
                 }
             }
         }

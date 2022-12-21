@@ -19,12 +19,15 @@
 .custom-popup {
     grid-column: cp-start / cp-end;
     grid-row: cp-start / pf-start;
+    opacity: 0;
+    padding: 10px;
     background-color: gray;
     color: lightgray;
     border: 5px double lightgray;
     border-radius: 15px;
-    opacity: 0;
-    transition: 2s;
+    font-size: 30px;
+    transition: 1s;
+    text-align: center;
 }
 
 .popup-close {
@@ -111,9 +114,11 @@
 .player1-info {
     grid-area: p1;
     background-color: lightblue;
+    font-size: 20px;
 }
 
 .player2-info {
     grid-area: p2;
     background-color: rgb(240, 157, 157);
+    font-size: 20px;
 }

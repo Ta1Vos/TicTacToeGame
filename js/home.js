@@ -20,6 +20,10 @@ const difficultyBtn2 = document.querySelector(`.difficulty-2`);
 const difficultyBtn3 = document.querySelector(`.difficulty-3`);
 const difficultyBtn4 = document.querySelector(`.difficulty-4`);
 
+const closeCustomPopupBtn = document.querySelector(`.popup-close`);
+const customPopupContent = document.querySelector(`.popup-content`);
+const customPopupDiv = document.querySelector(`.custom-popup`);
+
 //Sessionstorage values
 let gridThree = true;
 let twoPlayers = true;
@@ -56,10 +60,16 @@ let animationPlaying = false;
 
 startButton.addEventListener(`click`, redirectToGame);
 settingsButton.addEventListener(`click`, toggleSettings);
+closeCustomPopupBtn.addEventListener(`click`, closeCustomPopup);
+
+document.addEventListener(`keydown`, (event) => {
+    if (customPopupIsOpen == true && event.key == `Enter`) {
+        closeCustomPopup();
+    }
+})
 
 explanationBtn.addEventListener(`click`, function () {
-    leavePage();
-    toggleExplanations()
+    toggleExplanations();
 })
 
 //Settings grid
@@ -105,13 +115,40 @@ function leavePage() {
     sessionStorage.setItem(`player2Name`, player2Input.value);
 }
 
+function launchPopup(content) {
+    customPopupIsOpen = true;
+    customPopupContent.innerHTML = content;
+    customPopupDiv.style.opacity = `1`;
+}
+
+function closeCustomPopup() {
+    customPopupDiv.style.opacity = `0`;
+    customPopupIsOpen = false;
+}
+
 function redirectToGame() {
-    leavePage();
-    if (gridThree == true) {
-        window.location = `/html/threeGame.html`;
-    } else if (gridThree == false) {
-        window.location = `/html/fourGame.html`;
-    }
+    // let tooLongUsernames = [false, false];
+    // if (player1Input.value.length > 1) {
+    //     tooLongUsernames[0] = true;
+    // }
+    // if (player2Input.value.length > 1) {
+    //     tooLongUsernames[1] = true;
+    // }
+
+    // if (tooLongUsernames === [true, false]) {
+    //     launchPopup(`De naam van speler 1 is te lang!`);
+    // } else if (tooLongUsernames === [false, true]) {
+    //     launchPopup(`De naam van speler 2 is te lang!`);
+    // } else if (tooLongUsernames === [true, true]) {
+    //     launchPopup(`De namen van speler 1 en 2 zijn te lang!`);
+    // } else {
+        leavePage();
+        if (gridThree == true) {
+            window.location = `/html/threeGame.html`;
+        } else if (gridThree == false) {
+            window.location = `/html/fourGame.html`;
+        }
+    // }
 }
 
 function toggleSettings() {
