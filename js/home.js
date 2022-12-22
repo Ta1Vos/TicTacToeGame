@@ -7,9 +7,8 @@ const startButton = document.querySelector(`.play-button`);
 const settingsButton = document.querySelector(`.settings-button`);
 const settingsDiv = document.querySelector(`.settings-tab`);
 
-const explanationBtn = document.querySelector(`.explanation-button`);
-const explanationDiv = document.querySelector(`.explanation-tab`);
 const aboutUsBtn = document.querySelector(`.about-us-button`);
+const aboutUsDiv = document.querySelector(`.about-us-tab`);
 
 const gridChoiceOne = document.querySelector(`.grid-3x3`);
 const gridChoiceTwo = document.querySelector(`.grid-4x4`);
@@ -54,7 +53,6 @@ if (sessionStorage.getItem(`player2Name`)) {
 
 //Regular values
 let settingsTabOpen = false;
-let explanationTabOpen = false;
 let aboutUsTabOpen = false;
 let customPopupIsOpen = false;
 let animationPlaying = false;
@@ -69,7 +67,7 @@ document.addEventListener(`keydown`, (event) => {
     }
 })
 
-explanationBtn.addEventListener(`click`, function () {
+aboutUsBtn.addEventListener(`click`, function () {
     toggleExplanations();
 })
 
@@ -174,22 +172,22 @@ function toggleSettings() {
 }
 
 function toggleExplanations() {
-    if (explanationTabOpen == false && animationPlaying == false) {
-        explanationTabOpen = true;
-        explanationDiv.style.display = `grid`;
+    if (aboutUsTabOpen == false && animationPlaying == false) {
+        aboutUsTabOpen = true;
+        aboutUsDiv.style.display = `grid`;
         setTimeout(() => {
-            explanationDiv.style.opacity = `1`;
-            explanationDiv.style.marginTop = `0px`;
+            aboutUsDiv.style.opacity = `1`;
+            aboutUsDiv.style.marginTop = `0px`;
         }, 1);
-    } else if (explanationTabOpen == true) {
-        explanationTabOpen = false;
+    } else if (aboutUsTabOpen == true) {
+        aboutUsTabOpen = false;
         animationPlaying = true;
-        explanationDiv.style.opacity = `0`;
-        explanationDiv.style.marginTop = `-2250px`;
+        aboutUsDiv.style.opacity = `0`;
+        aboutUsDiv.style.marginTop = `-2250px`;
         setTimeout(() => {
-            explanationDiv.style.display = `none`;
+            aboutUsDiv.style.display = `none`;
             animationPlaying = false;
-            explanationDiv.style.marginTop = `-225px`;
+            aboutUsDiv.style.marginTop = `-225px`;
         }, 1000);
     }
 }

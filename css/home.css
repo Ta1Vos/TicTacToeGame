@@ -1,23 +1,29 @@
 .wrapper {
     z-index: -1;
-    background-color: wheat;
-    width: 100%;
-    padding-top: 75px;
-    height: max-content;
     display: grid;
     gap: 50px;
     grid-template-columns: repeat(12, 1fr);
-    grid-auto-rows: minmax(40px, auto);
+    grid-template-rows: repeat(10, 40px);
     grid-template-areas: 
-    ". pp . tl tl tl tl tl tl . . sb"
     ". . . tl tl tl tl tl tl . . ."
+    ". . . tl tl tl tl tl tl . . sb"
     ". . . . ht ht ht ht . . . ."
     ". gi gi . ht ht ht ht . end . ."
     ". gi gi . ht ht ht ht . end . ."
     ". gi gi . ht ht ht ht . . eb eb"
-    ". . . . ps ps ps ps . . eb eb"
-    ". . . . ps ps ps ps . . ab ab"
-    ". . . . pb pb pb pb . . ab ab";
+    ". . . . . ps ps ps . . eb eb"
+    ". . . . . ps ps ps . . . ."
+    ". . . . pb pb pb pb . . . .";
+    background-color: wheat;
+    width: 100%;
+    padding-top: 75px;
+    height: 1000px;
+}
+
+.custom-popup {
+    z-index: 5;
+    grid-column: ht-start / ht-end;
+    grid-row: 5 / 7;
 }
 
 .game-image {
@@ -45,6 +51,7 @@
     font-size: 20px;
     font-family: 'Times New Roman', Times, serif;
     text-align: center;
+    border-radius: 5px;
 }
 
 .player-select {
@@ -52,6 +59,8 @@
     background-color: #B4C7E7;
     font-size: 19px;
     text-align: left;
+    border: 1px solid black;
+    border-radius: 5px;
 }
 
 .player-names {
@@ -75,19 +84,13 @@
     cursor: pointer;
 }
 
-.explanation-button {
+.about-us-button {
     background-color: #8FAADC;
     border-radius: 20px;
     grid-area: eb;
 }
 
-.about-us-button {
-    background-color: #8497B0;
-    border-radius: 20px;
-    grid-area: ab;
-}
-
-.explanation-tab {
+.about-us-tab {
     display: grid;
     grid-auto-rows: minmax(25px, auto);
     grid-template-areas: 
@@ -112,19 +115,19 @@
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-.explanation-tab h1 {
+.about-us-tab h1 {
     background-color: #B4C7E7;
     grid-area: tl;
 }
 
-.explanation-tab p {
+.about-us-tab p {
     background-color: #F5F5DC;
 }
 
 .settings-tab {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-auto-rows: minmax(50px, 150px);
+    grid-auto-rows: minmax(50px, auto);
     grid-template-areas: 
     "sb sb sb"
     "ct1 . ct2"
@@ -132,9 +135,11 @@
     "g . cs"
     "bg . .";
     gap: 15px;
+    overflow-y: scroll;
+    max-height: 750px;
+    height: 750px;
     grid-column: gi-end / end-start;
     grid-row: ht-start / pb-end;
-    height: 750px;
     z-index: 1;
     border-radius: 5px;
     border: 3px solid black;
@@ -173,10 +178,12 @@
     text-align: left;
 }
 
-.settings-tab {
-    display: none;
+.background-settings {
+    grid-area: bg;
+    background-color: wheat;
+    height: max-content;
 }
 
-.custom-popup {
-    z-index: 5;
+.settings-tab {
+    display: none;
 }

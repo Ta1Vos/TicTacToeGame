@@ -1,18 +1,23 @@
+//Locations
 const homeBtn = document.querySelector(`.home-button`);
 const resetPopup = document.querySelector(`.reset-popup`);
 const resetPopupBtn = document.querySelector(`.reset-button`);
 const resetConfirmBtn = document.querySelector(`.reset-confirm`);
 const resetDenyBtn = document.querySelector(`.reset-deny`);
 
+//Custom alert
 const closeCustomPopupBtn = document.querySelector(`.popup-close`);
 const customPopupContent = document.querySelector(`.popup-content`);
 const customPopupDiv = document.querySelector(`.custom-popup`);
 
+//Player scores
 const player1ScoreLocation = document.querySelector(`.player1-score`);
 const player2ScoreLocation = document.querySelector(`.player2-score`);
 
 const player1NameLocation = document.querySelector(`.player1-loaded-name`);
 const player2NameLocation = document.querySelector(`.player2-loaded-name`);
+
+const body = document.querySelector(`body`);
 
 let customPopupIsOpen = false;
 
@@ -92,3 +97,5 @@ function closeCustomPopup() {
     customPopupDiv.style.opacity = `0`;
     customPopupIsOpen = false;
 }
+
+body.style.backgroundImage = `url(/img-bg/floating_city.jpg)`;
