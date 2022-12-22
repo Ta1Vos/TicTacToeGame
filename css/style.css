@@ -17,8 +17,6 @@
 }
 
 .custom-popup {
-    grid-column: cp-start / cp-end;
-    grid-row: cp-start / pf-start;
     opacity: 0;
     padding: 10px;
     background-color: gray;

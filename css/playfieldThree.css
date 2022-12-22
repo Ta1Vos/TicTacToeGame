@@ -79,3 +79,8 @@ body {
 .hover-opacity {
     opacity: 0.5;
 }
+
+.custom-popup {
+    grid-column: cp-start / cp-end;
+    grid-row: cp-start / pf-start;
+}

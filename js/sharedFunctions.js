@@ -45,6 +45,11 @@ if (player1Name && player2Name) {
     }
 }
 
+//Playername changer if the computer is playing
+if (twoPlayers == false) {
+    player2Name = `Computer`;
+}
+
 player1NameLocation.innerHTML = player1Name;
 //Checks if there is a second player, otherwise it will be the computer
 if (twoPlayers == true) {

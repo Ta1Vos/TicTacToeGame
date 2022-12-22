@@ -7,9 +7,9 @@
     display: grid;
     gap: 50px;
     grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: repeat(12, 40px);
+    grid-auto-rows: minmax(40px, auto);
     grid-template-areas: 
-    ". . . tl tl tl tl tl tl . . sb"
+    ". pp . tl tl tl tl tl tl . . sb"
     ". . . tl tl tl tl tl tl . . ."
     ". . . . ht ht ht ht . . . ."
     ". gi gi . ht ht ht ht . end . ."
@@ -178,5 +178,5 @@
 }
 
 .custom-popup {
-    grid-column: tl 2 / tl 5;
+    z-index: 5;
 }
