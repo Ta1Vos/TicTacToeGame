@@ -28,8 +28,8 @@
         </div>
         <div class="player-select">
             <form class="player-amount">
-                <input class="player-1 large-selection" type="radio" name="player-computer"> 1 speler (met computer) <br>
-                <input class="player-2 large-selection" type="radio" name="player-computer"> 2 spelers
+                <input class="player-0 large-selection" type="radio" name="player-amount" value="false"> 1 speler (met computer) <br>
+                <input class="player-1 large-selection" type="radio" name="player-amount" value="true"> 2 spelers
             </form>
             <div class="player-names">
                 Speler 1 naam: <input class="player-1-name" type="text"><br>
@@ -58,9 +58,10 @@
             <h2 id="settings-div2">Verander de loop <br> van het spel</h2>
             <div class="grid-modify">
                 <h3>Boter, Kaas & Eieren Speelveld</h3>
-                <!-- Buttons -->
-                <input class="grid-3x3" type="radio" name="grid-choice" value="true"> 3x3 Speelveld<br>
-                <input class="grid-4x4" type="radio" name="grid-choice" value="false"> 4x4 Speelveld
+                <!-- 3x3 grid -->
+                <input class="grid-0" type="radio" name="grid-choice" value="true"> 3x3 Speelveld<br>
+                <!-- 4x4 grid -->
+                <input class="grid-1" type="radio" name="grid-choice" value="false"> 4x4 Speelveld
             </div>
             <div class="computer-settings">
                 <h3>Computer instellingen</h3>
@@ -77,7 +78,7 @@
                 <h3>Achtergrond instellingen</h3>
                 <!-- Buttons -->
                 Afbeeldingen:<br>
-                <input type="radio" class="background" name="background-image"> Stad <br>
+                <input type="radio" class="background" name="background-image" value="0"> Stad <br>
                 <input type="radio" class="background" name="background-image"> Stad <br>
                 <input type="radio" class="background" name="background-image"> Stad <br>
                 <input type="radio" class="background" name="background-image"> Stad <br>

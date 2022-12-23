@@ -1,5 +1,3 @@
-const player1Tickbox = document.querySelector(`.player-1`);
-const player2Tickbox = document.querySelector(`.player-2`);
 const player1Input = document.querySelector(`.player-1-name`);
 const player2Input = document.querySelector(`.player-2-name`);
 const startButton = document.querySelector(`.play-button`);
@@ -10,18 +8,14 @@ const settingsDiv = document.querySelector(`.settings-tab`);
 const aboutUsBtn = document.querySelector(`.about-us-button`);
 const aboutUsDiv = document.querySelector(`.about-us-tab`);
 
-const gridChoiceOne = document.querySelector(`.grid-3x3`);
-const gridChoiceTwo = document.querySelector(`.grid-4x4`);
-
-const difficultyBtn0 = document.querySelector(`.difficulty-0`);
-const difficultyBtn1 = document.querySelector(`.difficulty-1`);
-const difficultyBtn2 = document.querySelector(`.difficulty-2`);
-const difficultyBtn3 = document.querySelector(`.difficulty-3`);
-const difficultyBtn4 = document.querySelector(`.difficulty-4`);
-
 const closeCustomPopupBtn = document.querySelector(`.popup-close`);
 const customPopupContent = document.querySelector(`.popup-content`);
 const customPopupDiv = document.querySelector(`.custom-popup`);
+
+//Instantly get all radio inputs with same name, put into an array
+const difficultyButtons = document.querySelectorAll(`input[name="computer-difficulty"]`);
+const gridChoices = document.querySelectorAll(`input[name="grid-choice"]`);
+const playerTickboxes = document.querySelectorAll(`input[name="player-amount"]`);
 
 //Sessionstorage values
 let gridThree = true;
@@ -71,41 +65,7 @@ aboutUsBtn.addEventListener(`click`, function () {
     toggleExplanations();
 })
 
-//Settings grid
-gridChoiceOne.addEventListener(`click`, function () {
-    gridThree = true;
-});
-
-gridChoiceTwo.addEventListener(`click`, function () {
-    gridThree = false;
-});
-
-//Player selection
-player1Tickbox.addEventListener(`click`, function () {
-    twoPlayers = false;
-});
-
-player2Tickbox.addEventListener(`click`, function () {
-    twoPlayers = true;
-});
-
-//Settings difficulty
-difficultyBtn0.addEventListener(`click`, function () {
-    computerDifficulty = 0;
-});
-difficultyBtn1.addEventListener(`click`, function () {
-    computerDifficulty = 1;
-});
-difficultyBtn2.addEventListener(`click`, function () {
-    computerDifficulty = 2;
-});
-difficultyBtn3.addEventListener(`click`, function () {
-    computerDifficulty = 3;
-});
-difficultyBtn4.addEventListener(`click`, function () {
-    computerDifficulty = 4;
-});
-
+//Save every necessary value in the sessionstorage
 function leavePage() {
     sessionStorage.setItem(`Twoplayers`, twoPlayers);
     sessionStorage.setItem(`difficultySettings`, computerDifficulty);
@@ -114,17 +74,20 @@ function leavePage() {
     sessionStorage.setItem(`player2Name`, player2Input.value);
 }
 
+//Open custom popup
 function launchPopup(content) {
     customPopupIsOpen = true;
     customPopupContent.innerHTML = content;
     customPopupDiv.style.opacity = `1`;
 }
 
+//Close custom popup
 function closeCustomPopup() {
     customPopupDiv.style.opacity = `0`;
     customPopupIsOpen = false;
 }
 
+//Start button function, saves everything before continuing to the game
 function redirectToGame() {
     let tooLongUsernames = [false, false];
     if (player1Input.value.length > 20) {
@@ -141,6 +104,7 @@ function redirectToGame() {
     } else if (tooLongUsernames[1] == true) {
         launchPopup(`De naam van speler 2 is te lang!`);
     } else {
+        loadButtonValues();
         leavePage();
         if (gridThree == true) {
             window.location = `/html/threeGame.html`;
@@ -150,6 +114,32 @@ function redirectToGame() {
     }
 }
 
+//Loops in which all the setting-options are put into the values
+function loadButtonValues() {
+    //This loop notes which radio button is active
+    for (i = 0; i < difficultyButtons.length; i++) {
+        const currentButton = document.querySelector(`input.difficulty-${i}`);
+        if (currentButton.checked == true) {
+            computerDifficulty = currentButton.value;
+        }
+    }
+    //Grid
+    for (i = 0; i < gridChoices.length; i++) {
+        const currentButton = document.querySelector(`input.grid-${i}`);
+        if (currentButton.checked == true) {
+            gridThree = currentButton.value;
+        }
+    }
+    //Player amount
+    for (i = 0; i < playerTickboxes.length; i++) {
+        const currentButton = document.querySelector(`input.player-${i}`);
+        if (currentButton.checked == true) {
+            twoPlayers = currentButton.value;
+        }
+    }
+}
+
+//Animation for settings
 function toggleSettings() {
     if (settingsTabOpen == false && animationPlaying == false) {
         settingsTabOpen = true;
@@ -171,6 +161,7 @@ function toggleSettings() {
     }
 }
 
+//Animation for Explanations
 function toggleExplanations() {
     if (aboutUsTabOpen == false && animationPlaying == false) {
         aboutUsTabOpen = true;
