@@ -18,6 +18,7 @@
     width: 100%;
     padding-top: 75px;
     height: 1000px;
+    max-height: max-content;
 }
 
 .custom-popup {
@@ -52,6 +53,7 @@
     font-family: 'Times New Roman', Times, serif;
     text-align: center;
     border-radius: 5px;
+    max-height: max-content;
 }
 
 .player-select {
@@ -103,6 +105,7 @@
     grid-row: 2 / pb-end;
     gap: 15px;
     height: 850px;
+    max-height: max-content;
     z-index: 2;
     border-radius: 5px;
     border: 3px solid black;

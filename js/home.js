@@ -35,6 +35,8 @@ if (sessionStorage.getItem(`Twoplayers`) == `false`) {
 //Fetch the computer difficulty
 if (sessionStorage.getItem(`difficultySettings`)) {
     computerDifficulty = Number(sessionStorage.getItem(`difficultySettings`));
+    twoPlayers = Boolean(sessionStorage.getItem(`Twoplayers`));
+    gridThree = Boolean(sessionStorage.getItem(`TicTacToeGrid`));
 }
 
 //Fetch the playerNames
@@ -89,6 +91,7 @@ function closeCustomPopup() {
 
 //Start button function, saves everything before continuing to the game
 function redirectToGame() {
+    debugger;
     let tooLongUsernames = [false, false];
     if (player1Input.value.length > 20) {
         tooLongUsernames[0] = true;
@@ -106,9 +109,9 @@ function redirectToGame() {
     } else {
         loadButtonValues();
         leavePage();
-        if (gridThree == true) {
+        if (gridThree == `true`) {
             window.location = `/html/threeGame.html`;
-        } else if (gridThree == false) {
+        } else if (gridThree == `false`) {
             window.location = `/html/fourGame.html`;
         }
     }
@@ -120,7 +123,7 @@ function loadButtonValues() {
     for (i = 0; i < difficultyButtons.length; i++) {
         const currentButton = document.querySelector(`input.difficulty-${i}`);
         if (currentButton.checked == true) {
-            computerDifficulty = currentButton.value;
+            computerDifficulty = Number(currentButton.value);
         }
     }
     //Grid
@@ -128,13 +131,14 @@ function loadButtonValues() {
         const currentButton = document.querySelector(`input.grid-${i}`);
         if (currentButton.checked == true) {
             gridThree = currentButton.value;
+            console.log(`knop ${i}`)
         }
     }
     //Player amount
     for (i = 0; i < playerTickboxes.length; i++) {
         const currentButton = document.querySelector(`input.player-${i}`);
         if (currentButton.checked == true) {
-            twoPlayers = currentButton.value;
+            twoPlayers = Boolean(currentButton.value);
         }
     }
 }

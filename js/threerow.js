@@ -24,9 +24,9 @@ if (sessionStorage.getItem(`difficultySettings`)) {
     computerDifficulty = Number(sessionStorage.getItem(`difficultySettings`));
 }
 
-if (sessionStorage.getItem(`Twoplayers`) == `false`) {
+if (sessionStorage.getItem(`Twoplayers`) == false) {
     twoPlayers = false;
-} else if (sessionStorage.getItem(`Twoplayers`) == `true`) {
+} else if (sessionStorage.getItem(`Twoplayers`) == true) {
     twoPlayers = true;
 }
 
