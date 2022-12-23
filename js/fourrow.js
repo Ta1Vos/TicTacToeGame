@@ -20,9 +20,9 @@ let computerPlaying = false;
 let computerDifficulty = 0;
 
 //Sessionstorage loaders
-if (sessionStorage.getItem(`Twoplayers`) == `false`) {
+if (sessionStorage.getItem(`Twoplayers`) == false) {
     twoPlayers = false;
-} else if (sessionStorage.getItem(`Twoplayers`) == `true`) {
+} else if (sessionStorage.getItem(`Twoplayers`) == true) {
     twoPlayers = true;
 }
 

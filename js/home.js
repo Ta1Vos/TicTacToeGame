@@ -36,7 +36,7 @@ if (sessionStorage.getItem(`Twoplayers`) == `false`) {
 if (sessionStorage.getItem(`difficultySettings`)) {
     computerDifficulty = Number(sessionStorage.getItem(`difficultySettings`));
     twoPlayers = Boolean(sessionStorage.getItem(`Twoplayers`));
-    gridThree = Boolean(sessionStorage.getItem(`TicTacToeGrid`));
+    gridThree = sessionStorage.getItem(`TicTacToeGrid`);
 }
 
 //Fetch the playerNames
@@ -93,19 +93,19 @@ function closeCustomPopup() {
 function redirectToGame() {
     debugger;
     let tooLongUsernames = [false, false];
-    if (player1Input.value.length > 20) {
+    if (player1Input.value.length > 25) {
         tooLongUsernames[0] = true;
     }
-    if (player2Input.value.length > 20) {
+    if (player2Input.value.length > 25) {
         tooLongUsernames[1] = true;
     }
 
     if (tooLongUsernames[0] == true && tooLongUsernames[1] == true) {
-        launchPopup(`De namen van speler 1 en 2 zijn te lang!`);
+        launchPopup(`De namen van speler 1 en 2 zijn te lang! (max. 25)`);
     } else if (tooLongUsernames[0] == true) {
-        launchPopup(`De naam van speler 1 is te lang!`);
+        launchPopup(`De naam van speler 1 is te lang! (max. 25)`);
     } else if (tooLongUsernames[1] == true) {
-        launchPopup(`De naam van speler 2 is te lang!`);
+        launchPopup(`De naam van speler 2 is te lang! (max. 25)`);
     } else {
         loadButtonValues();
         leavePage();
