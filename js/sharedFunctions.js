@@ -98,4 +98,21 @@ function closeCustomPopup() {
     customPopupIsOpen = false;
 }
 
-body.style.backgroundImage = `url(/img-bg/floating_city.jpg)`;
+function loadBackground() {
+    backgroundImageCode = sessionStorage.getItem(`backgroundImageCode`);
+    if (backgroundImageCode == `0`) {
+        body.style.backgroundImage = `url(/img-bg/floating_city.jpg)`;
+    } else if (backgroundImageCode == `1`) {
+
+    } else if (backgroundImageCode == `2`) {
+        
+    } else if (backgroundImageCode == `3`) {
+        
+    } else if (backgroundImageCode == `4`) {
+        
+    } else if (backgroundImageCode == `5`) {
+        
+    } else if (backgroundImageCode == `6`) {
+        
+    }
+}

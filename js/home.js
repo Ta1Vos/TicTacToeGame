@@ -16,11 +16,16 @@ const customPopupDiv = document.querySelector(`.custom-popup`);
 const difficultyButtons = document.querySelectorAll(`input[name="computer-difficulty"]`);
 const gridChoices = document.querySelectorAll(`input[name="grid-choice"]`);
 const playerTickboxes = document.querySelectorAll(`input[name="player-amount"]`);
+const backgroundButtons = document.querySelectorAll(`input[name="background-image"]`);
+
+const customBackgroundLink = document.querySelector(`.custom-link`);
+const customBackgroundColor = document.querySelector(`.custom-color`);
 
 //Sessionstorage values
 let gridThree = true;
 let twoPlayers = true;
 let computerDifficulty = 0;
+let backgroundImageCode = `white`;
 
 //Fetch the grid size
 if (sessionStorage.getItem(`TicTacToeGrid`) == `false`) {
@@ -52,6 +57,7 @@ let settingsTabOpen = false;
 let aboutUsTabOpen = false;
 let customPopupIsOpen = false;
 let animationPlaying = false;
+let gameReadyForLaunch = true;
 
 startButton.addEventListener(`click`, redirectToGame);
 settingsButton.addEventListener(`click`, toggleSettings);
@@ -74,6 +80,7 @@ function leavePage() {
     sessionStorage.setItem(`TicTacToeGrid`, gridThree);
     sessionStorage.setItem(`player1Name`, player1Input.value);
     sessionStorage.setItem(`player2Name`, player2Input.value);
+    sessionStorage.setItem(`backgroundImageCode`, backgroundImageCode);
 }
 
 //Open custom popup
@@ -106,7 +113,7 @@ function redirectToGame() {
         launchPopup(`De naam van speler 1 is te lang! (max. 25)`);
     } else if (tooLongUsernames[1] == true) {
         launchPopup(`De naam van speler 2 is te lang! (max. 25)`);
-    } else {
+    } else if (gameReadyForLaunch == true) {
         loadButtonValues();
         leavePage();
         if (gridThree == `true`) {
@@ -115,6 +122,7 @@ function redirectToGame() {
             window.location = `/html/fourGame.html`;
         }
     }
+    gameReadyForLaunch = true;
 }
 
 //Loops in which all the setting-options are put into the values
@@ -139,6 +147,28 @@ function loadButtonValues() {
         const currentButton = document.querySelector(`input.player-${i}`);
         if (currentButton.checked == true) {
             twoPlayers = Boolean(currentButton.value);
+        }
+    }
+    //Background image selection
+    for (i = 0; i < backgroundButtons.length; i++) {
+        const currentButton = document.querySelector(`input.background-${i}`);
+        if (currentButton.checked == true) {
+            backgroundImageCode = Number(currentButton.value);
+            //Saves links if those were selected
+            if (backgroundImageCode >= 6) {
+                backgroundImageCode = currentButton.value;
+                if (backgroundImageCode == 6) {
+                    console.log(customBackgroundLink.value)
+                    if (customBackgroundLink.value.contains(`https://`)) {
+                        sessionStorage.setItem(`customizedBackground`, customBackgroundLink);
+                    } else {
+                        gameReadyForLaunch = false;
+                        launchPopup(`De link voor de afbeelding is incorrect`);
+                    }
+                } else if (backgroundImageCode == 7) {
+                    sessionStorage.setItem(`customizedBackground`, customBackgroundColor);
+                }
+            }
         }
     }
 }
