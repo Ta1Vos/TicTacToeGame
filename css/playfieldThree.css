@@ -14,7 +14,6 @@
 .tictactoe-field {
     grid-area: pf;
     display: grid;
-    background-color: bisque;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
     grid-template-areas: 
@@ -23,6 +22,7 @@
     "b7 b8 b9";
     height: 600px;
     width: 600px;
+    background-color: rgba(255, 228, 196, 0.5);
 }
 
 .block1 {

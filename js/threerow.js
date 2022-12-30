@@ -288,7 +288,7 @@ function placeFigure(fieldItem, fieldNumber) {
             fieldOccupation++;
             blockClicked = true;
             playerTurn = 2;
-            currentBlock.innerHTML = `<img src="/img/X.png" alt="X" height="175px" width="175px">`;
+            currentBlock.innerHTML = `<img src="/img/X.png" alt="X" class="placed-figure" height="175px" width="175px">`;
             playField[currentNumber] = `X`;
             checkWin(`X`);
             if (twoPlayers == false) {
@@ -300,7 +300,7 @@ function placeFigure(fieldItem, fieldNumber) {
             fieldOccupation++;
             blockClicked = true;
             playerTurn = 1;
-            currentBlock.innerHTML = `<img src="/img/O.png" alt="O" height="175px" width="175px">`;
+            currentBlock.innerHTML = `<img src="/img/O.png" alt="O" class="placed-figure" height="175px" width="175px">`;
             playField[currentNumber] = `O`;
             checkWin(`O`);
             if (computerPlaying == true) {

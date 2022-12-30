@@ -18,7 +18,7 @@
     grid-template-rows: repeat(4, 1fr);
     height: 800px;
     width: 800px;
-    background-color: bisque;
+    background-color: rgba(255, 228, 196, 0.5);
 }
 
 .block1 {

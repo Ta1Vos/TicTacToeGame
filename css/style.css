@@ -126,3 +126,7 @@ body {
     background-color: rgb(240, 157, 157);
     font-size: 20px;
 }
+
+.placed-figure {
+    opacity: 1;
+}

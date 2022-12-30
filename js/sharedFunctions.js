@@ -107,9 +107,9 @@ function loadBackground() {
     } else if (backgroundImageCode == `3`) {
         body.style.backgroundImage = undefined;
     } else if (backgroundImageCode == `4`) {
-        body.style.backgroundImage = undefined;
+        body.style.backgroundImage = `url(/img-bg/fireplace.gif)`;
     } else if (backgroundImageCode == `5`) {
-        body.style.backgroundImage = undefined;
+        body.style.backgroundImage = `url(/img-bg/movingCity.gif)`;
     } else if (backgroundImageCode == `6`) {
         //Should only contain an IMAGE defined in a LINK
         body.style.backgroundImage = `url(${sessionStorage.getItem(`customizedBackground`)})`;
