@@ -22,7 +22,7 @@ const customBackgroundLink = document.querySelector(`.custom-link`);
 const customBackgroundColor = document.querySelector(`.custom-color`);
 
 //Sessionstorage values
-let gridThree = true;
+let gridThree = `true`;
 let twoPlayers = true;
 let computerDifficulty = 0;
 let backgroundImageCode = `white`;
@@ -75,16 +75,23 @@ aboutUsBtn.addEventListener(`click`, function () {
 
 //Save every necessary value in the sessionstorage
 function leavePage() {
+    //Selected player amount
     sessionStorage.setItem(`Twoplayers`, twoPlayers);
+    //Selected difficulty in settings
     sessionStorage.setItem(`difficultySettings`, computerDifficulty);
+    //Selected grid in settings
     sessionStorage.setItem(`TicTacToeGrid`, gridThree);
+    //Selected usernames
     sessionStorage.setItem(`player1Name`, player1Input.value);
     sessionStorage.setItem(`player2Name`, player2Input.value);
+    //Selected image in settings
     sessionStorage.setItem(`backgroundImageCode`, backgroundImageCode);
 }
 
 //Open custom popup
 function launchPopup(content) {
+    customPopupDiv.style.display = `block`;
+    customPopupDiv.style.opacity = `0`;
     customPopupIsOpen = true;
     customPopupContent.innerHTML = content;
     customPopupDiv.style.opacity = `1`;
@@ -94,6 +101,9 @@ function launchPopup(content) {
 function closeCustomPopup() {
     customPopupDiv.style.opacity = `0`;
     customPopupIsOpen = false;
+    setTimeout(() => {
+        customPopupDiv.style.display = `none`;
+    }, 1000);
 }
 
 //Start button function, saves everything before continuing to the game
@@ -113,13 +123,15 @@ function redirectToGame() {
         launchPopup(`De naam van speler 1 is te lang! (max. 25)`);
     } else if (tooLongUsernames[1] == true) {
         launchPopup(`De naam van speler 2 is te lang! (max. 25)`);
-    } else if (gameReadyForLaunch == true) {
+    } else {
         loadButtonValues();
         leavePage();
-        if (gridThree == `true`) {
-            window.location = `/html/threeGame.html`;
-        } else if (gridThree == `false`) {
-            window.location = `/html/fourGame.html`;
+        if (gameReadyForLaunch == true) {
+            if (gridThree == `true`) {
+                window.location = `/html/threeGame.html`;
+            } else if (gridThree == `false`) {
+                window.location = `/html/fourGame.html`;
+            }
         }
     }
     gameReadyForLaunch = true;
@@ -154,19 +166,23 @@ function loadButtonValues() {
         const currentButton = document.querySelector(`input.background-${i}`);
         if (currentButton.checked == true) {
             backgroundImageCode = Number(currentButton.value);
-            //Saves links if those were selected
+            //IF the user picked a custom input
             if (backgroundImageCode >= 6) {
                 backgroundImageCode = currentButton.value;
+                //IF the user picked a custom link
                 if (backgroundImageCode == 6) {
-                    console.log(customBackgroundLink.value)
-                    if (customBackgroundLink.value.contains(`https://`)) {
-                        sessionStorage.setItem(`customizedBackground`, customBackgroundLink);
+                    const customBackgroundValue = customBackgroundLink.value
+                    if (customBackgroundValue.includes(`https://`)) {
+                        sessionStorage.setItem(`customizedBackground`, customBackgroundLink.value);
                     } else {
                         gameReadyForLaunch = false;
                         launchPopup(`De link voor de afbeelding is incorrect`);
                     }
+                //IF the user picked a custom color
                 } else if (backgroundImageCode == 7) {
-                    sessionStorage.setItem(`customizedBackground`, customBackgroundColor);
+                    console.log(customBackgroundColor.value)
+                    debugger
+                    sessionStorage.setItem(`customizedBackground`, customBackgroundColor.value);
                 }
             }
         }

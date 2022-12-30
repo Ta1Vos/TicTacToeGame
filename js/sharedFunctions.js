@@ -100,19 +100,23 @@ function closeCustomPopup() {
 
 function loadBackground() {
     backgroundImageCode = sessionStorage.getItem(`backgroundImageCode`);
-    if (backgroundImageCode == `0`) {
+    if (backgroundImageCode == `1`) {
         body.style.backgroundImage = `url(/img-bg/floating_city.jpg)`;
-    } else if (backgroundImageCode == `1`) {
-
     } else if (backgroundImageCode == `2`) {
-        
+        body.style.backgroundImage = undefined;
     } else if (backgroundImageCode == `3`) {
-        
+        body.style.backgroundImage = undefined;
     } else if (backgroundImageCode == `4`) {
-        
+        body.style.backgroundImage = undefined;
     } else if (backgroundImageCode == `5`) {
-        
+        body.style.backgroundImage = undefined;
     } else if (backgroundImageCode == `6`) {
-        
+        //Should only contain an IMAGE defined in a LINK
+        body.style.backgroundImage = `url(${sessionStorage.getItem(`customizedBackground`)})`;
+    } else if (backgroundImageCode == `7`) {
+        //Should only contain a COLOR defined in a WORD
+        body.style.background = sessionStorage.getItem(`customizedBackground`);
     }
 }
+
+loadBackground();

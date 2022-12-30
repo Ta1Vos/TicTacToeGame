@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/css/home.css">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/home.css">
 </head>
 
 <body>
@@ -19,16 +19,28 @@
             Boter, Kaas & Eieren
         </div>
         <div class="home-text">
-            <b>Welkom bij Boter, Kaas & Eieren!</b> <br>
+            <p>
+                <b>Welkom bij Boter, Kaas & Eieren!</b><br>
                 Het spel is simpel: Probeer 3 op een rij te krijgen om te winnen! <br>
                 U kunt in de instellingen (het symbool rechtsboven) aangeven om het spel in een
                 <i>4x4 speelveld</i> te spelen. Hierbij moet u 4 op een rij halen om te winnen <br><br>
-                U kunt ook tegen een computer spelen (door aan te geven dat u alleen speelt), deze zal standaard willekeurig spelen, maar u kunt het
-                nog lastiger maken in de <i>instellingen</i> als u uitdaging zoekt.
+                U kunt ook tegen een computer spelen (door aan te geven dat u alleen speelt), deze zal standaard
+                willekeurig
+                spelen, maar u kunt het
+                nog lastiger maken in de <i>instellingen</i>(het tandwiel rechtsboven) als u uitdaging zoekt.
+            </p>
+            <p>
+                <b>Hoe kan ik zelf een afbeelding gebruiken?</b><br>
+                Let op: Gebruik een <i>directe link</i> waarbij u alleen naar de afbeelding zelf wordt gestuurd, zoals
+                deze link:<br>
+                <a href="https://media.npr.org/assets/img/2021/08/11/gettyimages-1279899488_wide-f3860ceb0ef19643c335cb34df3fa1de166e2761-s800-c85.webp"
+                    target="_blank">Klik hier om de link te openen</a>
+            </p>
         </div>
         <div class="player-select">
             <form class="player-amount">
-                <input class="player-0 large-selection" type="radio" name="player-amount" value="false"> 1 speler (met computer) <br>
+                <input class="player-0 large-selection" type="radio" name="player-amount" value="false"> 1 speler (met
+                computer) <br>
                 <input class="player-1 large-selection" type="radio" name="player-amount" value="true"> 2 spelers
             </form>
             <div class="player-names">
@@ -40,14 +52,15 @@
         <div class="settings-button">
             <img src="/img/settingsImage.png" alt="instellingen">
         </div>
-        <button class="about-us-button">Uitleg</button>
+        <button class="about-us-button">Over ons</button>
         <div class="about-us-tab">
             <h1>Over ons</h1>
             <p>
-                Welkom bij ons spel. Wij zijn Anti-Espada en zijn een studentengroep van 5 personen. 
-                Ons team bestaat uit: Yoandel, Tim, Akin, Quint en Shair, en wij volgen de studie Software-Development. 
-                Wij hebben het volgende spel gemaakt, waarbij ieder student zijn eigen spel heeft geprogrammeerd. 
-                Het is aan jou de keus welk spel je wilt spelen. Shair en Quint hebben een beginner/ intermediate versie gemaakt. 
+                Welkom bij ons spel. Wij zijn Anti-Espada en zijn een studentengroep van 5 personen.
+                Ons team bestaat uit: Yoandel, Tim, Akin, Quint en Shair, en wij volgen de studie Software-Development.
+                Wij hebben het volgende spel gemaakt, waarbij ieder student zijn eigen spel heeft geprogrammeerd.
+                Het is aan jou de keus welk spel je wilt spelen. Shair en Quint hebben een beginner/ intermediate versie
+                gemaakt.
                 Akin, Yoandel en Tim hebben een expert versie gemaakt.
 
             </p>
@@ -78,17 +91,19 @@
                 <h3>Achtergrond instellingen</h3>
                 <!-- Buttons -->
                 Afbeeldingen:<br>
-                <input type="radio" class="background-0" name="background-image" value="0"> Stad <br>
-                <input type="radio" class="background-1" name="background-image"> Stad <br>
-                <input type="radio" class="background-2" name="background-image"> Stad <br>
-                <input type="radio" class="background-3" name="background-image"> Stad <br>
+                <input type="radio" class="background-0" name="background-image" value="0"> Geen achtergrond<br>
+                <input type="radio" class="background-1" name="background-image" value="1"> Zwevende stad<br>
+                <input type="radio" class="background-2" name="background-image" value="2"> Stad<br>
+                <input type="radio" class="background-3" name="background-image" value="3"> Stad<br>
                 GIFs:<br>
-                <input type="radio" class="background-4" name="background-image"> Stad <br>
-                <input type="radio" class="background-5" name="background-image"> Stad <br>
+                <input type="radio" class="background-4" name="background-image" value="4"> Stad<br>
+                <input type="radio" class="background-5" name="background-image" value="5"> Stad<br>
                 Handmatige afbeelding:<br>
-                <input type="radio" class="background-6" name="background-image"> <input class="custom-link" type="text" placeholder="Voer een link in"><br>
+                <input type="radio" class="background-6" name="background-image" value="6"> <input class="custom-link"
+                    type="text" placeholder="Voer een link in"><br>
                 Handmatige achtergrondkleur:<br>
-                <input type="radio" class="background-7" name="background-image"> <input class="custom-color" type="text" placeholder="Voer een kleur in"><br>
+                <input type="radio" class="background-7" name="background-image" value="7"> <input class="custom-color"
+                    type="text" placeholder="Voer een kleur in"><br>
             </div>
         </div>
         <div class="custom-popup">
