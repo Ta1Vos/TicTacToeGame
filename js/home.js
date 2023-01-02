@@ -52,6 +52,11 @@ if (sessionStorage.getItem(`player2Name`)) {
     player2Input.value = sessionStorage.getItem(`player2Name`);
 }
 
+//Fetch the background image
+if (sessionStorage.getItem(`backgroundImageCode`)) {
+    backgroundImageCode = sessionStorage.getItem(`backgroundImageCode`);
+}
+
 //Regular values
 let settingsTabOpen = false;
 let aboutUsTabOpen = false;

@@ -175,6 +175,7 @@
     background-color: wheat;
     grid-area: g;
     font-size: 20px;
+    border-radius: 10px;
 }
 
 .computer-settings {
@@ -182,12 +183,14 @@
     grid-area: cs;
     font-size: 20px;
     text-align: left;
+    border-radius: 10px;
 }
 
 .background-settings {
     grid-area: bg;
     background-color: wheat;
     height: max-content;
+    border-radius: 10px;
 }
 
 .settings-tab {

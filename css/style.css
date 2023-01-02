@@ -73,11 +73,13 @@ body {
     margin-right: 100px;
     background-color: green;
     color: lime;
+    border-radius: 5px;
 }
 
 .reset-deny {
     background-color: red;
     color: rgb(255, 203, 107);
+    border-radius: 5px;
 }
 
 .reset-button {
@@ -119,14 +121,24 @@ body {
     grid-area: p1;
     background-color: lightblue;
     font-size: 20px;
+    padding: 5px;
+    border: 2px solid black;
+    border-radius: 10px;
 }
 
 .player2-info {
     grid-area: p2;
     background-color: rgb(240, 157, 157);
     font-size: 20px;
+    padding: 5px;
+    border: 2px solid black;
+    border-radius: 10px;
 }
 
 .placed-figure {
     opacity: 1;
+}
+
+.playfield-no-opacity {
+    background-color: rgba(255, 228, 196, 0.85);
 }

@@ -18,6 +18,7 @@ const player1NameLocation = document.querySelector(`.player1-loaded-name`);
 const player2NameLocation = document.querySelector(`.player2-loaded-name`);
 
 const body = document.querySelector(`body`);
+const playfieldGridCss = document.querySelector(`.tictactoe-field`);
 
 let customPopupIsOpen = false;
 
@@ -100,12 +101,14 @@ function closeCustomPopup() {
 
 function loadBackground() {
     backgroundImageCode = sessionStorage.getItem(`backgroundImageCode`);
-    if (backgroundImageCode == `1`) {
+    if (backgroundImageCode == `0`) {
+        playfieldGridCss.classList.add(`playfield-no-opacity`);
+    } else if (backgroundImageCode == `1`) {
         body.style.backgroundImage = `url(/img-bg/floating_city.jpg)`;
     } else if (backgroundImageCode == `2`) {
-        body.style.backgroundImage = undefined;
+        body.style.backgroundImage = `url(/img-bg/forest.jpg)`;
     } else if (backgroundImageCode == `3`) {
-        body.style.backgroundImage = undefined;
+        body.style.backgroundImage = `url(/img-bg/world.jpg)`;
     } else if (backgroundImageCode == `4`) {
         body.style.backgroundImage = `url(/img-bg/fireplace.gif)`;
     } else if (backgroundImageCode == `5`) {
@@ -116,6 +119,7 @@ function loadBackground() {
     } else if (backgroundImageCode == `7`) {
         //Should only contain a COLOR defined in a WORD
         body.style.background = sessionStorage.getItem(`customizedBackground`);
+        playfieldGridCss.classList.add(`playfield-no-opacity`);
     }
 }
 
