@@ -3,21 +3,22 @@
     display: grid;
     gap: 50px;
     grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: repeat(11, 40px);
+    grid-auto-rows: minmax(40px, auto);
     grid-template-areas: 
     ". . . tl tl tl tl tl tl . . ."
     ". . . tl tl tl tl tl tl . . sb"
+    ". g3 g3 . ht ht ht ht . . . ."
+    ". g3 g3 . ht ht ht ht . end . ."
+    ". g3 g3 . ht ht ht ht . end . ."
     ". . . . ht ht ht ht . . . ."
-    ". gi gi . ht ht ht ht . end . ."
-    ". gi gi . ht ht ht ht . end . ."
-    ". gi gi . ht ht ht ht . . . ."
-    ". . . . ht ht ht ht . . eb eb"
-    ". . . . . ps ps ps . . eb eb"
-    ". . . . . ps ps ps . . . ."
-    ". . . . pb pb pb pb . . . .";
+    ". g4 g4 . ht ht ht ht . . eb eb"
+    ". g4 g4 . ps ps ps ps . . eb eb"
+    ". g4 g4 . ps ps ps ps . . . ."
+    ". . . . pb pb pb pb . . . ."
+    ". . . . . . . . . . . .";
     background-color: wheat;
     width: 100%;
-    padding-top: 75px;
+    padding-top: 25px;
     height: 1000px;
     max-height: max-content;
 }
@@ -31,12 +32,17 @@
 }
 
 .game-image {
-    grid-area: gi;
+    grid-area: g3;
 }
 
-.game-image img {
+.game-image img, 
+.game-image-4x4 img {
     width: 100%;
     border: 2px solid black;
+}
+
+.game-image-4x4 {
+    grid-area: g4;
 }
 
 .title {
@@ -66,6 +72,7 @@
     text-align: left;
     border: 1px solid black;
     border-radius: 5px;
+    padding-left: 20%;
 }
 
 .player-names {
@@ -87,6 +94,7 @@
 .settings-button {
     grid-area: sb;
     cursor: pointer;
+    z-index: 50;
 }
 
 .about-us-button {
@@ -104,7 +112,7 @@
     "ct"
     "ct"
     "ct";
-    grid-column: 1 / gi-end;
+    grid-column: 1 / g3-end;
     grid-row: 2 / pb-end;
     gap: 15px;
     height: 850px;
@@ -144,7 +152,7 @@
     overflow-y: scroll;
     max-height: 750px;
     height: 750px;
-    grid-column: gi-end / end-start;
+    grid-column: g3-end / end-start;
     grid-row: ht-start / pb-end;
     z-index: 1;
     border-radius: 5px;
