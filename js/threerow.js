@@ -18,6 +18,7 @@ let player2Score = 0;
 //Computer values
 let computerPlaying = false;
 let computerDifficulty = 0;
+let middleIsTaken = false;
 
 //Sessionstorage loaders
 if (sessionStorage.getItem(`difficultySettings`)) {
@@ -194,6 +195,25 @@ function computerBlocking(currentNumber) {
     return arrayNumber;
 }
 
+function computerImpossibleBlocking(currentNumber) {
+    let availableSpace = [];
+    const requestedSpace = [0, 2, 6, 8];
+
+    //Finds available corners
+    for (i = 0; i < requestedSpace.length; i++) {
+        if (playField[requestedSpace[i]] == false) {
+            availableSpace.push(requestedSpace[i]);
+        }
+    }
+    debugger
+    //If there are no corners available it will block the user in a random field around it
+    if (availableSpace.length == 0) {
+        return computerBlocking(currentNumber);
+    } 
+    let pickedCorner = Math.floor(Math.random() * availableSpace.length);
+    return availableSpace[pickedCorner] + 1;
+}
+
 //This function searches for any ways the computer can lose
 function computerLosePossibility(currentNumber) {
     let loseDetected = false;
@@ -220,9 +240,11 @@ function computerLosePossibility(currentNumber) {
     if (loseDetected == false) {
         if (computerDifficulty <= 3) {
             return computerRandom();
-        } else if (computerDifficulty >= 4) {
+        } else if (computerDifficulty == 4) {
             return computerBlocking(currentNumber);
-        } 
+        } else if (computerDifficulty == 5) {
+            return computerImpossibleBlocking(currentNumber);
+        }
     }
 }
 
@@ -257,6 +279,19 @@ function computerWinPossibility(currentNumber) {
     }
 }
 
+function computerPlaceMiddle(currentNumber) {
+    if (middleIsTaken == false) {
+        if (playField[4] == false) {
+            middleIsTaken = true;
+            return 5;
+        }
+        middleIsTaken = true;
+        return computerPlaceMiddle(currentNumber);
+    } else {
+        return computerWinPossibility(currentNumber);
+    }
+}
+
 //Main engine for the computer, chooses what to do depending on the difficulty, then it will launch the right function.
 function computerTurn(currentNumber) {
     let fieldNumber;
@@ -268,8 +303,10 @@ function computerTurn(currentNumber) {
         fieldNumber = computerWinPossibility();
     } else if (computerDifficulty == 2) {
         fieldNumber = computerLosePossibility();
-    } else if (computerDifficulty >= 3) {
+    } else if (computerDifficulty == 3 || computerDifficulty == 4) {
         fieldNumber = computerWinPossibility(currentNumber);
+    } else if (computerDifficulty == 5) {
+        fieldNumber = computerPlaceMiddle(currentNumber);
     }
 
     const fieldItem = document.querySelector(`.block${fieldNumber}`);
@@ -343,11 +380,15 @@ function gameReset() {
             }
         }
 
+    //Game values
     playerWhoWon = undefined;
     winValue = false;
     blockClicked = false;
     fieldOccupation = 0;
     playField = [false, false, false, false, false, false, false, false, false];
+
+    //Computer values
+    middleIsTaken = false;
 
     for (i = 0; i < playFields.length; i++) {
         playFields[i].innerHTML = ``;

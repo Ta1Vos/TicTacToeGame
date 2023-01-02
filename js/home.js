@@ -137,9 +137,9 @@ function redirectToGame() {
     gameReadyForLaunch = true;
 }
 
-//Loops in which all the setting-options are put into the values
+//Loops in which all the setting radio options are put into the values
 function loadButtonValues() {
-    //This loop notes which radio button is active
+    //This loop notes which radio button is active of the computer difficulty
     for (i = 0; i < difficultyButtons.length; i++) {
         const currentButton = document.querySelector(`input.difficulty-${i}`);
         if (currentButton.checked == true) {
@@ -151,7 +151,6 @@ function loadButtonValues() {
         const currentButton = document.querySelector(`input.grid-${i}`);
         if (currentButton.checked == true) {
             gridThree = currentButton.value;
-            console.log(`knop ${i}`)
         }
     }
     //Player amount
