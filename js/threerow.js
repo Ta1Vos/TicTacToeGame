@@ -19,15 +19,16 @@ let player2Score = 0;
 let computerPlaying = false;
 let computerDifficulty = 0;
 let middleIsTaken = false;
+let simulationLoopCount = 0;
 
 //Sessionstorage loaders
 if (sessionStorage.getItem(`difficultySettings`)) {
     computerDifficulty = Number(sessionStorage.getItem(`difficultySettings`));
 }
 
-if (sessionStorage.getItem(`Twoplayers`) == false) {
+if (sessionStorage.getItem(`Twoplayers`) == `false`) {
     twoPlayers = false;
-} else if (sessionStorage.getItem(`Twoplayers`) == true) {
+} else if (sessionStorage.getItem(`Twoplayers`) == `true`) {
     twoPlayers = true;
 }
 
@@ -188,22 +189,6 @@ function computerBlocking(currentNumber) {
 }
 
 function computerImpossibleBlocking(currentNumber) {
-    // let availableSpace = [];
-    // const requestedSpace = [0, 2, 6, 8];
-
-    // //Finds available corners
-    // for (i = 0; i < requestedSpace.length; i++) {
-    //     if (playField[requestedSpace[i]] == false) {
-    //         availableSpace.push(requestedSpace[i]);
-    //     }
-    // }
-    // debugger
-    // //If there are no corners available it will block the user in a random field around it
-    // if (availableSpace.length == 0) {
-    //     return computerBlocking(currentNumber);
-    // } 
-    // let pickedCorner = Math.floor(Math.random() * availableSpace.length);
-    // return availableSpace[pickedCorner] + 1;
     let generatedNumber = computerSimulation();
     if (generatedNumber !== Number) {
         generatedNumber = computerBlocking(currentNumber);
@@ -358,8 +343,11 @@ function blockEnter(currentBlock) {
 
 //Turns the X/O hover off
 function blockLeave(fieldItem, blockNumber) {
+    console.log(`out`)
     if (playField[(blockNumber - 1)] != `X` && playField[(blockNumber - 1)] != `O`) {
+        console.log(`middle`)
         if (blockClicked == false) {
+            console.log(`inner`)
             document.querySelector(`.block${blockNumber}`).innerHTML = ``;
         }
     }
@@ -403,7 +391,7 @@ function gameReset() {
     }
 }
 
-function checkSimulationWin(symbol, simulatedPlayfield) {
+function checkSimulationWin(turn, simulatedPlayfield) {
     for (i = 0; i <= 7; i++) {
         //Gets the value from the object
         const currentRow = winCondition[i];
@@ -412,14 +400,14 @@ function checkSimulationWin(symbol, simulatedPlayfield) {
         let nTwo = currentRow[1];
         let nThree = currentRow[2];
 
-        if (simulatedPlayfield[nOne] == symbol && simulatedPlayfield[nTwo] == symbol && simulatedPlayfield[nThree] == symbol) {
+        if (simulatedPlayfield[nOne] == turn && simulatedPlayfield[nTwo] == turn && simulatedPlayfield[nThree] == turn) {
             turnNotFound = false;
-            let winArray = [symbol, nOne, nTwo, nThree];
+            let winArray = [turn, nOne, nTwo, nThree];
             
-            if (symbol == `X`) {
+            if (turn == `X`) {
                 console.log(`X works`)
                 return winArray;
-            } else if (symbol == `O`) {
+            } else if (turn == `O`) {
                 return winArray;
             } else {
                 return undefined;
@@ -428,8 +416,9 @@ function checkSimulationWin(symbol, simulatedPlayfield) {
     }
 }
 
+//Computer generates an amount of games with random moves, when 
 function computerSimulation() {
-    let simulatedPlayfield = [`X`, `X`, false, `O`, false, `O`, `X`, false, false];
+    let simulatedPlayfield = playField.slice();
     let turnNotFound = true;
     let simFieldOccupation = fieldOccupation;
 
@@ -459,19 +448,24 @@ function computerSimulation() {
                 let randomNumberInArray = Math.floor(Math.random() * availableSpace.length);
                 turnNotFound = false;
                 console.log(`Entire array: ` + availableSpace);
+                simulationLoopCount = 0;
                 return (availableSpace[randomNumberInArray] + 1);
             }
         }
 
         if (simFieldOccupation >= 10) {
-            simulatedPlayfield = playField;
+            simulatedPlayfield = playField.slice();
             simFieldOccupation = fieldOccupation;
         }
         loopCount++;
     }
 
-    console.log(`Loop amount exceeded`);
-    computerSimulation();
+    if (simulationLoopCount < 25) {
+        simulationLoopCount++;
+        computerSimulation();
+    } else {
+        return computerRandom();
+    }
 }
 
 //Function finds values that are listed as 'false' within an array

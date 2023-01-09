@@ -162,7 +162,7 @@ function loadButtonValues() {
     for (i = 0; i < playerTickboxes.length; i++) {
         const currentButton = document.querySelector(`input.player-${i}`);
         if (currentButton.checked == true) {
-            twoPlayers = Boolean(currentButton.value);
+            twoPlayers = currentButton.value;
         }
     }
     //Background image selection
