@@ -143,17 +143,9 @@ function checkWin(symbol) {
 //This function basically gets a random available fieldspace
 function computerRandom() {
     let selectedFieldNumber;
-    let guessedArrayNumber;
-    const savingArray = [];
-    //The for puts available space in an array and will then choose out of it.
-    for (let i = 0; i < playField.length; i++) {
-        if (playField[i] == false) {
-            savingArray.push(i);
-        }
-    }
-
-    guessedArrayNumber = Math.floor(Math.random() * (savingArray.length));
-    selectedFieldNumber = savingArray[guessedArrayNumber] + 1;
+    
+    const pickedNumber = randomEmptyPickInArray(playField);
+    selectedFieldNumber = pickedNumber + 1;
 
     return selectedFieldNumber;
 }
@@ -196,22 +188,28 @@ function computerBlocking(currentNumber) {
 }
 
 function computerImpossibleBlocking(currentNumber) {
-    let availableSpace = [];
-    const requestedSpace = [0, 2, 6, 8];
+    // let availableSpace = [];
+    // const requestedSpace = [0, 2, 6, 8];
 
-    //Finds available corners
-    for (i = 0; i < requestedSpace.length; i++) {
-        if (playField[requestedSpace[i]] == false) {
-            availableSpace.push(requestedSpace[i]);
-        }
+    // //Finds available corners
+    // for (i = 0; i < requestedSpace.length; i++) {
+    //     if (playField[requestedSpace[i]] == false) {
+    //         availableSpace.push(requestedSpace[i]);
+    //     }
+    // }
+    // debugger
+    // //If there are no corners available it will block the user in a random field around it
+    // if (availableSpace.length == 0) {
+    //     return computerBlocking(currentNumber);
+    // } 
+    // let pickedCorner = Math.floor(Math.random() * availableSpace.length);
+    // return availableSpace[pickedCorner] + 1;
+    let generatedNumber = computerSimulation();
+    if (generatedNumber !== Number) {
+        generatedNumber = computerBlocking(currentNumber);
     }
-    debugger
-    //If there are no corners available it will block the user in a random field around it
-    if (availableSpace.length == 0) {
-        return computerBlocking(currentNumber);
-    } 
-    let pickedCorner = Math.floor(Math.random() * availableSpace.length);
-    return availableSpace[pickedCorner] + 1;
+    console.log(generatedNumber);
+    return generatedNumber;
 }
 
 //This function searches for any ways the computer can lose
@@ -403,6 +401,105 @@ function gameReset() {
     if (playerTurn == 2 && twoPlayers == false) {
         computerTurn();
     }
+}
+
+function checkSimulationWin(symbol, simulatedPlayfield) {
+    for (i = 0; i <= 7; i++) {
+        //Gets the value from the object
+        const currentRow = winCondition[i];
+        //n = number
+        let nOne = currentRow[0];
+        let nTwo = currentRow[1];
+        let nThree = currentRow[2];
+
+        if (simulatedPlayfield[nOne] == symbol && simulatedPlayfield[nTwo] == symbol && simulatedPlayfield[nThree] == symbol) {
+            turnNotFound = false;
+            let winArray = [symbol, nOne, nTwo, nThree];
+            
+            if (symbol == `X`) {
+                console.log(`X works`)
+                return winArray;
+            } else if (symbol == `O`) {
+                return winArray;
+            } else {
+                return undefined;
+            }
+        }
+    }
+}
+
+function computerSimulation() {
+    let simulatedPlayfield = [`X`, `X`, false, `O`, false, `O`, `X`, false, false];
+    let turnNotFound = true;
+    let simFieldOccupation = fieldOccupation;
+
+    let Xturn;
+    let Oturn;
+    let symbolWon;
+
+    let loopCount = 0;
+
+    while (turnNotFound == true && loopCount < 10000) {
+        Xturn = randomEmptyPickInArray(simulatedPlayfield);
+        simulatedPlayfield[Xturn] = `X`;
+        symbolWon = checkSimulationWin(`X`, simulatedPlayfield);
+        simFieldOccupation++;
+
+        if (symbolWon == undefined) {
+            Oturn = randomEmptyPickInArray(simulatedPlayfield);
+            simulatedPlayfield[Oturn] = `O`;
+            symbolWon = checkSimulationWin(`O`, simulatedPlayfield);
+            simFieldOccupation++;
+        }
+
+        if (symbolWon != undefined) {
+            if (symbolWon[0] == `X`) {
+                let loseArray = [symbolWon[1], symbolWon[2], symbolWon[3]];
+                const availableSpace = findUnoccupiedSpace(loseArray);
+                let randomNumberInArray = Math.floor(Math.random() * availableSpace.length);
+                turnNotFound = false;
+                console.log(`Entire array: ` + availableSpace);
+                return (availableSpace[randomNumberInArray] + 1);
+            }
+        }
+
+        if (simFieldOccupation >= 10) {
+            simulatedPlayfield = playField;
+            simFieldOccupation = fieldOccupation;
+        }
+        loopCount++;
+    }
+
+    console.log(`Loop amount exceeded`);
+    computerSimulation();
+}
+
+//Function finds values that are listed as 'false' within an array
+function findUnoccupiedSpace(givenArray) {
+    const savingArray = [];
+    //The for puts available space in an array and will then choose out of it.
+    for (let i = 0; i < givenArray.length; i++) {
+        if (playField[givenArray[i]] == false) {
+            savingArray.push(i);
+        }
+    }
+
+    return savingArray;
+}
+
+//Function finds 'false' within an array and picks a random false out of it.
+function randomEmptyPickInArray(givenArray) {
+    let guessedArrayNumber;
+    const savingArray = [];
+    //The for puts available space in an array and will then choose out of it.
+    for (let i = 0; i < givenArray.length; i++) {
+        if (givenArray[i] == false) {
+            savingArray.push(i);
+        }
+    }
+
+    guessedArrayNumber = Math.floor(Math.random() * (savingArray.length));
+    return savingArray[guessedArrayNumber];
 }
 
 for (i = 0; i < playFields.length; i++) {
