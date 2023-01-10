@@ -426,7 +426,6 @@ function computerSimulation() {
     let symbolWon;
 
     let loopCount = 0;
-    let tempArray;
 
     while (turnNotFound == true && loopCount < 10000) {
         Xturn = randomEmptyPickInArray(simulatedPlayfield);
@@ -452,7 +451,7 @@ function computerSimulation() {
                 //The loop checks if the combination has been noted already, if it is it will only increase a value to spare up memory.
                 debugger
                 for (let i = 0; i < loseCombinations.length; i++) {
-                    tempArray = loseCombinations[i];
+                    let tempArray = loseCombinations[i];
                     console.log(loseArray)
                     console.log(tempArray)
                     //If the combinations are equal to the combinations in the saved loseCombination it will only increase a single value
@@ -461,11 +460,24 @@ function computerSimulation() {
                         tempArray[3]++;
                         loseNotFound = false;
                         break;
-                    } else {
-                        console.log(`Hier wordt gekopieerd!`);
-                        console.log(i)
-                        loseCombinations.push(loseArray);
-                        break;
+                    }
+                }
+
+                if (loseNotFound == true) {
+                    console.log(`Hier wordt gekopieerd!`);
+                    console.log(i)
+                    loseCombinations.push(loseArray);
+                    for (let i = 0; i < loseCombinations.length; i++) {
+                        let tempArray = loseCombinations[i];
+                        console.log(loseArray)
+                        console.log(tempArray)
+                        //If the combinations are equal to the combinations in the saved loseCombination it will only increase a single value
+                        if (loseArray[0] == tempArray[0] && loseArray[1] == tempArray[1] && loseArray[2] == tempArray[2]) {
+                            console.log(`Hier wordt toegevoegd`)
+                            tempArray[3]++;
+                            loseNotFound = false;
+                            break;
+                        }
                     }
                 }
             }
