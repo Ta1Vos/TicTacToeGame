@@ -446,21 +446,26 @@ function computerSimulation() {
                 //Combination in which the computer loses
                 let loseArray = [symbolWon[1], symbolWon[2], symbolWon[3], 0];
                 if (loseCombinations.length == 0) {
-                    loseArray[3] - 1;
                     loseCombinations.push(loseArray);
                     debugger
                 }
                 //The loop checks if the combination has been noted already, if it is it will only increase a value to spare up memory.
+                debugger
                 for (let i = 0; i < loseCombinations.length; i++) {
                     tempArray = loseCombinations[i];
+                    console.log(loseArray)
+                    console.log(tempArray)
                     //If the combinations are equal to the combinations in the saved loseCombination it will only increase a single value
                     if (loseArray[0] == tempArray[0] && loseArray[1] == tempArray[1] && loseArray[2] == tempArray[2]) {
+                        console.log(`Hier wordt toegevoegd`)
                         tempArray[3]++;
-                        loseCombinations[i] = tempArray;
                         loseNotFound = false;
-                        debugger
+                        break;
                     } else {
+                        console.log(`Hier wordt gekopieerd!`);
+                        console.log(i)
                         loseCombinations.push(loseArray);
+                        break;
                     }
                 }
             }
