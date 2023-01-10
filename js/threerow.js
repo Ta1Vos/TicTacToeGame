@@ -144,7 +144,7 @@ function checkWin(symbol) {
 //This function basically gets a random available fieldspace
 function computerRandom() {
     let selectedFieldNumber;
-    
+
     const pickedNumber = randomEmptyPickInArray(playField);
     selectedFieldNumber = pickedNumber + 1;
 
@@ -179,7 +179,7 @@ function computerBlocking(currentNumber) {
                 fieldNotOccupied = true;
             }
         }
-    } 
+    }
 
     //If availableSpace is empty, it means that there is no available space and that the computer will have to place randomly.
     if (Xstarts == false || availableSpace.length == 0) {
@@ -258,7 +258,7 @@ function computerWinPossibility(currentNumber) {
             return computerLosePossibility(currentNumber);
         } else {
             return computerRandom();
-        } 
+        }
     }
 }
 
@@ -343,11 +343,8 @@ function blockEnter(currentBlock) {
 
 //Turns the X/O hover off
 function blockLeave(fieldItem, blockNumber) {
-    console.log(`out`)
     if (playField[(blockNumber - 1)] != `X` && playField[(blockNumber - 1)] != `O`) {
-        console.log(`middle`)
         if (blockClicked == false) {
-            console.log(`inner`)
             document.querySelector(`.block${blockNumber}`).innerHTML = ``;
         }
     }
@@ -357,14 +354,14 @@ function blockLeave(fieldItem, blockNumber) {
 //Resets the game, puts values back in their standard
 function gameReset() {
     computerPlaying = false;
-    
-        if (winValue == true) {
-            if (playerWhoWon == `X`) {
-                Xstarts = false;
-            } else if (playerWhoWon == `O`) {
-                Xstarts = true;
-            }
+
+    if (winValue == true) {
+        if (playerWhoWon == `X`) {
+            Xstarts = false;
+        } else if (playerWhoWon == `O`) {
+            Xstarts = true;
         }
+    }
 
     //Game values
     playerWhoWon = undefined;
@@ -391,6 +388,7 @@ function gameReset() {
     }
 }
 
+//Just like the windetection for the game, this only has a whole different function.
 function checkSimulationWin(turn, simulatedPlayfield) {
     for (i = 0; i <= 7; i++) {
         //Gets the value from the object
@@ -403,9 +401,8 @@ function checkSimulationWin(turn, simulatedPlayfield) {
         if (simulatedPlayfield[nOne] == turn && simulatedPlayfield[nTwo] == turn && simulatedPlayfield[nThree] == turn) {
             turnNotFound = false;
             let winArray = [turn, nOne, nTwo, nThree];
-            
+
             if (turn == `X`) {
-                console.log(`X works`)
                 return winArray;
             } else if (turn == `O`) {
                 return winArray;
@@ -420,13 +417,16 @@ function checkSimulationWin(turn, simulatedPlayfield) {
 function computerSimulation() {
     let simulatedPlayfield = playField.slice();
     let turnNotFound = true;
+    let loseNotFound = true;
     let simFieldOccupation = fieldOccupation;
+    let loseCombinations = [];
 
     let Xturn;
     let Oturn;
     let symbolWon;
 
     let loopCount = 0;
+    let tempArray;
 
     while (turnNotFound == true && loopCount < 10000) {
         Xturn = randomEmptyPickInArray(simulatedPlayfield);
@@ -443,28 +443,58 @@ function computerSimulation() {
 
         if (symbolWon != undefined) {
             if (symbolWon[0] == `X`) {
-                let loseArray = [symbolWon[1], symbolWon[2], symbolWon[3]];
-                const availableSpace = findUnoccupiedSpace(loseArray);
-                let randomNumberInArray = Math.floor(Math.random() * availableSpace.length);
-                turnNotFound = false;
-                console.log(`Entire array: ` + availableSpace);
-                simulationLoopCount = 0;
-                return (availableSpace[randomNumberInArray] + 1);
+                //Combination in which the computer loses
+                let loseArray = [symbolWon[1], symbolWon[2], symbolWon[3], 0];
+                if (loseCombinations.length == 0) {
+                    loseArray[3] - 1;
+                    loseCombinations.push(loseArray);
+                    debugger
+                }
+                //The loop checks if the combination has been noted already, if it is it will only increase a value to spare up memory.
+                for (let i = 0; i < loseCombinations.length; i++) {
+                    tempArray = loseCombinations[i];
+                    //If the combinations are equal to the combinations in the saved loseCombination it will only increase a single value
+                    if (loseArray[0] == tempArray[0] && loseArray[1] == tempArray[1] && loseArray[2] == tempArray[2]) {
+                        tempArray[3]++;
+                        loseCombinations[i] = tempArray;
+                        loseNotFound = false;
+                        debugger
+                    } else {
+                        loseCombinations.push(loseArray);
+                    }
+                }
             }
         }
 
-        if (simFieldOccupation >= 10) {
+        if (simFieldOccupation >= 10 || loseNotFound == false) {
             simulatedPlayfield = playField.slice();
             simFieldOccupation = fieldOccupation;
+            loseNotFound = true;
         }
         loopCount++;
     }
 
-    if (simulationLoopCount < 25) {
+    if (simulationLoopCount < 2) {
         simulationLoopCount++;
         computerSimulation();
-    } else {
+    } else if (loseCombinations.length <= 0) {
+        console.log(`NO LOSE METHOD HAS BEEN FOUND`);
         return computerRandom();
+    } else {
+        let mostLosesArray = [undefined, undefined, undefined, 0];
+        for (let i = 0; i < loseCombinations.length; i++) {
+            const tempArray = loseCombinations[i];
+            console.log(`array${i}: ${tempArray}`)
+            if (tempArray[3] > mostLosesArray) {
+                mostLosesArray = tempArray.slice();
+            }
+        }
+
+        const availableSpace = findUnoccupiedSpace(mostLosesArray);
+        let randomNumberInArray = Math.floor(Math.random() * availableSpace.length);
+        console.log(`Entire array: ` + availableSpace);
+        simulationLoopCount = 0;
+        return (availableSpace[randomNumberInArray] + 1);
     }
 }
 
