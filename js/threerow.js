@@ -20,6 +20,8 @@ let computerPlaying = false;
 let computerDifficulty = 0;
 let middleIsTaken = false;
 let simulationLoopCount = 0;
+//This array is used for the simulation to recognize loses
+let gameLoseList = [];
 
 //Sessionstorage loaders
 if (sessionStorage.getItem(`difficultySettings`)) {
@@ -189,10 +191,11 @@ function computerBlocking(currentNumber) {
 }
 
 function computerImpossibleBlocking(currentNumber) {
-    let generatedNumber = computerSimulation();
-    if (generatedNumber !== Number) {
+    let generatedNumber = computerSimulation(currentNumber);
+    if (generatedNumber === undefined) {
         generatedNumber = computerBlocking(currentNumber);
     }
+
     console.log(generatedNumber);
     return generatedNumber;
 }
@@ -267,6 +270,11 @@ function computerPlaceMiddle(currentNumber) {
         if (playField[4] == false) {
             middleIsTaken = true;
             return 5;
+        } else if (playField[4] == `X`) {
+            middleIsTaken = true;
+            const freeCornerSpace = findUnoccupiedSpace([0, 2, 6, 8]);
+            const randomSpace = Math.floor(Math.random() * freeCornerSpace.length);
+            return freeCornerSpace[randomSpace] + 1;
         }
         middleIsTaken = true;
         return computerPlaceMiddle(currentNumber);
@@ -292,6 +300,7 @@ function computerTurn(currentNumber) {
         fieldNumber = computerPlaceMiddle(currentNumber);
     }
 
+    //Saves the field location, adds in every function by one as the div count starts at 1
     const fieldItem = document.querySelector(`.block${fieldNumber}`);
     setTimeout(() => {
         placeFigure(fieldItem, fieldNumber);
@@ -415,6 +424,7 @@ function checkSimulationWin(turn, simulatedPlayfield) {
 
 //Computer generates an amount of games with random moves, when 
 function computerSimulation() {
+    debugger
     let simulatedPlayfield = playField.slice();
     let turnNotFound = true;
     let loseNotFound = true;
@@ -427,7 +437,7 @@ function computerSimulation() {
 
     let loopCount = 0;
 
-    while (turnNotFound == true && loopCount < 10000) {
+    while (turnNotFound == true && loopCount < 15000) {
         Xturn = randomEmptyPickInArray(simulatedPlayfield);
         simulatedPlayfield[Xturn] = `X`;
         symbolWon = checkSimulationWin(`X`, simulatedPlayfield);
@@ -444,19 +454,17 @@ function computerSimulation() {
             if (symbolWon[0] == `X`) {
                 //Combination in which the computer loses
                 let loseArray = [symbolWon[1], symbolWon[2], symbolWon[3], 0];
+
+                //This if statement only activates the first time when loseCombinations is empty.
                 if (loseCombinations.length == 0) {
                     loseCombinations.push(loseArray);
-                    debugger
                 }
+
                 //The loop checks if the combination has been noted already, if it is it will only increase a value to spare up memory.
-                debugger
                 for (let i = 0; i < loseCombinations.length; i++) {
                     let tempArray = loseCombinations[i];
-                    console.log(loseArray)
-                    console.log(tempArray)
                     //If the combinations are equal to the combinations in the saved loseCombination it will only increase a single value
                     if (loseArray[0] == tempArray[0] && loseArray[1] == tempArray[1] && loseArray[2] == tempArray[2]) {
-                        console.log(`Hier wordt toegevoegd`)
                         tempArray[3]++;
                         loseNotFound = false;
                         break;
@@ -464,16 +472,11 @@ function computerSimulation() {
                 }
 
                 if (loseNotFound == true) {
-                    console.log(`Hier wordt gekopieerd!`);
-                    console.log(i)
                     loseCombinations.push(loseArray);
                     for (let i = 0; i < loseCombinations.length; i++) {
                         let tempArray = loseCombinations[i];
-                        console.log(loseArray)
-                        console.log(tempArray)
                         //If the combinations are equal to the combinations in the saved loseCombination it will only increase a single value
                         if (loseArray[0] == tempArray[0] && loseArray[1] == tempArray[1] && loseArray[2] == tempArray[2]) {
-                            console.log(`Hier wordt toegevoegd`)
                             tempArray[3]++;
                             loseNotFound = false;
                             break;
@@ -491,27 +494,61 @@ function computerSimulation() {
         loopCount++;
     }
 
-    if (simulationLoopCount < 2) {
-        simulationLoopCount++;
-        computerSimulation();
-    } else if (loseCombinations.length <= 0) {
+    //If there are barely any results there won't be many possibilities anymore, so the computer can simply place randomly.
+    if (loseCombinations.length <= 1) {
         console.log(`NO LOSE METHOD HAS BEEN FOUND`);
-        return computerRandom();
+        return undefined;
     } else {
-        let mostLosesArray = [undefined, undefined, undefined, 0];
+        let losePossibilities = [];
+        let totalComparisons;
+        //This loop removes occupied spaces and ignores arrays of 3
         for (let i = 0; i < loseCombinations.length; i++) {
-            const tempArray = loseCombinations[i];
+            const tempArray = findUnoccupiedSpace(loseCombinations[i]);
             console.log(`array${i}: ${tempArray}`)
-            if (tempArray[3] > mostLosesArray) {
-                mostLosesArray = tempArray.slice();
+            if (tempArray.length == 2) {
+                const tempValue = loseCombinations[i];
+                losePossibilities.push(tempArray.slice());
             }
         }
 
-        const availableSpace = findUnoccupiedSpace(mostLosesArray);
-        let randomNumberInArray = Math.floor(Math.random() * availableSpace.length);
-        console.log(`Entire array: ` + availableSpace);
-        simulationLoopCount = 0;
-        return (availableSpace[randomNumberInArray] + 1);
+        debugger
+        /* This loop compares arrays with eachother and notes if numbers that are found are the same in other arrays, these would make the computer lose next turn!
+        i = current array that is being compared. x = the array that the main is being compared to.
+        (this loop picks out every array) */
+        for (let i = 0; i < losePossibilities.length; i++) {
+            const tempArray = losePossibilities[i];
+            //This loop compares both arrays and makes sure the same wont be compared
+            for (let x = 0; x < losePossibilities.length; x++) {
+                const currentArray = losePossibilities[x];
+                console.log(`${tempArray} | ${currentArray}`);
+                if (tempArray != losePossibilities[x]) {
+                    //This loop compares the exact numbers
+                    for (let y = 0; y < tempArray.length; y++) {
+                        const tempArrayNumber = tempArray[y];
+                        if (tempArrayNumber == currentArray[0]) {
+                            totalComparisons = tempArrayNumber;
+                            console.log(`Comparison: ${totalComparisons}`);
+                            break;
+                        } else if (tempArrayNumber == currentArray[1]) {
+                            totalComparisons = tempArrayNumber;
+                            console.log(`Comparison: ${totalComparisons}`);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        if (totalComparisons === undefined) {
+            return undefined;
+        }
+        return totalComparisons + 1;
+
+        // const availableSpace = findUnoccupiedSpace(mostLosesArray);
+        // let randomNumberInArray = Math.floor(Math.random() * availableSpace.length);
+        // console.log(`Entire array: ` + availableSpace);
+        // simulationLoopCount = 0;
+        // return (availableSpace[randomNumberInArray] + 1);
     }
 }
 
@@ -521,7 +558,7 @@ function findUnoccupiedSpace(givenArray) {
     //The for puts available space in an array and will then choose out of it.
     for (let i = 0; i < givenArray.length; i++) {
         if (playField[givenArray[i]] == false) {
-            savingArray.push(i);
+            savingArray.push(givenArray[i]);
         }
     }
 
