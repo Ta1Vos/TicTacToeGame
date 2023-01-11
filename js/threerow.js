@@ -194,6 +194,29 @@ function computerBlocking(currentNumber) {
 }
 
 function computerImpossibleBlocking(currentNumber) {
+    const freeCornerSpace = findUnoccupiedSpace(corners);
+
+    if (freeCornerSpace.length == 2 && firstTurn[1] == false) {
+        let xCount = 0;
+
+        for (let i = 0; i < corners.length; i++) {
+            if (playField[corners[i]] == `X`) {
+                xCount++;
+            }
+        }
+
+        if (xCount == 2) {
+            const freeEdgeSpace = findUnoccupiedSpace(edges);
+            const randomSpace = Math.floor(Math.random() * freeEdgeSpace.length);
+            firstTurn[1] = true;
+            return freeEdgeSpace[randomSpace] + 1;
+        }
+    }
+
+    if (firstTurn[0] == true && freeCornerSpace.length == 2) {
+        return placeCorner();
+    }
+
     let generatedNumber = computerSimulation(currentNumber);
     if (generatedNumber === undefined) {
         generatedNumber = computerBlocking(currentNumber);
@@ -273,33 +296,13 @@ function computerPlaceMiddle(currentNumber) {
             firstTurn[0] = true;
             return 5;
         } else if (playField[4] == `X`) {
-            const freeCornerSpace = findUnoccupiedSpace(corners);
             firstTurn[0] = true;
-            const randomSpace = Math.floor(Math.random() * freeCornerSpace.length);
-            return freeCornerSpace[randomSpace] + 1;
+            return placeCorner();
         }
         firstTurn[0] = true;
         return computerPlaceMiddle(currentNumber);
-    } else {
-        const freeCornerSpace = findUnoccupiedSpace(corners);
-        if (freeCornerSpace.length == 2 && firstTurn[1] == false) {
-            let xCount = 0;
-
-            for (let i = 0; i < corners.length; i++) {
-                if (playField[corners[i]] == `X`) {
-                    xCount++;
-                }
-            }
-
-            if (xCount == 2) {
-                const freeEdgeSpace = findUnoccupiedSpace(edges);
-                const randomSpace = Math.floor(Math.random() * freeEdgeSpace.length);
-                firstTurn[1] = true;
-                return freeEdgeSpace[randomSpace] + 1;
-            }
-        }
-        return computerWinPossibility(currentNumber);
     }
+    return computerWinPossibility(currentNumber);
 }
 
 //Main engine for the computer, chooses what to do depending on the difficulty, then it will launch the right function.
@@ -324,6 +327,12 @@ function computerTurn(currentNumber) {
     setTimeout(() => {
         placeFigure(fieldItem, fieldNumber);
     }, 1);
+}
+
+function placeCorner() {
+    const freeCornerSpace = findUnoccupiedSpace(corners);
+    const randomSpace = Math.floor(Math.random() * freeCornerSpace.length);
+    return freeCornerSpace[randomSpace] + 1;
 }
 
 //Places an O or an X depending on current turn
@@ -521,7 +530,7 @@ function computerSimulation() {
         //This loop removes occupied spaces and ignores arrays of 3
         for (let i = 0; i < loseCombinations.length; i++) {
             const tempArray = findUnoccupiedSpace(loseCombinations[i]);
-            console.log(`array${i}: ${tempArray}`)
+
             if (tempArray.length == 2) {
                 losePossibilities.push(tempArray.slice());
             }
@@ -535,18 +544,16 @@ function computerSimulation() {
             //This loop compares both arrays and makes sure the same wont be compared
             for (let x = 0; x < losePossibilities.length; x++) {
                 const currentArray = losePossibilities[x];
-                console.log(`${tempArray} | ${currentArray}`);
+
                 if (tempArray != losePossibilities[x]) {
                     //This loop compares the exact numbers
                     for (let y = 0; y < tempArray.length; y++) {
                         const tempArrayNumber = tempArray[y];
                         if (tempArrayNumber == currentArray[0]) {
                             totalComparisons = tempArrayNumber;
-                            console.log(`Comparison: ${totalComparisons}`);
                             break;
                         } else if (tempArrayNumber == currentArray[1]) {
                             totalComparisons = tempArrayNumber;
-                            console.log(`Comparison: ${totalComparisons}`);
                             break;
                         }
                     }
