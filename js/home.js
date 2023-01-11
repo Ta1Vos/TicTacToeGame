@@ -40,8 +40,6 @@ if (sessionStorage.getItem(`Twoplayers`) == `false`) {
 //Fetch the computer difficulty
 if (sessionStorage.getItem(`difficultySettings`)) {
     computerDifficulty = Number(sessionStorage.getItem(`difficultySettings`));
-    twoPlayers = Boolean(sessionStorage.getItem(`Twoplayers`));
-    gridThree = sessionStorage.getItem(`TicTacToeGrid`);
 }
 
 //Fetch the playerNames
@@ -113,7 +111,6 @@ function closeCustomPopup() {
 
 //Start button function, saves everything before continuing to the game
 function redirectToGame() {
-    debugger;
     let tooLongUsernames = [false, false];
     if (player1Input.value.length > 25) {
         tooLongUsernames[0] = true;
@@ -185,7 +182,6 @@ function loadButtonValues() {
                 //IF the user picked a custom color
                 } else if (backgroundImageCode == 7) {
                     console.log(customBackgroundColor.value)
-                    debugger
                     sessionStorage.setItem(`customizedBackground`, customBackgroundColor.value);
                 }
             }
