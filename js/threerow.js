@@ -1,5 +1,8 @@
 const playFields = document.querySelectorAll(".grid-item");
 
+//Playfield values
+const corners = [0, 2, 6, 8];
+const edges = [1, 3, 5, 7];
 //Game values
 let playField = [false, false, false, false, false, false, false, false, false];
 let blockClicked = false;
@@ -18,7 +21,7 @@ let player2Score = 0;
 //Computer values
 let computerPlaying = false;
 let computerDifficulty = 0;
-let middleIsTaken = false;
+let firstTurn = [false, false];
 let simulationLoopCount = 0;
 //This array is used for the simulation to recognize loses
 let gameLoseList = [];
@@ -196,7 +199,6 @@ function computerImpossibleBlocking(currentNumber) {
         generatedNumber = computerBlocking(currentNumber);
     }
 
-    console.log(generatedNumber);
     return generatedNumber;
 }
 
@@ -266,19 +268,36 @@ function computerWinPossibility(currentNumber) {
 }
 
 function computerPlaceMiddle(currentNumber) {
-    if (middleIsTaken == false) {
+    if (firstTurn[0] == false) {
         if (playField[4] == false) {
-            middleIsTaken = true;
+            firstTurn[0] = true;
             return 5;
         } else if (playField[4] == `X`) {
-            middleIsTaken = true;
-            const freeCornerSpace = findUnoccupiedSpace([0, 2, 6, 8]);
+            const freeCornerSpace = findUnoccupiedSpace(corners);
+            firstTurn[0] = true;
             const randomSpace = Math.floor(Math.random() * freeCornerSpace.length);
             return freeCornerSpace[randomSpace] + 1;
         }
-        middleIsTaken = true;
+        firstTurn[0] = true;
         return computerPlaceMiddle(currentNumber);
     } else {
+        const freeCornerSpace = findUnoccupiedSpace(corners);
+        if (freeCornerSpace.length == 2 && firstTurn[1] == false) {
+            let xCount = 0;
+
+            for (let i = 0; i < corners.length; i++) {
+                if (playField[corners[i]] == `X`) {
+                    xCount++;
+                }
+            }
+
+            if (xCount == 2) {
+                const freeEdgeSpace = findUnoccupiedSpace(edges);
+                const randomSpace = Math.floor(Math.random() * freeEdgeSpace.length);
+                firstTurn[1] = true;
+                return freeEdgeSpace[randomSpace] + 1;
+            }
+        }
         return computerWinPossibility(currentNumber);
     }
 }
@@ -380,7 +399,7 @@ function gameReset() {
     playField = [false, false, false, false, false, false, false, false, false];
 
     //Computer values
-    middleIsTaken = false;
+    firstTurn = [false, false];
 
     for (i = 0; i < playFields.length; i++) {
         playFields[i].innerHTML = ``;
@@ -424,7 +443,6 @@ function checkSimulationWin(turn, simulatedPlayfield) {
 
 //Computer generates an amount of games with random moves, when 
 function computerSimulation() {
-    debugger
     let simulatedPlayfield = playField.slice();
     let turnNotFound = true;
     let loseNotFound = true;
@@ -496,7 +514,6 @@ function computerSimulation() {
 
     //If there are barely any results there won't be many possibilities anymore, so the computer can simply place randomly.
     if (loseCombinations.length <= 1) {
-        console.log(`NO LOSE METHOD HAS BEEN FOUND`);
         return undefined;
     } else {
         let losePossibilities = [];
@@ -506,12 +523,10 @@ function computerSimulation() {
             const tempArray = findUnoccupiedSpace(loseCombinations[i]);
             console.log(`array${i}: ${tempArray}`)
             if (tempArray.length == 2) {
-                const tempValue = loseCombinations[i];
                 losePossibilities.push(tempArray.slice());
             }
         }
 
-        debugger
         /* This loop compares arrays with eachother and notes if numbers that are found are the same in other arrays, these would make the computer lose next turn!
         i = current array that is being compared. x = the array that the main is being compared to.
         (this loop picks out every array) */
@@ -543,12 +558,6 @@ function computerSimulation() {
             return undefined;
         }
         return totalComparisons + 1;
-
-        // const availableSpace = findUnoccupiedSpace(mostLosesArray);
-        // let randomNumberInArray = Math.floor(Math.random() * availableSpace.length);
-        // console.log(`Entire array: ` + availableSpace);
-        // simulationLoopCount = 0;
-        // return (availableSpace[randomNumberInArray] + 1);
     }
 }
 
