@@ -18,7 +18,9 @@ body {
     ". . pf pf pf pf . . ."
     "p1 . pf pf pf pf . . p2"
     "p1 . pf pf pf pf . . p2"
-    ". . pf pf pf pf . . .";
+    ". . pf pf pf pf . . ."
+    ". . . . . . . . ."
+    ". . . . . . . . .";
 }
 
 .custom-popup {
@@ -141,3 +143,10 @@ body {
 .playfield-no-opacity {
     background-color: rgba(255, 228, 196, 0.85);
 }
+
+@media screen and (max-height:835px) {
+    .page-wrapper {
+        overflow-y: auto;
+        max-height: 835px;
+    }
+ }
