@@ -11,7 +11,7 @@ let playerTurn = 1;
 //Win values
 let winValue = false;
 let playerWhoWon;
-let Xstarts = true;
+let xStarts = true;
 //Player values
 let twoPlayers = false;
 let player1Name = `Speler 1`;
@@ -114,6 +114,7 @@ function checkWin(symbol) {
         for (i = 0; i <= 7; i++) {
             //Gets the value from the object
             const currentRow = winCondition[i];
+            
             //n = number
             let nOne = currentRow[0];
             let nTwo = currentRow[1];
@@ -160,8 +161,9 @@ function computerRandom() {
 function computerBlocking(currentNumber) {
     let availableSpace = [];
     let arrayNumber;
+
     //Launches random number if O starts, otherwise it will block X
-    if (Xstarts == true) {
+    if (xStarts == true) {
         //The pickedArray picks an array out of the possibilies in the blocking. The currentNumber would be the space the place selects.
         let pickedArray = blockingPossibilities[currentNumber];
 
@@ -180,6 +182,7 @@ function computerBlocking(currentNumber) {
             //Picks a random number out of the array available space, then adding up a number to make it equal to the selected space in the front-end playfield.
             randomNumberInArray = Math.floor(Math.random() * availableSpace.length);
             arrayNumber = availableSpace[randomNumberInArray] + 1;
+
             if (playField[arrayNumber] == false) {
                 fieldNotOccupied = true;
             }
@@ -187,7 +190,7 @@ function computerBlocking(currentNumber) {
     }
 
     //If availableSpace is empty, it means that there is no available space and that the computer will have to place randomly.
-    if (Xstarts == false || availableSpace.length == 0) {
+    if (xStarts == false || availableSpace.length == 0) {
         return computerRandom();
     }
     return arrayNumber;
@@ -228,16 +231,20 @@ function computerImpossibleBlocking(currentNumber) {
 //This function searches for any ways the computer can lose
 function computerLosePossibility(currentNumber) {
     let loseDetected = false;
+
     //n = number
     let nOne;
     let nTwo;
     let nFill;
+
     //The for checks out all possible ways the computer can lose.
     for (i = 0; i < winPossibilities.length; i++) {
         const currentRow = winPossibilities[i];
+
         nOne = currentRow[0];
         nTwo = currentRow[1];
         nFill = currentRow[2];
+
         if (playField[nOne] == `X` && playField[nTwo] == `X` && playField[nFill] == false) {
             guessedArrayNumber = nFill + 1;
             i = 100;
@@ -261,6 +268,7 @@ function computerLosePossibility(currentNumber) {
 
 function computerWinPossibility(currentNumber) {
     let winDetected = false;
+
     //n = number
     let nOne;
     let nTwo;
@@ -268,9 +276,11 @@ function computerWinPossibility(currentNumber) {
     //The for checks out all possible ways the computer can lose.
     for (i = 0; i < winPossibilities.length; i++) {
         const currentRow = winPossibilities[i];
+
         nOne = currentRow[0];
         nTwo = currentRow[1];
         nFill = currentRow[2];
+
         if (playField[nOne] == `O` && playField[nTwo] == `O` && playField[nFill] == false) {
             guessedArrayNumber = nFill + 1;
             i = 100;
@@ -332,6 +342,7 @@ function computerTurn(currentNumber) {
 function placeCorner() {
     const freeCornerSpace = findUnoccupiedSpace(corners);
     const randomSpace = Math.floor(Math.random() * freeCornerSpace.length);
+
     return freeCornerSpace[randomSpace] + 1;
 }
 
@@ -342,24 +353,33 @@ function placeFigure(fieldItem, fieldNumber) {
     if (winValue == false && playField[currentNumber] == false) {
         if (playerTurn == 1) {
             console.log(`X: ${fieldNumber}. Turn: ${fieldOccupation}`);
+
             fieldOccupation++;
             blockClicked = true;
             playerTurn = 2;
+
             currentBlock.innerHTML = `<img src="/img/X.png" alt="X" class="placed-figure" height="175px" width="175px">`;
+
             playField[currentNumber] = `X`;
             checkWin(`X`);
+
             if (twoPlayers == false) {
                 //CurrentNumber is for the blocking function of the computer
                 computerTurn(currentNumber);
             }
+
         } else if ((playerTurn == 2 && twoPlayers == true) || computerPlaying == true) {
             console.log(`O: ${fieldNumber} Turn: ${fieldOccupation}`);
+
             fieldOccupation++;
             blockClicked = true;
             playerTurn = 1;
+
             currentBlock.innerHTML = `<img src="/img/O.png" alt="O" class="placed-figure" height="175px" width="175px">`;
+
             playField[currentNumber] = `O`;
             checkWin(`O`);
+
             if (computerPlaying == true) {
                 computerPlaying = false;
             }
@@ -385,6 +405,7 @@ function blockLeave(fieldItem, blockNumber) {
             document.querySelector(`.block${blockNumber}`).innerHTML = ``;
         }
     }
+
     blockClicked = false;
 }
 
@@ -394,9 +415,9 @@ function gameReset() {
 
     if (winValue == true) {
         if (playerWhoWon == `X`) {
-            Xstarts = false;
+            xStarts = false;
         } else if (playerWhoWon == `O`) {
-            Xstarts = true;
+            xStarts = true;
         }
     }
 
@@ -414,9 +435,9 @@ function gameReset() {
         playFields[i].innerHTML = ``;
     }
 
-    if (Xstarts == false) {
+    if (xStarts == false) {
         playerTurn = 2;
-    } else if (Xstarts == true) {
+    } else if (xStarts == true) {
         playerTurn = 1;
     }
 
@@ -430,6 +451,7 @@ function checkSimulationWin(turn, simulatedPlayfield) {
     for (i = 0; i <= 7; i++) {
         //Gets the value from the object
         const currentRow = winCondition[i];
+
         //n = number
         let nOne = currentRow[0];
         let nTwo = currentRow[1];
@@ -458,21 +480,21 @@ function computerSimulation() {
     let simFieldOccupation = fieldOccupation;
     let loseCombinations = [];
 
-    let Xturn;
-    let Oturn;
+    let xTurn;
+    let oTurn;
     let symbolWon;
 
     let loopCount = 0;
 
     while (turnNotFound == true && loopCount < 15000) {
-        Xturn = randomEmptyPickInArray(simulatedPlayfield);
-        simulatedPlayfield[Xturn] = `X`;
+        xTurn = randomEmptyPickInArray(simulatedPlayfield);
+        simulatedPlayfield[xTurn] = `X`;
         symbolWon = checkSimulationWin(`X`, simulatedPlayfield);
         simFieldOccupation++;
 
         if (symbolWon == undefined) {
-            Oturn = randomEmptyPickInArray(simulatedPlayfield);
-            simulatedPlayfield[Oturn] = `O`;
+            oTurn = randomEmptyPickInArray(simulatedPlayfield);
+            simulatedPlayfield[oTurn] = `O`;
             symbolWon = checkSimulationWin(`O`, simulatedPlayfield);
             simFieldOccupation++;
         }
@@ -518,6 +540,7 @@ function computerSimulation() {
             simFieldOccupation = fieldOccupation;
             loseNotFound = true;
         }
+
         loopCount++;
     }
 
@@ -527,6 +550,7 @@ function computerSimulation() {
     } else {
         let losePossibilities = [];
         let totalComparisons;
+
         //This loop removes occupied spaces and ignores arrays of 3
         for (let i = 0; i < loseCombinations.length; i++) {
             const tempArray = findUnoccupiedSpace(loseCombinations[i]);
@@ -542,13 +566,16 @@ function computerSimulation() {
         for (let i = 0; i < losePossibilities.length; i++) {
             const tempArray = losePossibilities[i];
             //This loop compares both arrays and makes sure the same wont be compared
+
             for (let x = 0; x < losePossibilities.length; x++) {
                 const currentArray = losePossibilities[x];
 
                 if (tempArray != losePossibilities[x]) {
                     //This loop compares the exact numbers
+
                     for (let y = 0; y < tempArray.length; y++) {
                         const tempArrayNumber = tempArray[y];
+
                         if (tempArrayNumber == currentArray[0]) {
                             totalComparisons = tempArrayNumber;
                             break;
@@ -564,6 +591,7 @@ function computerSimulation() {
         if (totalComparisons === undefined) {
             return undefined;
         }
+
         return totalComparisons + 1;
     }
 }
@@ -571,6 +599,7 @@ function computerSimulation() {
 //Function finds values that are listed as 'false' within an array
 function findUnoccupiedSpace(givenArray) {
     const savingArray = [];
+
     //The for puts available space in an array and will then choose out of it.
     for (let i = 0; i < givenArray.length; i++) {
         if (playField[givenArray[i]] == false) {
@@ -585,6 +614,7 @@ function findUnoccupiedSpace(givenArray) {
 function randomEmptyPickInArray(givenArray) {
     let guessedArrayNumber;
     const savingArray = [];
+
     //The for puts available space in an array and will then choose out of it.
     for (let i = 0; i < givenArray.length; i++) {
         if (givenArray[i] == false) {
@@ -599,6 +629,7 @@ function randomEmptyPickInArray(givenArray) {
 for (i = 0; i < playFields.length; i++) {
     const currentNumber = i + 1;
     const playField = playFields[i];
+
     //Click eventlistener
     playField.addEventListener(`click`, function () {
         placeFigure(playField, currentNumber);
