@@ -78,7 +78,7 @@ function resetConfirm() {
     resetPopup.style.opacity = `0`;
     closeCustomPopup();
     setTimeout(() => {
-        resetPopup.style.opacity = `1`;
+        resetPopup.style.opacity = `0.9`;
         resetPopup.style.display = `none`;
         resetPopup.style.transition = `0s`;
     }, 2000);

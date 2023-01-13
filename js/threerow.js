@@ -132,12 +132,15 @@ function checkWin(symbol) {
                     player2ScoreLocation.innerHTML = player2Score;
                     launchPopup(`O (${player2Name}) wint`);
                 }
+
+                openResetPopup();
             }
         }
         if (fieldOccupation == 9 && winValue == false) {
             launchPopup(`Het is gelijk`);
             console.log(`Nobody won (TIE)`);
             console.log(`------------------`);
+            openResetPopup();
         }
     }
     if (winValue == true) {
@@ -432,7 +435,14 @@ function gameReset() {
     firstTurn = [false, false];
 
     for (i = 0; i < playFields.length; i++) {
-        playFields[i].innerHTML = ``;
+        if (playFields[i].querySelector(`img`)) {
+            const img = playFields[i].querySelector(`img`);
+            img.classList.add(`fade-out`);
+        }
+        const x = i;
+        setTimeout(() => {
+            playFields[x].innerHTML = ``;
+        }, 1250);
     }
 
     if (xStarts == false) {

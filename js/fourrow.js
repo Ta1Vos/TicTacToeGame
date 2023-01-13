@@ -18,6 +18,7 @@ let player2Score = 0;
 //Computer values
 let computerPlaying = false;
 let computerDifficulty = 0;
+let firstComputerTurn = false;
 
 //Sessionstorage loaders
 if (sessionStorage.getItem(`Twoplayers`) == false) {
@@ -154,6 +155,7 @@ function checkWin(symbol) {
                     player2ScoreLocation.innerHTML = player2Score;
                     launchPopup(`O (${player2Name}) wint`);
                 }
+                openResetPopup();
             }
         }
         if (fieldOccupation == 16 && winValue == false) {
@@ -161,6 +163,7 @@ function checkWin(symbol) {
                 launchPopup(`Het is gelijk`);
                 console.log(`Nobody won (TIE)`);
                 console.log(`------------------`);
+                openResetPopup();
             }
         }
     }
@@ -194,7 +197,7 @@ function computerBlocking(currentNumber) {
     let availableSpace = [];
     let arrayNumber;
     //Launches random number if O starts, otherwise it will block X
-    if (Xstarts == true) {
+    if (firstComputerTurn == false) {
         //The pickedArray picks an array out of the possibilies in the blocking. The currentNumber would be the space the place selects.
         let pickedArray = blockingPossibilities[currentNumber];
 
@@ -220,7 +223,8 @@ function computerBlocking(currentNumber) {
     } 
 
     //If availableSpace is empty, it means that there is no available space and that the computer will have to place randomly.
-    if (Xstarts == false || availableSpace.length == 0) {
+    if ((Xstarts == false && firstComputerTurn == true) || availableSpace.length == 0) {
+        firstComputerTurn = false;
         return computerRandom();
     }
     return arrayNumber;
@@ -387,7 +391,14 @@ function gameReset() {
     playField = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
 
     for (i = 0; i < playFields.length; i++) {
-        playFields[i].innerHTML = ``;
+        if (playFields[i].querySelector(`img`)) {
+            const img = playFields[i].querySelector(`img`);
+            img.classList.add(`fade-out`);
+        }
+        const x = i;
+        setTimeout(() => {
+            playFields[x].innerHTML = ``;
+        }, 1250);
     }
 
     if (Xstarts == false) {
@@ -397,7 +408,10 @@ function gameReset() {
     }
 
     if (playerTurn == 2 && twoPlayers == false) {
-        computerTurn();
+        setTimeout(() => {
+            firstComputerTurn = true;
+            computerTurn();
+        }, 1500);
     }
 }
 
