@@ -29,7 +29,7 @@ let backgroundImageCode = `white`;
 
 //Fetch the grid size
 if (sessionStorage.getItem(`TicTacToeGrid`) == `false`) {
-    gridThree = false;
+    gridThree = `false`;
 }
 
 //Fetch the player amount
@@ -141,6 +141,7 @@ function redirectToGame() {
 
 //Loops in which all the setting radio options are put into the values
 function loadButtonValues() {
+    debugger
     //This loop notes which radio button is active of the computer difficulty
     for (i = 0; i < difficultyButtons.length; i++) {
         const currentButton = document.querySelector(`input.difficulty-${i}`);
@@ -152,7 +153,7 @@ function loadButtonValues() {
     for (i = 0; i < gridChoices.length; i++) {
         const currentButton = document.querySelector(`input.grid-${i}`);
         if (currentButton.checked == true) {
-            gridThree = currentButton.value;
+            gridThree = `${currentButton.value}`;
         }
     }
     //Player amount
