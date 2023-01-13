@@ -21,14 +21,14 @@ let computerDifficulty = 0;
 let firstComputerTurn = false;
 
 //Sessionstorage loaders
-if (sessionStorage.getItem(`Twoplayers`) == false) {
-    twoPlayers = false;
-} else if (sessionStorage.getItem(`Twoplayers`) == true) {
-    twoPlayers = true;
-}
-
 if (sessionStorage.getItem(`difficultySettings`)) {
     computerDifficulty = Number(sessionStorage.getItem(`difficultySettings`));
+}
+
+if (sessionStorage.getItem(`Twoplayers`) == `false`) {
+    twoPlayers = false;
+} else if (sessionStorage.getItem(`Twoplayers`) == `true`) {
+    twoPlayers = true;
 }
 
 //Eventlisteners are at the bottom due to it repeating and needing functions
