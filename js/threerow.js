@@ -354,113 +354,6 @@ function computerTurn(currentNumber) {
     }, 1);
 }
 
-//Places an O or an X depending on current turn
-function placeFigure(fieldItem, fieldNumber) {
-    currentNumber = fieldNumber - 1;
-    const currentBlock = document.querySelector(`.block${fieldNumber}`);
-    if (winValue == false && playField[currentNumber] == false) {
-        if (playerTurn == 1) {
-            console.log(`X: ${fieldNumber}. Turn: ${fieldOccupation}`);
-
-            fieldOccupation++;
-            blockClicked = true;
-            playerTurn = 2;
-
-            currentBlock.innerHTML = `<img src="/img/X.png" alt="X" class="placed-figure" height="175px" width="175px">`;
-
-            playField[currentNumber] = `X`;
-            checkWin(`X`);
-
-            if (twoPlayers == false) {
-                //CurrentNumber is for the blocking function of the computer
-                computerTurn(currentNumber);
-            }
-
-        } else if ((playerTurn == 2 && twoPlayers == true) || computerPlaying == true) {
-            console.log(`O: ${fieldNumber} Turn: ${fieldOccupation}`);
-
-            fieldOccupation++;
-            blockClicked = true;
-            playerTurn = 1;
-
-            currentBlock.innerHTML = `<img src="/img/O.png" alt="O" class="placed-figure" height="175px" width="175px">`;
-
-            playField[currentNumber] = `O`;
-            checkWin(`O`);
-
-            if (computerPlaying == true) {
-                computerPlaying = false;
-            }
-        }
-    }
-}
-
-//Places the O/X hover and decides which one it should be
-function blockEnter(currentBlock) {
-    if (currentBlock.innerHTML == `` && winValue == false) {
-        if (playerTurn == 1) {
-            currentBlock.innerHTML += `<img src="/img/X.png" alt="X" class="hover-opacity" height="175px" width="175px">`;
-        } else if (playerTurn == 2 && twoPlayers == true) {
-            currentBlock.innerHTML += `<img src="/img/O.png" alt="O" class="hover-opacity" height="175px" width="175px">`;
-        }
-    }
-}
-
-//Turns the X/O hover off
-function blockLeave(fieldItem, blockNumber) {
-    if (playField[(blockNumber - 1)] != `X` && playField[(blockNumber - 1)] != `O`) {
-        if (blockClicked == false) {
-            document.querySelector(`.block${blockNumber}`).innerHTML = ``;
-        }
-    }
-
-    blockClicked = false;
-}
-
-//Resets the game, puts values back in their standard
-function gameReset() {
-    computerPlaying = false;
-
-    if (winValue == true) {
-        if (playerWhoWon == `X`) {
-            xStarts = false;
-        } else if (playerWhoWon == `O`) {
-            xStarts = true;
-        }
-    }
-
-    //Game values
-    playerWhoWon = undefined;
-    winValue = false;
-    blockClicked = false;
-    fieldOccupation = 0;
-    playField = [false, false, false, false, false, false, false, false, false];
-
-    //Computer values
-    firstTurn = [false, false];
-
-    for (i = 0; i < playFields.length; i++) {
-        if (playFields[i].querySelector(`img`)) {
-            const img = playFields[i].querySelector(`img`);
-            img.classList.add(`fade-out`);
-        }
-        const x = i;
-        setTimeout(() => {
-            playFields[x].innerHTML = ``;
-        }, 1250);
-    }
-
-    if (xStarts == false) {
-        playerTurn = 2;
-    } else if (xStarts == true) {
-        playerTurn = 1;
-    }
-
-    if (playerTurn == 2 && twoPlayers == false) {
-        computerTurn();
-    }
-}
-
 //Just like the windetection for the game, this only has a whole different function.
 function checkSimulationWin(turn, simulatedPlayfield) {
     for (i = 0; i <= 7; i++) {
@@ -640,6 +533,113 @@ function randomEmptyPickInArray(givenArray) {
 
     guessedArrayNumber = Math.floor(Math.random() * (savingArray.length));
     return savingArray[guessedArrayNumber];
+}
+
+//Places an O or an X depending on current turn
+function placeFigure(fieldItem, fieldNumber) {
+    currentNumber = fieldNumber - 1;
+    const currentBlock = document.querySelector(`.block${fieldNumber}`);
+    if (winValue == false && playField[currentNumber] == false) {
+        if (playerTurn == 1) {
+            console.log(`X: ${fieldNumber}. Turn: ${fieldOccupation}`);
+
+            fieldOccupation++;
+            blockClicked = true;
+            playerTurn = 2;
+
+            currentBlock.innerHTML = `<img src="/img/X.png" alt="X" class="placed-figure" height="175px" width="175px">`;
+
+            playField[currentNumber] = `X`;
+            checkWin(`X`);
+
+            if (twoPlayers == false) {
+                //CurrentNumber is for the blocking function of the computer
+                computerTurn(currentNumber);
+            }
+
+        } else if ((playerTurn == 2 && twoPlayers == true) || computerPlaying == true) {
+            console.log(`O: ${fieldNumber} Turn: ${fieldOccupation}`);
+
+            fieldOccupation++;
+            blockClicked = true;
+            playerTurn = 1;
+
+            currentBlock.innerHTML = `<img src="/img/O.png" alt="O" class="placed-figure" height="175px" width="175px">`;
+
+            playField[currentNumber] = `O`;
+            checkWin(`O`);
+
+            if (computerPlaying == true) {
+                computerPlaying = false;
+            }
+        }
+    }
+}
+
+//Places the O/X hover and decides which one it should be
+function blockEnter(currentBlock) {
+    if (currentBlock.innerHTML == `` && winValue == false) {
+        if (playerTurn == 1) {
+            currentBlock.innerHTML += `<img src="/img/X.png" alt="X" class="hover-opacity" height="175px" width="175px">`;
+        } else if (playerTurn == 2 && twoPlayers == true) {
+            currentBlock.innerHTML += `<img src="/img/O.png" alt="O" class="hover-opacity" height="175px" width="175px">`;
+        }
+    }
+}
+
+//Turns the X/O hover off
+function blockLeave(fieldItem, blockNumber) {
+    if (playField[(blockNumber - 1)] != `X` && playField[(blockNumber - 1)] != `O`) {
+        if (blockClicked == false) {
+            document.querySelector(`.block${blockNumber}`).innerHTML = ``;
+        }
+    }
+
+    blockClicked = false;
+}
+
+//Resets the game, puts values back in their standard
+function gameReset() {
+    computerPlaying = false;
+
+    if (winValue == true) {
+        if (playerWhoWon == `X`) {
+            xStarts = false;
+        } else if (playerWhoWon == `O`) {
+            xStarts = true;
+        }
+    }
+
+    //Game values
+    playerWhoWon = undefined;
+    winValue = false;
+    blockClicked = false;
+    fieldOccupation = 0;
+    playField = [false, false, false, false, false, false, false, false, false];
+
+    //Computer values
+    firstTurn = [false, false];
+
+    for (i = 0; i < playFields.length; i++) {
+        if (playFields[i].querySelector(`img`)) {
+            const img = playFields[i].querySelector(`img`);
+            img.classList.add(`fade-out`);
+        }
+        const x = i;
+        setTimeout(() => {
+            playFields[x].innerHTML = ``;
+        }, 1250);
+    }
+
+    if (xStarts == false) {
+        playerTurn = 2;
+    } else if (xStarts == true) {
+        playerTurn = 1;
+    }
+
+    if (playerTurn == 2 && twoPlayers == false) {
+        computerTurn();
+    }
 }
 
 //This loop adds the event listeners to every playflayfield.
