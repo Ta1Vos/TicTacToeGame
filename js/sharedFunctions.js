@@ -64,14 +64,17 @@ if (twoPlayers == true) {
     player2NameLocation.innerHTML = `Computer`;
 }
 
+//Sends the player back to the index page
 function backToHome() {
     window.location = `/index.html`;
 }
 
+//Opens the reset popup.
 function openResetPopup() {
     resetPopup.style.display = `block`;
 }
 
+//Confirmation to reset the game.
 function resetConfirm() {
     gameReset();
     resetPopup.style.transition = `2s`;
@@ -84,21 +87,25 @@ function resetConfirm() {
     }, 2000);
 }
 
+//Makes the reset popup disappear if the user does not want to reset.
 function resetDeny() {
     resetPopup.style.display = `none`;
 }
 
+//Activates the custom popup.
 function launchPopup(content) {
     customPopupIsOpen = true;
     customPopupContent.innerHTML = content;
     customPopupDiv.style.opacity = `1`;
 }
 
+//Closes the custom popup.
 function closeCustomPopup() {
     customPopupDiv.style.opacity = `0`;
     customPopupIsOpen = false;
 }
 
+//Load the background in from the sessionStorage. The background is set in the home page.
 function loadBackground() {
     backgroundImageCode = sessionStorage.getItem(`backgroundImageCode`);
     if (backgroundImageCode == `0`) {
@@ -123,4 +130,5 @@ function loadBackground() {
     }
 }
 
+//Load the background
 loadBackground();

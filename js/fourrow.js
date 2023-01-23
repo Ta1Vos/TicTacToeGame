@@ -230,6 +230,7 @@ function computerBlocking(currentNumber) {
     return arrayNumber;
 }
 
+//This function finds in which way the computer can lose
 function computerLosePossibility(currentNumber) {
     let loseDetected = false;
     //n = number
@@ -415,6 +416,7 @@ function gameReset() {
     }
 }
 
+//This loop adds the right eventlisteners to every function.
 for (i = 0; i < playFields.length; i++) {
     const currentNumber = i + 1;
     const playField = playFields[i];

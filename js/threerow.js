@@ -199,6 +199,8 @@ function computerBlocking(currentNumber) {
     return arrayNumber;
 }
 
+//This function blocks the player in a few ways where the player could get a huge advantage, otherwise it will run a function where
+//the code checks in which way the player can outsmart the computer.
 function computerImpossibleBlocking(currentNumber) {
     const freeCornerSpace = findUnoccupiedSpace(corners);
 
@@ -269,6 +271,7 @@ function computerLosePossibility(currentNumber) {
     }
 }
 
+//This function checks in which way the computer can win, it would only need to require one move of the computer.
 function computerWinPossibility(currentNumber) {
     let winDetected = false;
 
@@ -303,6 +306,15 @@ function computerWinPossibility(currentNumber) {
     }
 }
 
+//This function finds available corners and places the computer turn there, the corners would be another way of the computer losing easily
+function placeCorner() {
+    const freeCornerSpace = findUnoccupiedSpace(corners);
+    const randomSpace = Math.floor(Math.random() * freeCornerSpace.length);
+
+    return freeCornerSpace[randomSpace] + 1;
+}
+
+//This function makes the computer always place in the middle, as this would be the most common way of the computer to lose.
 function computerPlaceMiddle(currentNumber) {
     if (firstTurn[0] == false) {
         if (playField[4] == false) {
@@ -340,13 +352,6 @@ function computerTurn(currentNumber) {
     setTimeout(() => {
         placeFigure(fieldItem, fieldNumber);
     }, 1);
-}
-
-function placeCorner() {
-    const freeCornerSpace = findUnoccupiedSpace(corners);
-    const randomSpace = Math.floor(Math.random() * freeCornerSpace.length);
-
-    return freeCornerSpace[randomSpace] + 1;
 }
 
 //Places an O or an X depending on current turn
@@ -545,6 +550,7 @@ function computerSimulation() {
             }
         }
 
+        //If the simulated playfield is full, the playfield will be reset and the code will try again.
         if (simFieldOccupation >= 10 || loseNotFound == false) {
             simulatedPlayfield = playField.slice();
             simFieldOccupation = fieldOccupation;
@@ -636,6 +642,7 @@ function randomEmptyPickInArray(givenArray) {
     return savingArray[guessedArrayNumber];
 }
 
+//This loop adds the event listeners to every playflayfield.
 for (i = 0; i < playFields.length; i++) {
     const currentNumber = i + 1;
     const playField = playFields[i];
