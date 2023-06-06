@@ -130,9 +130,9 @@ function redirectToGame() {
         leavePage();
         if (gameReadyForLaunch == true) {
             if (gridThree == `true`) {
-                window.location = `html/threeGame.html`;
+                window.location = `threeGame.html`;
             } else if (gridThree == `false`) {
-                window.location = `html/fourGame.html`;
+                window.location = `fourGame.html`;
             }
         }
     }
