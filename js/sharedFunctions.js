@@ -66,7 +66,7 @@ if (twoPlayers == true) {
 
 //Sends the player back to the index page
 function backToHome() {
-    window.location = `/index.html`;
+    window.location = `index.html`;
 }
 
 //Opens the reset popup.
@@ -111,15 +111,15 @@ function loadBackground() {
     if (backgroundImageCode == `0`) {
         playfieldGridCss.classList.add(`playfield-no-opacity`);
     } else if (backgroundImageCode == `1`) {
-        body.style.backgroundImage = `url(/img-bg/floating_city.jpg)`;
+        body.style.backgroundImage = `url(img-bg/floating_city.jpg)`;
     } else if (backgroundImageCode == `2`) {
-        body.style.backgroundImage = `url(/img-bg/forest.jpg)`;
+        body.style.backgroundImage = `url(img-bg/forest.jpg)`;
     } else if (backgroundImageCode == `3`) {
-        body.style.backgroundImage = `url(/img-bg/world.jpg)`;
+        body.style.backgroundImage = `url(img-bg/world.jpg)`;
     } else if (backgroundImageCode == `4`) {
-        body.style.backgroundImage = `url(/img-bg/fireplace.gif)`;
+        body.style.backgroundImage = `url(img-bg/fireplace.gif)`;
     } else if (backgroundImageCode == `5`) {
-        body.style.backgroundImage = `url(/img-bg/movingCity.gif)`;
+        body.style.backgroundImage = `url(img-bg/movingCity.gif)`;
     } else if (backgroundImageCode == `6`) {
         //Should only contain an IMAGE defined in a LINK
         body.style.backgroundImage = `url(${sessionStorage.getItem(`customizedBackground`)})`;
