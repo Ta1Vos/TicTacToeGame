@@ -130,9 +130,9 @@ function redirectToGame() {
         leavePage();
         if (gameReadyForLaunch == true) {
             if (gridThree == `true`) {
-                window.location = `/html/threeGame.html`;
+                window.location = `html/threeGame.html`;
             } else if (gridThree == `false`) {
-                window.location = `/html/fourGame.html`;
+                window.location = `html/fourGame.html`;
             }
         }
     }
@@ -141,7 +141,6 @@ function redirectToGame() {
 
 //Loops in which all the setting radio options are put into the values
 function loadButtonValues() {
-    debugger
     //This loop notes which radio button is active of the computer difficulty
     for (i = 0; i < difficultyButtons.length; i++) {
         const currentButton = document.querySelector(`input.difficulty-${i}`);
@@ -182,7 +181,6 @@ function loadButtonValues() {
                     }
                 //IF the user picked a custom color
                 } else if (backgroundImageCode == 7) {
-                    console.log(customBackgroundColor.value)
                     sessionStorage.setItem(`customizedBackground`, customBackgroundColor.value);
                 }
             }
