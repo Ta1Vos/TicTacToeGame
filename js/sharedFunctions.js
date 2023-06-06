@@ -66,7 +66,7 @@ if (twoPlayers == true) {
 
 //Sends the player back to the index page
 function backToHome() {
-    window.location = `index.html`;
+    window.location = `/home.html`;
 }
 
 //Opens the reset popup.
